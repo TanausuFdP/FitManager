@@ -27,6 +27,10 @@ public class Reservations extends javax.swing.JFrame {
         backButton.setForeground(new java.awt.Color(0, 51, 255));
         backButton.setText("<  Menú principal");
         backButton.setBorder(null);
+        backButton.setFocusCycleRoot(true);
+        backButton.setFocusPainted(false);
+        backButton.setFocusTraversalKeysEnabled(false);
+        backButton.setFocusable(false);
         backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backButtonActionPerformed(evt);
@@ -39,6 +43,11 @@ public class Reservations extends javax.swing.JFrame {
         reservationsList.setViewportView(jList1);
 
         newReservationButton.setText("Nueva reserva");
+        newReservationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newReservationButtonActionPerformed(evt);
+            }
+        });
 
         viewReservationButton.setText("Ver reserva");
 
@@ -87,7 +96,7 @@ public class Reservations extends javax.swing.JFrame {
                 .addComponent(viewReservationButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelReservationButton)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -99,6 +108,13 @@ public class Reservations extends javax.swing.JFrame {
         mainMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void newReservationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newReservationButtonActionPerformed
+        NewReservation newReservation = new NewReservation();
+        newReservation.setLocation(this.getLocation());
+        newReservation.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_newReservationButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
