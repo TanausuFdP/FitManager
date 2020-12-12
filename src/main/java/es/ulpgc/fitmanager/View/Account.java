@@ -34,6 +34,7 @@ public class Account extends javax.swing.JFrame {
         phoneNumberLabel = new javax.swing.JLabel();
         phoneNumber = new javax.swing.JLabel();
         userName = new javax.swing.JLabel();
+        modifyAccount = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(330, 548));
@@ -57,9 +58,17 @@ public class Account extends javax.swing.JFrame {
         surnameLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         surnameLabel.setText("Apellidos");
 
-        userNamelLabel.setText("User name:");
+        userNamelLabel.setText("Usuario:");
 
         phoneNumberLabel.setText("Teléfono:");
+
+        modifyAccount.setText("Modificar cuenta");
+        modifyAccount.setPreferredSize(new java.awt.Dimension(63, 23));
+        modifyAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyAccountActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,23 +79,25 @@ public class Account extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(backButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(userNamelLabel)
-                            .addComponent(phoneNumberLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(surnameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGap(121, 121, 121)
-                            .addComponent(nameLabel))))
-                .addContainerGap(135, Short.MAX_VALUE))
+                            .addComponent(nameLabel)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(phoneNumberLabel)
+                            .addComponent(userNamelLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(modifyAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(userName, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                                .addComponent(phoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +119,9 @@ public class Account extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(phoneNumberLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(phoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(289, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(modifyAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(220, Short.MAX_VALUE))
         );
 
         pack();
@@ -120,6 +133,13 @@ public class Account extends javax.swing.JFrame {
         mainMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void modifyAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyAccountActionPerformed
+        ModifyAccount modifyAccount = new ModifyAccount();
+        modifyAccount.setLocation(this.getLocation());
+        modifyAccount.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_modifyAccountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,6 +178,7 @@ public class Account extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JButton modifyAccount;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel phoneNumber;
     private javax.swing.JLabel phoneNumberLabel;
