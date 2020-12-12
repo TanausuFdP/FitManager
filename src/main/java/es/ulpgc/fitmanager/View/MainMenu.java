@@ -1,5 +1,7 @@
 package es.ulpgc.fitmanager.View;
 
+import javax.swing.JOptionPane;
+
 public class MainMenu extends javax.swing.JFrame {
 
     public MainMenu() {
@@ -31,7 +33,6 @@ public class MainMenu extends javax.swing.JFrame {
 
         nameLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         nameLabel.setText("Nombre");
-        nameLabel.setLocation(new java.awt.Point(-32650, -32574));
 
         surnameLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         surnameLabel.setText("Apellidos");
@@ -146,7 +147,10 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void accountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountButtonActionPerformed
-        // TODO add your handling code here:
+        Account account = new Account();
+        account.setLocation(this.getLocation());
+        account.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_accountButtonActionPerformed
 
     private void dynamicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dynamicButtonActionPerformed
@@ -157,7 +161,29 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_dynamicButtonActionPerformed
 
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
-        // TODO add your handling code here:
+        //si cliente:
+        JOptionPane.showMessageDialog(null, "This program allows the following options: \n"
+                + "- Press the \"Vídeos\" button to go watch the videos.\n"
+                + "- Press the \"Reservas\" button to go to see your reservations.\n"
+                + "- Press the \"Horarios\" button to go to make a reservation.\n"
+                + "- Press \"Directos\" button to go to watch live video.\n"
+                + "- Press the \"Cuenta\" button to access your account and be able to modify it."
+                + "- Press the \"Cerrar sesión\" button to log out.");
+        //si administrador
+        /*JOptionPane.showMessageDialog(null, "This program allows the following options: \n"
+                + "- Press the \"BUTTON\" button to \n"
+                + "- Press the \"BUTTON\" button to \n"
+                + "- Press the \"BUTTON\" button to \n"
+                + "- Press \"BUTTON\" button to \n"
+                + "- Press the \"Cuenta\" button to access your account and be able to modify it."
+                + "- Press the \"Cerrar sesión\" button to log out.");*/
+        //si monitor
+        /*JOptionPane.showMessageDialog(null, "This program allows the following options: \n"
+                + "- Press the \"Vídeos\" button to go to your repository to upload or modify videos..\n"
+                + "- Press the \"Jornada\" button to go to see your workday.\n"
+                + "- Press the \"Directos\" button to create a live video.\n"
+                + "- Press the \"Cuenta\" button to access your account and be able to modify it."
+                + "- Press the \"Cerrar sesión\" button to log out."); */
     }//GEN-LAST:event_helpButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
