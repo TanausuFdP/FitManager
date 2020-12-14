@@ -15,8 +15,10 @@ public class Login extends javax.swing.JFrame {
         usernameTextField = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
         errorLabel = new javax.swing.JLabel();
+        logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(320, 568));
         setResizable(false);
 
         loginPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Log In"));
@@ -57,6 +59,8 @@ public class Login extends javax.swing.JFrame {
         errorLabel.setForeground(new java.awt.Color(255, 51, 51));
         errorLabel.setText("Usuario o contraseña incorrectos.");
 
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logo.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -66,12 +70,16 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(errorLabel)
                     .addComponent(loginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(logo)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(158, Short.MAX_VALUE)
+                .addComponent(logo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
                 .addComponent(errorLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(loginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -92,6 +100,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel errorLabel;
     private javax.swing.JButton loginButton;
     private javax.swing.JPanel loginPanel;
+    private javax.swing.JLabel logo;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField usernameTextField;
     // End of variables declaration//GEN-END:variables
