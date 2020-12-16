@@ -72,10 +72,9 @@ public class MainMenu extends javax.swing.JFrame {
 
         directsButton.setText("D");
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/logo.png"))); // NOI18N
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
 
-        accountButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/user.png"))); // NOI18N
-        accountButton1.setBorder(null);
+        accountButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/user.png"))); // NOI18N
         accountButton1.setBorderPainted(false);
         accountButton1.setContentAreaFilled(false);
         accountButton1.addActionListener(new java.awt.event.ActionListener() {

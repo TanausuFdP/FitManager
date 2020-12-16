@@ -169,10 +169,7 @@
     <Component class="javax.swing.JButton" name="accountButton1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/resources/user.png"/>
-        </Property>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="null"/>
+          <Image iconType="3" name="/user.png"/>
         </Property>
         <Property name="borderPainted" type="boolean" value="false"/>
         <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -194,7 +191,7 @@
     <Component class="javax.swing.JLabel" name="logo">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/resources/logo.png"/>
+          <Image iconType="3" name="/logo.png"/>
         </Property>
       </Properties>
     </Component>
