@@ -32,6 +32,8 @@ public class Account extends javax.swing.JFrame {
         backButton.setForeground(new java.awt.Color(0, 51, 255));
         backButton.setText("<  Menú principal");
         backButton.setBorder(null);
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
         backButton.setFocusCycleRoot(true);
         backButton.setFocusPainted(false);
         backButton.setFocusable(false);
@@ -89,7 +91,7 @@ public class Account extends javax.swing.JFrame {
                                 .addComponent(userName, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                                 .addComponent(phoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(logo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(logo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +116,7 @@ public class Account extends javax.swing.JFrame {
                     .addComponent(phoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(29, 29, 29)
                 .addComponent(modifyAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         pack();

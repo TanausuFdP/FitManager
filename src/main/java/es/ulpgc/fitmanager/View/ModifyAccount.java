@@ -27,6 +27,8 @@ public class ModifyAccount extends javax.swing.JFrame {
         backButton.setForeground(new java.awt.Color(0, 51, 255));
         backButton.setText("<  Cuenta");
         backButton.setBorder(null);
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
         backButton.setFocusCycleRoot(true);
         backButton.setFocusPainted(false);
         backButton.setFocusable(false);
@@ -95,7 +97,7 @@ public class ModifyAccount extends javax.swing.JFrame {
                             .addComponent(acceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +124,7 @@ public class ModifyAccount extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(acceptButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(245, Short.MAX_VALUE))
+                .addContainerGap(235, Short.MAX_VALUE))
         );
 
         pack();
