@@ -1,4 +1,4 @@
-package es.ulpgc.fitmanager.view.gui;
+package es.ulpgc.fitmanager.View;
 
 import es.ulpgc.fitmanager.controller.dbcontroller.UserController;
 import es.ulpgc.fitmanager.model.User;

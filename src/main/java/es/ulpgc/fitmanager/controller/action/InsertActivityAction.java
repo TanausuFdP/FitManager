@@ -2,7 +2,7 @@ package es.ulpgc.fitmanager.controller.action;
 
 import es.ulpgc.fitmanager.controller.exceptions.ActivityAlreadyExistsException;
 import es.ulpgc.fitmanager.controller.exceptions.ActivityNotFoundException;
-import es.ulpgc.fitmanager.view.repository.ActivityRepository;
+import es.ulpgc.fitmanager.View.repository.ActivityRepository;
 import es.ulpgc.fitmanager.model.Activity;
 
 import java.sql.Connection;

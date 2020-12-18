@@ -1,4 +1,4 @@
-package es.ulpgc.fitmanager.view.gui;
+package es.ulpgc.fitmanager.View;
 
 import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
 import es.ulpgc.fitmanager.model.Activity;
@@ -7,7 +7,6 @@ import es.ulpgc.fitmanager.model.User;
 import javax.swing.*;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Reservations extends javax.swing.JFrame {
 

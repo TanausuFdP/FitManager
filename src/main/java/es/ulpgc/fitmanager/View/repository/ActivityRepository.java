@@ -1,4 +1,4 @@
-package es.ulpgc.fitmanager.view.repository;
+package es.ulpgc.fitmanager.View.repository;
 
 import es.ulpgc.fitmanager.controller.exceptions.ActivityNotFoundException;
 import es.ulpgc.fitmanager.model.Activity;

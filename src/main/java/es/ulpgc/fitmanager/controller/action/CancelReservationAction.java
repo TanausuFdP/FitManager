@@ -1,6 +1,6 @@
 package es.ulpgc.fitmanager.controller.action;
 
-import es.ulpgc.fitmanager.view.repository.ReservationRepository;
+import es.ulpgc.fitmanager.View.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
