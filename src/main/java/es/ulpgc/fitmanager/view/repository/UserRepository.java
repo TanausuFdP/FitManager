@@ -1,4 +1,4 @@
-package es.ulpgc.fitmanager.View.repository;
+package es.ulpgc.fitmanager.view.repository;
 
 import es.ulpgc.fitmanager.controller.exceptions.InvalidRoleException;
 import es.ulpgc.fitmanager.controller.exceptions.NonMatchingPasswordException;

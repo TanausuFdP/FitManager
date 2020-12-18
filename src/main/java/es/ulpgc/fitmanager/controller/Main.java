@@ -1,6 +1,6 @@
 package es.ulpgc.fitmanager.controller;
 
-import es.ulpgc.fitmanager.View.Login;
+import es.ulpgc.fitmanager.view.gui.Login;
 
 public class Main {
     public static void main(String args[]) {

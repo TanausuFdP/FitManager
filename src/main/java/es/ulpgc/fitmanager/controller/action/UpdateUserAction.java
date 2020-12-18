@@ -1,6 +1,6 @@
 package es.ulpgc.fitmanager.controller.action;
 
-import es.ulpgc.fitmanager.View.repository.UserRepository;
+import es.ulpgc.fitmanager.view.repository.UserRepository;
 import es.ulpgc.fitmanager.model.User;
 
 import java.sql.Connection;

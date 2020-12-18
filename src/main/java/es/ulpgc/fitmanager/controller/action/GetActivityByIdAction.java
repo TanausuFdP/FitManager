@@ -1,6 +1,6 @@
 package es.ulpgc.fitmanager.controller.action;
 
-import es.ulpgc.fitmanager.View.repository.ActivityRepository;
+import es.ulpgc.fitmanager.view.repository.ActivityRepository;
 import es.ulpgc.fitmanager.model.Activity;
 import org.springframework.stereotype.Service;
 
