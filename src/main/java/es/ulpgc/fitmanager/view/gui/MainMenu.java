@@ -6,7 +6,8 @@ import javax.swing.JOptionPane;
 
 public class MainMenu extends javax.swing.JFrame {
 
-    private User loggedUser;
+    private final User loggedUser;
+
     public MainMenu(User user) {
         this.loggedUser = user;
         initComponents();
@@ -195,7 +196,7 @@ public class MainMenu extends javax.swing.JFrame {
                 + "- Press the \"Reservas\" button to go to see your reservations.\n"
                 + "- Press the \"Horarios\" button to go to make a reservation.\n"
                 + "- Press \"Directos\" button to go to watch live video.\n"
-                + "- Press the \"Cuenta\" button to access your account and be able to modify it."
+                + "- Press the \"Cuenta\" button to access your account and be able to modify it. \n"
                 + "- Press the \"Cerrar sesión\" button to log out.");
         else if (loggedUser.getRole() == 1)
             JOptionPane.showMessageDialog(null, "This program allows the following options: \n"
@@ -203,14 +204,14 @@ public class MainMenu extends javax.swing.JFrame {
                 + "- Press the \"BUTTON\" button to \n"
                 + "- Press the \"BUTTON\" button to \n"
                 + "- Press \"BUTTON\" button to \n"
-                + "- Press the \"Cuenta\" button to access your account and be able to modify it."
+                + "- Press the \"Cuenta\" button to access your account and be able to modify it.\n"
                 + "- Press the \"Cerrar sesión\" button to log out.");
         else if (loggedUser.getRole() == 2)
             JOptionPane.showMessageDialog(null, "This program allows the following options: \n"
                 + "- Press the \"Vídeos\" button to go to your repository to upload or modify videos..\n"
                 + "- Press the \"Jornada\" button to go to see your workday.\n"
                 + "- Press the \"Directos\" button to create a live video.\n"
-                + "- Press the \"Cuenta\" button to access your account and be able to modify it."
+                + "- Press the \"Cuenta\" button to access your account and be able to modify it.\n"
                 + "- Press the \"Cerrar sesión\" button to log out.");
     }//GEN-LAST:event_helpButtonActionPerformed
 

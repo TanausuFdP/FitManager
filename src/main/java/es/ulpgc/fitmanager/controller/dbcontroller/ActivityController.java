@@ -21,7 +21,7 @@ public class ActivityController extends Controller {
 
     private final GetActivityByIdAction getActivityByIdAction;
 
-    private GetActivityByNameAction getActivityByNameAction;
+    private final GetActivityByNameAction getActivityByNameAction;
 
     private final InsertActivityAction insertActivityAction;
 

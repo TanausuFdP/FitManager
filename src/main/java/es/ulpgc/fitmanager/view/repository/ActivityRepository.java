@@ -3,7 +3,6 @@ package es.ulpgc.fitmanager.view.repository;
 import es.ulpgc.fitmanager.controller.exceptions.ActivityNotFoundException;
 import es.ulpgc.fitmanager.model.Activity;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,12 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @Slf4j
 public class ActivityRepository {
 
-    public Activity getActivityById(Connection conn, String sql, Integer activityId) {
+    public Activity getActivityById(Connection conn, Integer activityId) {
+        String sql = "SELECT * FROM Activity WHERE id=?";
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, activityId);
             ResultSet resultSet = statement.executeQuery();

@@ -16,7 +16,6 @@ public class GetActivityByIdAction {
     private final ActivityRepository activityRepository;
 
     public Activity execute(Connection conn, Integer activityId) {
-        String sql = "SELECT * FROM Activity WHERE id=?";
-        return activityRepository.getActivityById(conn, sql, activityId);
+        return activityRepository.getActivityById(conn, activityId);
     }
 }

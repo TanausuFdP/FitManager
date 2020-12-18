@@ -5,9 +5,11 @@ import es.ulpgc.fitmanager.model.User;
 
 public class Login extends javax.swing.JFrame {
 
-    UserController userController = new UserController();
+    private final UserController userController = new UserController();
+
     public Login() {
         initComponents();
+        errorLabel.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")

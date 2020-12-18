@@ -13,7 +13,6 @@ import java.util.List;
 @Slf4j
 public class ReservationController extends Controller {
     public ReservationController() {
-        getActivityByIdAction = new GetActivityByIdAction();
         getReservationByIdsAction = new GetReservationByIdsAction();
         insertReservationAction = new InsertReservationAction();
         cancelReservationAction = new CancelReservationAction();
@@ -25,8 +24,6 @@ public class ReservationController extends Controller {
     private final InsertReservationAction insertReservationAction;
 
     private final CancelReservationAction cancelReservationAction;
-
-    private final GetActivityByIdAction getActivityByIdAction;
 
     private final GetReservationByIdsAction getReservationByIdsAction;
 

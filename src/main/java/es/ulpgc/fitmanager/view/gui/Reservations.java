@@ -1,16 +1,39 @@
 package es.ulpgc.fitmanager.view.gui;
 
 import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
+import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
+
+import javax.swing.*;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class Reservations extends javax.swing.JFrame {
 
-    private User loggedUser;
-    private ReservationController reservationController = new ReservationController();
+    private final User loggedUser;
+    private final ReservationController reservationController = new ReservationController();
+    private final DefaultListModel listModel = new DefaultListModel();
+
     public Reservations(User user) {
         initComponents();
         this.loggedUser = user;
+        noReservationsLabel.setVisible(false);
+        addReservations();
     }
+
+    private void addReservations() {
+        List<Activity> reservations = reservationController.getReservationsByClientId(loggedUser.getId());
+        if (reservations.isEmpty()) noReservationsLabel.setVisible(true);
+        else {
+            reservations.stream()
+                    .map(activity -> activity.getName() + ": " +
+                        activity.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")))
+                    .forEach(listModel::addElement);
+        }
+        jList1.setModel(listModel);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

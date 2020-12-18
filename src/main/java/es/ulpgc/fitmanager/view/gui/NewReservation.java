@@ -4,7 +4,8 @@ import es.ulpgc.fitmanager.model.User;
 
 public class NewReservation extends javax.swing.JFrame {
 
-    private User loggedUser;
+    private final User loggedUser;
+
     public NewReservation(User user) {
         initComponents();
         this.loggedUser = user;

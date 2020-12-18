@@ -7,9 +7,9 @@ import es.ulpgc.fitmanager.model.User;
 
 import java.sql.Connection;
 
-public class RegisterUserAction {
+public class InsertUserAction {
 
-    public RegisterUserAction() {
+    public InsertUserAction() {
         userRepository = new UserRepository();
     }
 

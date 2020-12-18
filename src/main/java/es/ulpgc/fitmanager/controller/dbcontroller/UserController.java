@@ -2,7 +2,7 @@ package es.ulpgc.fitmanager.controller.dbcontroller;
 
 import es.ulpgc.fitmanager.controller.action.GetUserByIdAction;
 import es.ulpgc.fitmanager.controller.action.GetUserByUsernameAndPasswordAction;
-import es.ulpgc.fitmanager.controller.action.RegisterUserAction;
+import es.ulpgc.fitmanager.controller.action.InsertUserAction;
 import es.ulpgc.fitmanager.controller.action.UpdateUserAction;
 import es.ulpgc.fitmanager.controller.exceptions.NonMatchingPasswordException;
 import es.ulpgc.fitmanager.controller.exceptions.UserAlreadyExistsException;
@@ -18,7 +18,7 @@ public class UserController extends Controller {
         getUserByIdAction = new GetUserByIdAction();
         getUserByUsernameAndPasswordAction = new GetUserByUsernameAndPasswordAction();
         updateUserAction = new UpdateUserAction();
-        registerUserAction = new RegisterUserAction();
+        insertUserAction = new InsertUserAction();
     }
 
     private final GetUserByIdAction getUserByIdAction;
@@ -27,7 +27,7 @@ public class UserController extends Controller {
 
     private final UpdateUserAction updateUserAction;
 
-    private final RegisterUserAction registerUserAction;
+    private final InsertUserAction insertUserAction;
 
     public User getUserById(Integer id){
         Connection conn = connectToDB();
@@ -62,7 +62,7 @@ public class UserController extends Controller {
     public User registerUser(User user){
         Connection conn = connectToDB();
         try {
-            return registerUserAction.execute(conn, user);
+            return insertUserAction.execute(conn, user);
         } catch (UserAlreadyExistsException ex) {
             log.error(ex.getLocalizedMessage());
             return null;

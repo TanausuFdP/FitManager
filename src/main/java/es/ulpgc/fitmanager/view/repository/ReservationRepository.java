@@ -2,10 +2,10 @@ package es.ulpgc.fitmanager.view.repository;
 
 import es.ulpgc.fitmanager.controller.exceptions.EmptyListException;
 import es.ulpgc.fitmanager.controller.exceptions.ReservationNotFoundException;
+import es.ulpgc.fitmanager.controller.exceptions.UserNotFoundException;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.Reservation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,8 @@ import java.util.List;
 @Slf4j
 public class ReservationRepository {
     public List<Activity> getActivities(Connection conn, Integer clientId) {
-        String sql = "SELECT * FROM Activity WHERE id IN (SELECT * FROM ClientActivity WHERE clientId=?)";
+        String sql = "SELECT * FROM Activity WHERE Activity.id IN " +
+                "(SELECT ca.activityId FROM Reservation ca WHERE ca.clientId=?)";
         List<Activity> activities = new ArrayList<>();
         try (PreparedStatement statement = conn.prepareStatement(sql)){
             statement.setInt(1, clientId);
@@ -39,13 +40,10 @@ public class ReservationRepository {
             }
             if (activities.isEmpty()) throw new EmptyListException("No se han encontrado actividades");
             return activities;
-        } catch (SQLException ex) {
-            log.error(ex.getMessage());
-            return new ArrayList<>();
-        }
+        } catch (SQLException ex) { throw new UserNotFoundException(""); }
     }
     public Reservation getReservation(Connection conn, Integer clientId, Integer activityId){
-        String sql = "SELECT * FROM ClientActivity WHERE clientId = ? AND activityId = ?";
+        String sql = "SELECT * FROM Reservation WHERE clientId = ? AND activityId = ?";
         try(PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1,clientId);
             statement.setInt(2,activityId);
@@ -60,7 +58,7 @@ public class ReservationRepository {
         }
     }
     public void insertReservation(Connection conn, Integer clientId, Integer activityId) {
-        String sql = "INSERT INTO ClientActivity (clientId, activityId)" +
+        String sql = "INSERT INTO Reservation (clientId, activityId)" +
                 "values (?,?)";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
             preparedStatement.setInt(1,clientId);
@@ -70,7 +68,7 @@ public class ReservationRepository {
     }
 
     public void cancelReservation(Connection conn, Integer userId, Integer activityId){
-        String sql = "DELETE FROM ClientActivity WHERE clientId=? AND activityId=?";
+        String sql = "DELETE FROM Reservation WHERE clientId=? AND activityId=?";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
             preparedStatement.setInt(1,userId);
             preparedStatement.setInt(2,activityId);

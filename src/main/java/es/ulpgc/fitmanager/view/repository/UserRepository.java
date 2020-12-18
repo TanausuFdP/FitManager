@@ -23,8 +23,7 @@ public class UserRepository {
         try (PreparedStatement statement = conn.prepareStatement(sql)){
             statement.setInt(1,id);
             ResultSet resultSet = statement.executeQuery();
-            User user = getUser(resultSet);
-            return user;
+            return getUser(resultSet);
         } catch (SQLException ex) {
             throw new UserNotFoundException("No se ha encontrado ningún usuario con el id "+id+".");
         }
@@ -77,7 +76,7 @@ public class UserRepository {
     }
 
     public void insertUserRole(Connection conn, User userInDB) {
-        String sql = getSQL(userInDB);
+        String sql = getSQL(userInDB.getRole());
         try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
             preparedStatement.setInt(1,userInDB.getId());
             if (userInDB.getRole() == 2)
@@ -86,8 +85,8 @@ public class UserRepository {
         } catch (SQLException ex) { log.error(ex.getMessage()); }
     }
 
-    private String getSQL(User userInDB) {
-        switch (userInDB.getRole()) {
+    private String getSQL(Integer userRole) {
+        switch (userRole) {
             case 1:
                 return "INSERT INTO Admin (id) values (?)";
             case 2:

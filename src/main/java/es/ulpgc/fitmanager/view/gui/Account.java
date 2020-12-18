@@ -5,7 +5,8 @@ import es.ulpgc.fitmanager.model.User;
 
 public class Account extends javax.swing.JFrame {
 
-    User loggedUser;
+    private final User loggedUser;
+
     public Account(User user) {
         initComponents();
         this.loggedUser = user;

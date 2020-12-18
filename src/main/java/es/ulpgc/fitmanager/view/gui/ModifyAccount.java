@@ -8,12 +8,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ModifyAccount extends javax.swing.JFrame {
 
     private User loggedUser;
-    private UserController userController = new UserController();
+    private final UserController userController = new UserController();
     private final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     public ModifyAccount(User user) {
         initComponents();
         this.loggedUser = user;
+        phoneNumber.setText(String.valueOf(loggedUser.getPhoneNumber()));
     }
 
     @SuppressWarnings("unchecked")
@@ -161,7 +162,6 @@ public class ModifyAccount extends javax.swing.JFrame {
             //indicar que se ha cambiado. Puede que volver atrás.
         } else {
             //incorrectFieldsLabel.setVisible(true);
-            System.out.println("incorrecto");
         }
     }//GEN-LAST:event_acceptButtonActionPerformed
 
@@ -170,6 +170,7 @@ public class ModifyAccount extends javax.swing.JFrame {
     private boolean unableToUpdate() {
         return userName.getText().isBlank() ||
                 phoneNumber.getText().isBlank() ||
+                // !currentPassword.getText().equals(currentPassword2.getText())
                 !passwordEncoder.matches(currentPassword.getText(),loggedUser.getPassword()) ||
                 newPassword.getText().isBlank();
     }
