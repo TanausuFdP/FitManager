@@ -1,9 +1,19 @@
-package es.ulpgc.fitmanager.View;
+package es.ulpgc.fitmanager.view.gui;
+
+import es.ulpgc.fitmanager.controller.dbcontroller.UserController;
+import es.ulpgc.fitmanager.model.User;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class ModifyAccount extends javax.swing.JFrame {
 
-    public ModifyAccount() {
+    private User loggedUser;
+    private UserController userController = new UserController();
+    private final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+    public ModifyAccount(User user) {
         initComponents();
+        this.loggedUser = user;
     }
 
     @SuppressWarnings("unchecked")
@@ -18,7 +28,7 @@ public class ModifyAccount extends javax.swing.JFrame {
         acceptButton = new javax.swing.JButton();
         clearButton = new javax.swing.JButton();
         actualPasswordLabel = new javax.swing.JLabel();
-        actualPassword = new javax.swing.JTextField();
+        currentPassword = new javax.swing.JTextField();
         newPasswordLabel = new javax.swing.JLabel();
         newPassword = new javax.swing.JTextField();
 
@@ -90,7 +100,7 @@ public class ModifyAccount extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(actualPassword)
+                                .addComponent(currentPassword)
                                 .addComponent(newPassword)))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addGap(46, 46, 46)
@@ -115,7 +125,7 @@ public class ModifyAccount extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(actualPasswordLabel)
-                    .addComponent(actualPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(currentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newPasswordLabel)
@@ -131,27 +141,50 @@ public class ModifyAccount extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        Account account = new Account();
+        Account account = new Account(loggedUser);
         account.setLocation(this.getLocation());
         account.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptButtonActionPerformed
-
+        if (ableToUpdate()) {
+            loggedUser = userController.updateUser(User.builder()
+                .id(loggedUser.getId())
+                .name(loggedUser.getName())
+                .surname(loggedUser.getSurname())
+                .username(userName.getText())
+                .password(newPassword.getText())
+                .phoneNumber(Integer.valueOf(phoneNumber.getText()))
+                .role(loggedUser.getRole())
+                .build());
+            //indicar que se ha cambiado. Puede que volver atrás.
+        } else {
+            //incorrectFieldsLabel.setVisible(true);
+            System.out.println("incorrecto");
+        }
     }//GEN-LAST:event_acceptButtonActionPerformed
+
+    private boolean ableToUpdate() { return !unableToUpdate();}
+
+    private boolean unableToUpdate() {
+        return userName.getText().isBlank() ||
+                phoneNumber.getText().isBlank() ||
+                !passwordEncoder.matches(currentPassword.getText(),loggedUser.getPassword()) ||
+                newPassword.getText().isBlank();
+    }
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         userName.setText("");
         phoneNumber.setText("");
-        actualPassword.setText("");
+        currentPassword.setText("");
         newPassword.setText("");
     }//GEN-LAST:event_clearButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton acceptButton;
-    private javax.swing.JTextField actualPassword;
+    private javax.swing.JTextField currentPassword;
     private javax.swing.JLabel actualPasswordLabel;
     private javax.swing.JButton backButton;
     private javax.swing.JButton clearButton;

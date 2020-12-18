@@ -1,9 +1,13 @@
-package es.ulpgc.fitmanager.View;
+package es.ulpgc.fitmanager.view.gui;
+
+import es.ulpgc.fitmanager.model.User;
 
 public class NewReservation extends javax.swing.JFrame {
 
-    public NewReservation() {
+    private User loggedUser;
+    public NewReservation(User user) {
         initComponents();
+        this.loggedUser = user;
     }
 
     @SuppressWarnings("unchecked")
@@ -79,7 +83,7 @@ public class NewReservation extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        Reservations reservations = new Reservations();
+        Reservations reservations = new Reservations(loggedUser);
         reservations.setLocation(this.getLocation());
         reservations.setVisible(true);
         this.dispose();

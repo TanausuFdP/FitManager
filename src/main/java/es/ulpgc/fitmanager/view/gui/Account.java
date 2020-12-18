@@ -1,10 +1,18 @@
-package es.ulpgc.fitmanager.View;
+package es.ulpgc.fitmanager.view.gui;
 
+
+import es.ulpgc.fitmanager.model.User;
 
 public class Account extends javax.swing.JFrame {
 
-    public Account() {
+    User loggedUser;
+    public Account(User user) {
         initComponents();
+        this.loggedUser = user;
+        nameLabel.setText(loggedUser.getName());
+        surnameLabel.setText(loggedUser.getSurname());
+        userName.setText(loggedUser.getUsername());
+        phoneNumber.setText(loggedUser.getPhoneNumber().toString());
     }
 
     /**
@@ -23,7 +31,7 @@ public class Account extends javax.swing.JFrame {
         phoneNumberLabel = new javax.swing.JLabel();
         phoneNumber = new javax.swing.JLabel();
         userName = new javax.swing.JLabel();
-        modifyAccount = new javax.swing.JButton();
+        modifyAccountButton = new javax.swing.JButton();
         logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,9 +61,9 @@ public class Account extends javax.swing.JFrame {
 
         phoneNumberLabel.setText("Teléfono:");
 
-        modifyAccount.setText("Modificar cuenta");
-        modifyAccount.setPreferredSize(new java.awt.Dimension(63, 23));
-        modifyAccount.addActionListener(new java.awt.event.ActionListener() {
+        modifyAccountButton.setText("Modificar cuenta");
+        modifyAccountButton.setPreferredSize(new java.awt.Dimension(63, 23));
+        modifyAccountButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modifyAccountActionPerformed(evt);
             }
@@ -86,7 +94,7 @@ public class Account extends javax.swing.JFrame {
                             .addComponent(userNamelLabel))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(modifyAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(modifyAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(userName, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                                 .addComponent(phoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
@@ -115,7 +123,7 @@ public class Account extends javax.swing.JFrame {
                     .addComponent(phoneNumberLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(phoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(29, 29, 29)
-                .addComponent(modifyAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(modifyAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(228, Short.MAX_VALUE))
         );
 
@@ -123,14 +131,14 @@ public class Account extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        MainMenu mainMenu = new MainMenu();
+        MainMenu mainMenu = new MainMenu(loggedUser);
         mainMenu.setLocation(this.getLocation());
         mainMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void modifyAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyAccountActionPerformed
-        ModifyAccount modifyAccount = new ModifyAccount();
+        ModifyAccount modifyAccount = new ModifyAccount(loggedUser);
         modifyAccount.setLocation(this.getLocation());
         modifyAccount.setVisible(true);
         this.dispose();
@@ -139,7 +147,7 @@ public class Account extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JLabel logo;
-    private javax.swing.JButton modifyAccount;
+    private javax.swing.JButton modifyAccountButton;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel phoneNumber;
     private javax.swing.JLabel phoneNumberLabel;
