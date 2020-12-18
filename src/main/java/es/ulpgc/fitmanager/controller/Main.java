@@ -1,4 +1,4 @@
-package es.ulpgc.fitmanager.Controller;
+package es.ulpgc.fitmanager.controller;
 
 import es.ulpgc.fitmanager.View.Login;
 

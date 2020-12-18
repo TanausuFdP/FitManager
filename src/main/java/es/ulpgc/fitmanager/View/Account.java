@@ -1,10 +1,19 @@
 package es.ulpgc.fitmanager.View;
 
 
+import es.ulpgc.fitmanager.model.User;
+
 public class Account extends javax.swing.JFrame {
 
-    public Account() {
+    private final User loggedUser;
+
+    public Account(User user) {
         initComponents();
+        this.loggedUser = user;
+        nameLabel.setText(loggedUser.getName());
+        surnameLabel.setText(loggedUser.getSurname());
+        userName.setText(loggedUser.getUsername());
+        phoneNumber.setText(loggedUser.getPhoneNumber().toString());
     }
 
     /**
@@ -34,9 +43,9 @@ public class Account extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 0, 0));
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoBlanco (2).png"))); // NOI18N
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo blanco.png"))); // NOI18N
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+			  jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         surnameLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         surnameLabel.setText("Apellidos");
@@ -73,7 +82,7 @@ public class Account extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,14 +158,14 @@ public class Account extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        MainMenu mainMenu = new MainMenu();
+        MainMenu mainMenu = new MainMenu(loggedUser);
         mainMenu.setLocation(this.getLocation());
         mainMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void modifyAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyAccountActionPerformed
-        ModifyAccount modifyAccount = new ModifyAccount();
+        ModifyAccount modifyAccount = new ModifyAccount(loggedUser);
         modifyAccount.setLocation(this.getLocation());
         modifyAccount.setVisible(true);
         this.dispose();
