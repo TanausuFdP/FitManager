@@ -1,6 +1,7 @@
 package es.ulpgc.fitmanager.view.gui;
 
 import es.ulpgc.fitmanager.model.User;
+import java.awt.Color;
 
 import javax.swing.JOptionPane;
 
@@ -216,29 +217,33 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_accountButtonActionPerformed
 
     private void helpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_helpButtonActionPerformed
-        if (loggedUser.getRole() == 3)
-            JOptionPane.showMessageDialog(null, "This program allows the following options: \n"
-                    + "- Press the \"Vídeos\" button to go watch the videos.\n"
-                    + "- Press the \"Reservas\" button to go to see your reservations.\n"
-                    + "- Press the \"Horarios\" button to go to make a reservation.\n"
-                    + "- Press \"Directos\" button to go to watch live video.\n"
-                    + "- Press the \"Cuenta\" button to access your account and be able to modify it. \n"
-                    + "- Press the \"Cerrar sesión\" button to log out.");
-        else if (loggedUser.getRole() == 1)
-            JOptionPane.showMessageDialog(null, "This program allows the following options: \n"
-                    + "- Press the \"BUTTON\" button to \n"
-                    + "- Press the \"BUTTON\" button to \n"
-                    + "- Press the \"BUTTON\" button to \n"
-                    + "- Press \"BUTTON\" button to \n"
-                    + "- Press the \"Cuenta\" button to access your account and be able to modify it.\n"
-                    + "- Press the \"Cerrar sesión\" button to log out.");
-        else if (loggedUser.getRole() == 2)
-            JOptionPane.showMessageDialog(null, "This program allows the following options: \n"
-                    + "- Press the \"Vídeos\" button to go to your repository to upload or modify videos..\n"
-                    + "- Press the \"Jornada\" button to go to see your workday.\n"
-                    + "- Press the \"Directos\" button to create a live video.\n"
-                    + "- Press the \"Cuenta\" button to access your account and be able to modify it.\n"
-                    + "- Press the \"Cerrar sesión\" button to log out.");
+        if (loggedUser.getRole() == 3) //Cliente
+            JOptionPane.showMessageDialog(null, "Este programa permite las siguientes opciones: \n"
+                    + "- Pulsa el icono de la casa para volver a la pantalla inicial.\n"
+                    + "- Pulsa el icono de la galería de reproducción para ir a ver los vídeos.\n"
+                    + "- Pulsa el icono de la casilla con un tick para acceder a tu listado de reservas.\n"
+                    + "- Pulsa el icono del calendario para ir a hacer una reserva.\n"
+                    + "- Pulsa el icono de la camara para ir a ver vídeos en directos.\n"
+                    + "- Pulsa el botón \"Cuenta\" para acceder a tu cuenta y poder modificarla.\n"
+                    + "- Pulsa el botón \"Cerrar sesión\" para cerrar sesión.");
+        else if (loggedUser.getRole() == 1) //Administrador
+            JOptionPane.showMessageDialog(null, "Este programa permite las siguientes opciones: \n"
+                    + "- Pulsa el icono de la casa para volver a la pantalla inicial.\n"
+                    + "- Pulsa el icono de la galería de reproducción para ir a ver los vídeos y poder gestionarlos.\n"
+                    + "- Pulsa el icono de la ? para acceder a las estadísticas del gimnasio.\n"
+                    + "- Pulsa el icono del calendario para ir a crear nuevas clases.\n"
+                    + "- Pulsa el icono de la camara para poder ver los directos que realizan los monitores.\n"
+                    + "- Pulsa el botón \"Cuenta\" para acceder a tu cuenta y poder modificarla.\n"
+                    + "- Pulsa el botón \"Cerrar sesión\" para cerrar sesión.");
+        else if (loggedUser.getRole() == 2) //Monitor
+            JOptionPane.showMessageDialog(null, "Este programa permite las siguientes opciones: \n"
+                    + "- Pulsa el icono de la casa para volver a la pantalla inicial.\n"
+                    + "- Pulsa el icono de la galería de reproducción para ir a ver tu repositorio de vídeos.\n"
+                    + "- Pulsa el icono de la ? para acceder a su jornada laboral.\n"
+                    + "- Pulsa el icono del calendario para ir a ?.\n"
+                    + "- Pulsa el icono de la camara para poder realizar un vídeo en directo.\n"
+                    + "- Pulsa el botón \"Cuenta\" para acceder a tu cuenta y poder modificarla.\n"
+                    + "- Pulsa el botón \"Cerrar sesión\" para cerrar sesión.");
     }//GEN-LAST:event_helpButtonActionPerformed
 
     private void dynamicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dynamicButtonActionPerformed
