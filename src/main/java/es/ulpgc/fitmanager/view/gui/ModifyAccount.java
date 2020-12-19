@@ -168,11 +168,11 @@ public class ModifyAccount extends javax.swing.JFrame {
     private boolean ableToUpdate() { return !unableToUpdate();}
 
     private boolean unableToUpdate() {
-        return userName.getText().isBlank() ||
-                phoneNumber.getText().isBlank() ||
+        return userName.getText().isEmpty()||
+                phoneNumber.getText().isEmpty()||
                 // !currentPassword.getText().equals(currentPassword2.getText())
                 !passwordEncoder.matches(actualPassword.getText(),loggedUser.getPassword()) ||
-                newPassword.getText().isBlank();
+                newPassword.getText().isEmpty();
     }
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
