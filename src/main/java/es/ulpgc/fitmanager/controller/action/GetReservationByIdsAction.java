@@ -16,6 +16,6 @@ public class GetReservationByIdsAction {
     private final ReservationRepository reservationRepository;
 
     public Reservation execute(Connection conn, Integer clientId, Integer activityId) {
-        return reservationRepository.getReservation(conn, clientId, activityId);
+        return reservationRepository.getReservationByIds(conn, clientId, activityId);
     }
 }

@@ -23,7 +23,9 @@ public class InsertUserAction {
         } catch (UserNotFoundException ex){
             userRepository.insertUser(conn, user);
             User userInDB = userRepository.getUserByUsernameAndPassword(conn, user.getUsername(), user.getPassword());
-            userRepository.insertUserRole(conn, userInDB);
+            userRepository.insertUserRole(conn, userInDB, user.getVideoListId());
+            if (userInDB.getRole().equals(User.MONITOR_ROLE))
+                userInDB.setVideoListId(user.getVideoListId());
             return userInDB;
         }
     }

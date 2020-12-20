@@ -59,7 +59,7 @@ public class UserController extends Controller {
         }
     }
 
-    public User registerUser(User user){
+    public User insertUser(User user){
         Connection conn = connectToDB();
         try {
             return insertUserAction.execute(conn, user);

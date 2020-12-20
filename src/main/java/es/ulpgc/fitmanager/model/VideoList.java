@@ -7,8 +7,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class Reservation {
-    private Integer clientId;
-    private Integer activityId;
+public class VideoList {
+    private Integer id;
+    private String title;
 }
-

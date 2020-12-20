@@ -20,6 +20,6 @@ public class User {
     private Integer phoneNumber;
     private Integer role;
     /** Only used if role == MONITOR_ROLE*/
-    private Integer videoRepositoryId;
+    private Integer videoListId;
 
 }

@@ -1,5 +1,6 @@
 package es.ulpgc.fitmanager.view.repository;
 
+import es.ulpgc.fitmanager.controller.exceptions.ActivityNotFoundException;
 import es.ulpgc.fitmanager.controller.exceptions.EmptyListException;
 import es.ulpgc.fitmanager.controller.exceptions.ReservationNotFoundException;
 import es.ulpgc.fitmanager.controller.exceptions.UserNotFoundException;
@@ -31,7 +32,7 @@ public class ReservationRepository {
                         .name(resultSet.getString("name"))
                         .description(resultSet.getString("description"))
                         .capacity(resultSet.getInt("capacity"))
-                        .duration(resultSet.getDouble("duration"))
+                        .duration(resultSet.getInt("duration"))
                         .date(LocalDateTime.parse(resultSet.getString("date"),
                                 DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")))
                         .weekly(resultSet.getBoolean("weekly"))
@@ -42,14 +43,14 @@ public class ReservationRepository {
             return activities;
         } catch (SQLException ex) { throw new UserNotFoundException(""); }
     }
-    public Reservation getReservation(Connection conn, Integer clientId, Integer activityId){
+    public Reservation getReservationByIds(Connection conn, Integer clientId, Integer activityId){
         String sql = "SELECT * FROM Reservation WHERE clientId = ? AND activityId = ?";
         try(PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1,clientId);
             statement.setInt(2,activityId);
             ResultSet resultSet = statement.executeQuery();
             return Reservation.builder()
-                    .userId(resultSet.getInt("clientId"))
+                    .clientId(resultSet.getInt("clientId"))
                     .activityId(resultSet.getInt("activityId"))
                     .build();
         } catch (SQLException ex) {
@@ -57,14 +58,14 @@ public class ReservationRepository {
                     + clientId + " para la actividad con id " + activityId);
         }
     }
-    public void insertReservation(Connection conn, Integer clientId, Integer activityId) {
+    public void insertReservation(Connection conn, Reservation reservation) {
         String sql = "INSERT INTO Reservation (clientId, activityId)" +
                 "values (?,?)";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
-            preparedStatement.setInt(1,clientId);
-            preparedStatement.setInt(2,activityId);
+            preparedStatement.setInt(1,reservation.getClientId());
+            preparedStatement.setInt(2,reservation.getActivityId());
             preparedStatement.executeUpdate();
-        } catch (SQLException ex) { log.error(ex.getMessage()); }
+        } catch (SQLException ex) { log.error(ex.getLocalizedMessage()); }
     }
 
     public void cancelReservation(Connection conn, Integer userId, Integer activityId){
@@ -73,6 +74,17 @@ public class ReservationRepository {
             preparedStatement.setInt(1,userId);
             preparedStatement.setInt(2,activityId);
             preparedStatement.executeUpdate();
-        } catch (SQLException ex) { log.error(ex.getMessage()); }
+        } catch (SQLException ex) { log.error(ex.getLocalizedMessage()); }
+    }
+
+    public Integer getReservationsOfActivity(Connection conn, Integer activityId) {
+        String sql = "Select COUNT (*) FROM Reservation WHERE activityId=?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+            preparedStatement.setInt(1,activityId);
+            return preparedStatement.executeQuery().getInt(1);
+        } catch (SQLException ex) {
+            log.error(ex.getLocalizedMessage());
+            return 0;
+        }
     }
 }

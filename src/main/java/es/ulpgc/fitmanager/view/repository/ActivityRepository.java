@@ -32,18 +32,19 @@ public class ActivityRepository {
                 .name(resultSet.getString("name"))
                 .description(resultSet.getString("description"))
                 .capacity(resultSet.getInt("capacity"))
-                .duration(resultSet.getDouble("duration"))
+                .duration(resultSet.getInt("duration"))
                 .date(LocalDateTime.parse(resultSet.getString("date"),
                         DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")))
                 .weekly(resultSet.getBoolean("weekly"))
+                .room(resultSet.getBoolean("room"))
                 .monitorId(resultSet.getInt("monitorId"))
                 .build();
     }
 
     public void insertActivity(Connection conn, Activity activity){
         String sql = "INSERT INTO Activity " +
-                "(name, description, capacity, duration, date, weekly, monitorId)"
-                + "VALUES (?,?,?,?,?,?,?)";
+                "(name, description, capacity, duration, date, weekly, room, monitorId)"
+                + "VALUES (?,?,?,?,?,?,?,?)";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
             preparedStatement.setString(1,activity.getName());
             preparedStatement.setString(2, activity.getDescription());
@@ -52,7 +53,8 @@ public class ActivityRepository {
             preparedStatement.setString(5, activity.getDate()
                     .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
             preparedStatement.setBoolean(6,activity.getWeekly());
-            preparedStatement.setInt(7,activity.getMonitorId());
+            preparedStatement.setBoolean(7,activity.getRoom());
+            preparedStatement.setInt(8,activity.getMonitorId());
             preparedStatement.executeUpdate();
         } catch (SQLException ex) { log.error(ex.getMessage()); }
     }

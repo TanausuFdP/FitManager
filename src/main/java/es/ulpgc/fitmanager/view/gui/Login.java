@@ -1,8 +1,15 @@
 package es.ulpgc.fitmanager.view.gui;
 
+import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
+import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
 import es.ulpgc.fitmanager.controller.dbcontroller.UserController;
+import es.ulpgc.fitmanager.controller.dbcontroller.VideoController;
+import es.ulpgc.fitmanager.model.Activity;
+import es.ulpgc.fitmanager.model.Reservation;
 import es.ulpgc.fitmanager.model.User;
+import es.ulpgc.fitmanager.model.VideoList;
 
+import java.time.LocalDateTime;
 
 
 public class Login extends javax.swing.JFrame {

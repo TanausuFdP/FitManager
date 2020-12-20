@@ -14,8 +14,9 @@ public class Activity {
     private String name;
     private String description;
     private Integer capacity;
-    private Double duration;
+    private Integer duration;
     private LocalDateTime date;
     private Boolean weekly;
+    private Boolean room;
     private Integer monitorId;
 }

@@ -75,12 +75,12 @@ public class UserRepository {
         }
     }
 
-    public void insertUserRole(Connection conn, User userInDB) {
+    public void insertUserRole(Connection conn, User userInDB, Integer videoListId) {
         String sql = getSQL(userInDB.getRole());
         try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
             preparedStatement.setInt(1,userInDB.getId());
             if (userInDB.getRole() == 2)
-                preparedStatement.setInt(2,userInDB.getVideoRepositoryId());
+                preparedStatement.setInt(2,videoListId);
             preparedStatement.executeUpdate();
         } catch (SQLException ex) { log.error(ex.getMessage()); }
     }
@@ -90,7 +90,7 @@ public class UserRepository {
             case 1:
                 return "INSERT INTO Admin (id) values (?)";
             case 2:
-                return "INSERT INTO Monitor (id, videoRepositoryId) values (?,?)";
+                return "INSERT INTO Monitor (id, videoListId) values (?,?)";
             case 3:
                 return "INSERT INTO Client (id) values (?)";
             default:

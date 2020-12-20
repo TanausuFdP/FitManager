@@ -50,11 +50,11 @@ public class ReservationController extends Controller {
         }
     }
 
-    public Reservation insertReservation(Integer clientId, Activity activity){
+    public Reservation insertReservation(Reservation reservation){
         Connection conn = connectToDB();
         try {
-            return insertReservationAction.execute(conn, clientId, activity);
-        } catch (ReservationAlreadyExistsException ex){
+            return insertReservationAction.execute(conn, reservation);
+        } catch (ReservationAlreadyExistsException | ActivityCapacityFullException ex){
             log.error(ex.getLocalizedMessage());
             return null;
         }
