@@ -36,6 +36,7 @@ public class ReservationRepository {
                         .date(LocalDateTime.parse(resultSet.getString("date"),
                                 DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")))
                         .weekly(resultSet.getBoolean("weekly"))
+                        .room(resultSet.getBoolean("room"))
                         .monitorId(resultSet.getInt("monitorId"))
                         .build());
             }

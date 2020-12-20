@@ -4,18 +4,18 @@ import es.ulpgc.fitmanager.model.User;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.io.File;
-import static javafx.application.ConditionalFeature.SWT;
+/*import static javafx.application.ConditionalFeature.SWT;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
+import javafx.scene.media.MediaView;*/
 
 public class PlayVideo extends javax.swing.JFrame {
 
-    private final JFXPanel jfxPanel = new JFXPanel(); 
+/*    private final JFXPanel jfxPanel = new JFXPanel(); 
     private MediaPlayer oracleVid;
     private int flag;
     private String path;
@@ -207,7 +207,7 @@ public class PlayVideo extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
-    
+    */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Builder
@@ -19,4 +20,9 @@ public class Activity {
     private Boolean weekly;
     private Boolean room;
     private Integer monitorId;
+    
+    @Override
+    public String toString(){
+        return name + ": " + date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+    }
 }

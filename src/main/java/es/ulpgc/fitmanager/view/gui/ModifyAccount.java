@@ -103,6 +103,11 @@ public class ModifyAccount extends javax.swing.JFrame {
         newPasswordLabel.setText("Clave nueva:");
 
         jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel2.setText("Editar cuenta");
@@ -295,7 +300,7 @@ public class ModifyAccount extends javax.swing.JFrame {
                     .build());
             //indicar que se ha cambiado. Puede que volver atrás.
         } else {
-            jLabel3.setText("Error al realizar los cambios (revise las contraseñas)");
+            jLabel3.setText("Error al realizar los cambios");
         }
     }//GEN-LAST:event_acceptButtonActionPerformed
 
@@ -338,6 +343,13 @@ public class ModifyAccount extends javax.swing.JFrame {
         mainMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_accountButton1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        MainMenu mainMenu = new MainMenu(loggedUser);
+        mainMenu.setLocation(this.getLocation());
+        mainMenu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

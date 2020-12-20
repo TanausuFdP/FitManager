@@ -193,10 +193,10 @@ public class Videos extends javax.swing.JFrame {
          * Aquí sería buscar el nombre del video en la base de datos y pasar la URL 
          * al constructor
          */
-        PlayVideo playVideo = new PlayVideo(loggedUser,"");
+        /*PlayVideo playVideo = new PlayVideo(loggedUser,"");
         playVideo.setLocation(this.getLocation());
         playVideo.setVisible(true);
-        this.dispose();
+        this.dispose();*/
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
