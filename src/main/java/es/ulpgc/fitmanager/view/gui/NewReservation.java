@@ -32,7 +32,7 @@ public class NewReservation extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 0, 0));
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoBlanco (2).png"))); // NOI18N
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

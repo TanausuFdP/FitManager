@@ -209,7 +209,7 @@
         <Component class="javax.swing.JButton" name="dynamicButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/reservations_button.png"/>
+              <Image iconType="3" name="/reservations_button_pressed.png"/>
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="contentAreaFilled" type="boolean" value="false"/>
@@ -283,7 +283,7 @@
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/logoBlanco (2).png"/>
+              <Image iconType="3" name="/logo.png"/>
             </Property>
           </Properties>
         </Component>

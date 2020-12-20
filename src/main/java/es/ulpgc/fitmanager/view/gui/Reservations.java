@@ -112,7 +112,7 @@ public class Reservations extends javax.swing.JFrame {
             }
         });
 
-        dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png"))); // NOI18N
+        dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button_pressed.png"))); // NOI18N
         dynamicButton.setBorderPainted(false);
         dynamicButton.setContentAreaFilled(false);
         dynamicButton.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +196,7 @@ public class Reservations extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 0, 0));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logoBlanco (2).png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/logo.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
