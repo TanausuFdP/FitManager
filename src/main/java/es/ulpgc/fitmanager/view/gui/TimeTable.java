@@ -3,7 +3,6 @@ package es.ulpgc.fitmanager.view.gui;
 import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
-import java.util.Collections;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -215,9 +214,22 @@ public class TimeTable extends javax.swing.JFrame {
     }//GEN-LAST:event_accountButton2ActionPerformed
 
     private void videosButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButton1ActionPerformed
-        Videos videos = new Videos(loggedUser);
-        videos.setLocation(this.getLocation());
-        videos.setVisible(true);
+        VideosClient videos = new VideosClient(loggedUser);
+        switch(loggedUser.getRole()){
+            case 1:
+                videos.setLocation(this.getLocation());
+                videos.setVisible(true);
+                break;
+            case 2:
+                MonitorVideo monitorVideo = new MonitorVideo(loggedUser);
+                monitorVideo.setLocation(this.getLocation());
+                monitorVideo.setVisible(true);
+                break;
+            case 3:
+                videos.setLocation(this.getLocation());
+                videos.setVisible(true);
+                break;
+        }
         this.dispose();
     }//GEN-LAST:event_videosButton1ActionPerformed
 

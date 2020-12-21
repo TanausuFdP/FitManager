@@ -3,13 +3,24 @@ package es.ulpgc.fitmanager.view.gui;
 import es.ulpgc.fitmanager.model.User;
 
 
-public class Videos extends javax.swing.JFrame {
+public class VideosClient extends javax.swing.JFrame {
 
     private final User loggedUser;
     
-    public Videos(User user) {
+    public VideosClient(User user) {
         initComponents();
         this.loggedUser = user;
+        switch(loggedUser.getRole()){
+            case 1:
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
+                break;
+            case 2:
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
+                break;
+            case 3:
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
+                break;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -40,7 +51,9 @@ public class Videos extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +147,7 @@ public class Videos extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -150,8 +163,8 @@ public class Videos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,10 +192,23 @@ public class Videos extends javax.swing.JFrame {
     }//GEN-LAST:event_accountButtonActionPerformed
 
     private void dynamicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dynamicButtonActionPerformed
-        Reservations reservation = new Reservations(loggedUser);
-        reservation.setLocation(this.getLocation());
-        reservation.setVisible(true);
-        this.dispose();        // TODO add your handling code here:
+        switch(loggedUser.getRole()){
+            case 1:
+                Statistics statistics = new Statistics(loggedUser);
+                statistics.setLocation(this.getLocation());
+                statistics.setVisible(true);
+                this.dispose();
+                break;
+            //case 2:
+                //dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
+                //break;
+            case 3:
+                Reservations reservation = new Reservations(loggedUser);
+                reservation.setLocation(this.getLocation());
+                reservation.setVisible(true);
+                this.dispose();
+                break;
+        }
     }//GEN-LAST:event_dynamicButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -193,10 +219,10 @@ public class Videos extends javax.swing.JFrame {
          * Aquí sería buscar el nombre del video en la base de datos y pasar la URL 
          * al constructor
          */
-        /*PlayVideo playVideo = new PlayVideo(loggedUser,"");
+        PlayVideo playVideo = new PlayVideo(loggedUser,"");
         playVideo.setLocation(this.getLocation());
         playVideo.setVisible(true);
-        this.dispose();*/
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

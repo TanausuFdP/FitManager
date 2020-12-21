@@ -29,9 +29,7 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 320, 568));
-        setMaximumSize(new java.awt.Dimension(320, 568));
         setMinimumSize(new java.awt.Dimension(320, 568));
-        setPreferredSize(new java.awt.Dimension(320, 556));
         setResizable(false);
         setSize(new java.awt.Dimension(320, 568));
 
@@ -101,7 +99,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

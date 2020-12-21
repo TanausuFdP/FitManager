@@ -58,7 +58,6 @@ public class Reservations extends javax.swing.JFrame {
         newReservationButton = new javax.swing.JButton();
         viewReservationButton = new javax.swing.JButton();
         cancelReservationButton = new javax.swing.JButton();
-        backButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -150,20 +149,6 @@ public class Reservations extends javax.swing.JFrame {
         cancelReservationButton.setText("Cancelar reserva");
         cancelReservationButton.setEnabled(false);
 
-        backButton.setForeground(new java.awt.Color(0, 51, 255));
-        backButton.setText("<  Menú principal");
-        backButton.setToolTipText("");
-        backButton.setBorderPainted(false);
-        backButton.setContentAreaFilled(false);
-        backButton.setFocusCycleRoot(true);
-        backButton.setFocusPainted(false);
-        backButton.setFocusable(false);
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -196,7 +181,6 @@ public class Reservations extends javax.swing.JFrame {
                             .addComponent(newReservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(viewReservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cancelReservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(backButton)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(titleLabel))
@@ -208,9 +192,7 @@ public class Reservations extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(backButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(44, 44, 44)
                 .addComponent(titleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(noReservationsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -296,18 +278,24 @@ public class Reservations extends javax.swing.JFrame {
     }//GEN-LAST:event_dynamicButtonActionPerformed
 
     private void videosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButtonActionPerformed
-        Videos videos = new Videos(loggedUser);
-        videos.setLocation(this.getLocation());
-        videos.setVisible(true);
+        VideosClient videos = new VideosClient(loggedUser);
+        switch(loggedUser.getRole()){
+            case 1:
+                videos.setLocation(this.getLocation());
+                videos.setVisible(true);
+                break;
+            case 2:
+                MonitorVideo monitorVideo = new MonitorVideo(loggedUser);
+                monitorVideo.setLocation(this.getLocation());
+                monitorVideo.setVisible(true);
+                break;
+            case 3:
+                videos.setLocation(this.getLocation());
+                videos.setVisible(true);
+                break;
+        }
         this.dispose();
     }//GEN-LAST:event_videosButtonActionPerformed
-
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        MainMenu mainMenu = new MainMenu(loggedUser);
-        mainMenu.setLocation(this.getLocation());
-        mainMenu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_backButtonActionPerformed
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if(!jList1.isSelectionEmpty()){
@@ -329,7 +317,6 @@ public class Reservations extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accountButton;
-    private javax.swing.JButton backButton;
     private javax.swing.JButton cancelReservationButton;
     private javax.swing.JButton directsButton;
     private javax.swing.JButton dynamicButton;

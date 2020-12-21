@@ -14,4 +14,9 @@ public class Video {
     private String url;
     private Integer categoryId;
     private Integer videoListId;
+    
+    @Override
+    public String toString(){
+        return this.title + " " + this.length;
+    }
 }

@@ -1,8 +1,10 @@
 package es.ulpgc.fitmanager.view.repository;
 
+import es.ulpgc.fitmanager.controller.exceptions.EmptyListException;
 import es.ulpgc.fitmanager.controller.exceptions.VideoListNotFoundException;
 import es.ulpgc.fitmanager.controller.exceptions.VideoNotFoundException;
 import es.ulpgc.fitmanager.model.Video;
+import es.ulpgc.fitmanager.model.VideoCategory;
 import es.ulpgc.fitmanager.model.VideoList;
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class VideoRepository {
@@ -24,6 +28,17 @@ public class VideoRepository {
         }
     }
 
+    public Video getVideoByURL(Connection conn, String videoUrl) {
+        String sql = "SELECT * FROM Video WHERE url=?";
+        try (PreparedStatement statement = conn.prepareStatement(sql)){
+            statement.setString(1,videoUrl);
+            ResultSet resultSet = statement.executeQuery();
+            return getVideo(resultSet);
+        } catch (SQLException ex) {
+            throw new VideoNotFoundException("No se ha encontrado ningún vídeo con la url "+ videoUrl + ".");
+        }
+    }
+    
     private Video getVideo(ResultSet resultSet) throws SQLException {
         return Video.builder()
                 .id(resultSet.getInt("id"))
@@ -35,6 +50,83 @@ public class VideoRepository {
                 .build();
     }
 
+    public List<VideoCategory> getCategories(Connection conn){
+        String sql = "SELECT * FROM VideoCategory";
+        List<VideoCategory>categories = new ArrayList<>();
+        
+        try (PreparedStatement statement = conn.prepareStatement(sql)){
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                categories.add(VideoCategory.builder()
+                        .id(resultSet.getInt("id"))
+                        .name(resultSet.getString("name"))
+                        .build());
+            }
+            if (categories.isEmpty()) throw new EmptyListException("No se han encontrado categorías");
+            return categories;
+        } catch (SQLException ex) { 
+            log.error(ex.getLocalizedMessage());
+            return new ArrayList<>();
+        }
+    }
+    
+    public void deleteVideo(Connection conn, Integer videoId){
+        String sql = "DELETE FROM Video WHERE id=?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+            preparedStatement.setInt(1,videoId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) { log.error(ex.getLocalizedMessage()); }
+    }
+    
+    public List<Video>getVideos(Connection conn){
+        String sql = "SELECT * FROM Video";
+        List<Video>videos = new ArrayList<>();
+        
+        try (PreparedStatement statement = conn.prepareStatement(sql)){
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                videos.add(Video.builder()
+                        .id(resultSet.getInt("id"))
+                        .title(resultSet.getString("title"))
+                        .length(resultSet.getDouble("length"))
+                        .url(resultSet.getString("url"))
+                        .categoryId(resultSet.getInt("categoryId"))
+                        .videoListId(resultSet.getInt("videoListId"))
+                        .build());
+            }
+            if (videos.isEmpty()) throw new EmptyListException("No se han encontrado categorías");
+            return videos;
+        } catch (SQLException ex) { 
+            log.error(ex.getLocalizedMessage());
+            return new ArrayList<>();
+        }
+    }
+    
+    public List<Video>getVideosByVideoListId(Connection conn, Integer videoListId){
+        String sql = "SELECT * FROM Video WHERE videoListId=?";
+        List<Video>videos = new ArrayList<>();
+        
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+            preparedStatement.setInt(1, videoListId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                videos.add(Video.builder()
+                        .id(resultSet.getInt("id"))
+                        .title(resultSet.getString("title"))
+                        .length(resultSet.getDouble("length"))
+                        .url(resultSet.getString("url"))
+                        .categoryId(resultSet.getInt("categoryId"))
+                        .videoListId(resultSet.getInt("videoListId"))
+                        .build());
+            }
+            if (videos.isEmpty()) throw new EmptyListException("No se han encontrado categorías");
+            return videos;
+        } catch (SQLException ex) { 
+            log.error(ex.getLocalizedMessage());
+            return new ArrayList<>();
+        }
+    }
+    
     public void insertVideo(Connection conn, Video video) {
         String sql = "INSERT INTO Video (title, length, url, categoryId, videoListId)" +
                 "values (?,?,?,?,?)";

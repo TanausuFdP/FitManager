@@ -25,7 +25,6 @@ public class Statistics extends javax.swing.JFrame {
         accountButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        backButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -91,23 +90,14 @@ public class Statistics extends javax.swing.JFrame {
         accountButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/home_button.png"))); // NOI18N
         accountButton1.setBorderPainted(false);
         accountButton1.setContentAreaFilled(false);
+        accountButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accountButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel1.setText("Estadísticas");
-
-        backButton.setForeground(new java.awt.Color(0, 51, 255));
-        backButton.setText("<  Menú principal");
-        backButton.setToolTipText("");
-        backButton.setBorderPainted(false);
-        backButton.setContentAreaFilled(false);
-        backButton.setFocusCycleRoot(true);
-        backButton.setFocusPainted(false);
-        backButton.setFocusable(false);
-        backButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backButtonActionPerformed(evt);
-            }
-        });
 
         jButton1.setText("Clientes");
 
@@ -160,16 +150,11 @@ public class Statistics extends javax.swing.JFrame {
                                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
                                 .addGap(17, 17, 17)))))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(backButton)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(backButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(44, 44, 44)
                 .addComponent(jLabel1)
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -235,27 +220,39 @@ public class Statistics extends javax.swing.JFrame {
     }//GEN-LAST:event_scheduleButtonActionPerformed
 
     private void videosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButtonActionPerformed
-        Videos videos = new Videos(loggedUser);
-        videos.setLocation(this.getLocation());
-        videos.setVisible(true);
+        VideosClient videos = new VideosClient(loggedUser);
+        switch(loggedUser.getRole()){
+            case 1:
+                videos.setLocation(this.getLocation());
+                videos.setVisible(true);
+                break;
+            case 2:
+                MonitorVideo monitorVideo = new MonitorVideo(loggedUser);
+                monitorVideo.setLocation(this.getLocation());
+                monitorVideo.setVisible(true);
+                break;
+            case 3:
+                videos.setLocation(this.getLocation());
+                videos.setVisible(true);
+                break;
+        }
         this.dispose();
     }//GEN-LAST:event_videosButtonActionPerformed
-
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        MainMenu mainMenu = new MainMenu(loggedUser);
-        mainMenu.setLocation(this.getLocation());
-        mainMenu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_backButtonActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void accountButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountButton1ActionPerformed
+        MainMenu mainMenu = new MainMenu(loggedUser);
+        mainMenu.setLocation(this.getLocation());
+        mainMenu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_accountButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accountButton1;
-    private javax.swing.JButton backButton;
     private javax.swing.JButton directsButton;
     private javax.swing.JButton dynamicButton;
     private javax.swing.JButton jButton1;

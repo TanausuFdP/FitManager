@@ -320,9 +320,22 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_scheduleButtonActionPerformed
 
     private void videosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButtonActionPerformed
-        Videos videos = new Videos(loggedUser);
-        videos.setLocation(this.getLocation());
-        videos.setVisible(true);
+        VideosClient videos = new VideosClient(loggedUser);
+        switch(loggedUser.getRole()){
+            case 1:
+                videos.setLocation(this.getLocation());
+                videos.setVisible(true);
+                break;
+            case 2:
+                MonitorVideo monitorVideo = new MonitorVideo(loggedUser);
+                monitorVideo.setLocation(this.getLocation());
+                monitorVideo.setVisible(true);
+                break;
+            case 3:
+                videos.setLocation(this.getLocation());
+                videos.setVisible(true);
+                break;
+        }
         this.dispose();
     }//GEN-LAST:event_videosButtonActionPerformed
 

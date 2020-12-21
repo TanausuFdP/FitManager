@@ -218,7 +218,7 @@ public class ClientStatistics extends javax.swing.JFrame {
     }//GEN-LAST:event_scheduleButtonActionPerformed
 
     private void videosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButtonActionPerformed
-        Videos videos = new Videos(loggedUser);
+        VideosClient videos = new VideosClient(loggedUser);
         videos.setLocation(this.getLocation());
         videos.setVisible(true);
         this.dispose();
