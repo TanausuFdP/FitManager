@@ -39,23 +39,23 @@ public class TimeTable extends javax.swing.JFrame {
         jList1.setModel(listModel);
     }
 
-        private void sortReservationsList(List<Activity> reservations) {
-            Activity lessDate;
-            int lessDateIndex;
-            for (int i= 0; i < reservations.size(); i++) {
-                //lessDate = reservations.get(i);
-                lessDateIndex = i;
-                for(int j= i+1; j < reservations.size(); j++)
-                    if(reservations.get(lessDateIndex).getDate().compareTo(reservations.get(j).getDate()) > 0)
-                        //lessDate = reservations.get(j);
-                        lessDateIndex = j;
-                if(lessDateIndex != i){
-                    lessDate = reservations.get(lessDateIndex);
-                    reservations.set(lessDateIndex, reservations.get(i));
-                    reservations.set(i, lessDate);
-                }
+    private void sortReservationsList(List<Activity> activities) {
+        Activity lessDate;
+        int lessDateIndex;
+        for (int i= 0; i < activities.size(); i++) {
+            //lessDate = reservations.get(i);
+            lessDateIndex = i;
+            for(int j= i+1; j < activities.size(); j++)
+                if(activities.get(lessDateIndex).getDate().compareTo(activities.get(j).getDate()) > 0)
+                    //lessDate = reservations.get(j);
+                    lessDateIndex = j;
+            if(lessDateIndex != i){
+                lessDate = activities.get(lessDateIndex);
+                activities.set(lessDateIndex, activities.get(i));
+                activities.set(i, lessDate);
             }
         }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
