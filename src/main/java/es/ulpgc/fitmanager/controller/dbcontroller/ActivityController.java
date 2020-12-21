@@ -2,6 +2,7 @@ package es.ulpgc.fitmanager.controller.dbcontroller;
 
 import es.ulpgc.fitmanager.controller.action.GetActivityByTypeAction;
 import es.ulpgc.fitmanager.controller.action.GetActivityByIdAction;
+import es.ulpgc.fitmanager.controller.action.GetActivitiesByMonitorIdAction;
 import es.ulpgc.fitmanager.controller.action.GetActivityByNameAction;
 import es.ulpgc.fitmanager.controller.action.InsertActivityAction;
 import es.ulpgc.fitmanager.controller.exceptions.ActivityAlreadyExistsException;
@@ -22,6 +23,8 @@ public class ActivityController extends Controller {
         getActivityByNameAction = new GetActivityByNameAction();
         insertActivityAction = new InsertActivityAction();
         getActivitiesByTypeAction = new GetActivityByTypeAction();
+        getActivitiesByMonitorIdAction = new GetActivitiesByMonitorIdAction();
+        
     }
     private final GetActivityByTypeAction getActivitiesByTypeAction;
     
@@ -30,7 +33,19 @@ public class ActivityController extends Controller {
     private final GetActivityByNameAction getActivityByNameAction;
 
     private final InsertActivityAction insertActivityAction;
+    
+    private final GetActivitiesByMonitorIdAction getActivitiesByMonitorIdAction;
 
+    public List<Activity> getActivityByMonitorId(Integer monitorId){
+        Connection conn = connectToDB();
+        try{
+            return getActivitiesByMonitorIdAction.execute(conn, monitorId);
+        } catch (EmptyListException ex) {
+            log.error(ex.getLocalizedMessage());
+            return new ArrayList<>();
+        }
+    }
+    
     public Activity getActivityById(Integer activityId) {
         Connection conn = connectToDB();
         try {

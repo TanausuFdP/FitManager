@@ -85,15 +85,15 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="titleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="dynamicButton1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="dynamicButton" min="-2" pref="50" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="scheduleButton1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="scheduleButton" min="-2" pref="50" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="accountButton2" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="accountButton" min="-2" pref="50" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="videosButton1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="videosButton" min="-2" pref="50" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="directsButton1" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="directsButton" min="-2" pref="50" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -126,12 +126,12 @@
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="directsButton1" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="directsButton" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
                       <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="accountButton2" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="dynamicButton1" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="scheduleButton1" alignment="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="videosButton1" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="accountButton" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="dynamicButton" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="scheduleButton" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="videosButton" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -169,7 +169,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="dynamicButton1">
+        <Component class="javax.swing.JButton" name="dynamicButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/reservations_button.png"/>
@@ -178,10 +178,10 @@
             <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dynamicButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dynamicButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="scheduleButton1">
+        <Component class="javax.swing.JButton" name="scheduleButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/schedule_button_pressed.png"/>
@@ -190,7 +190,7 @@
             <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="videosButton1">
+        <Component class="javax.swing.JButton" name="videosButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/video_button.png"/>
@@ -204,10 +204,10 @@
             <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="videosButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="videosButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="directsButton1">
+        <Component class="javax.swing.JButton" name="directsButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/directs_button.png"/>
@@ -216,7 +216,7 @@
             <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="accountButton2">
+        <Component class="javax.swing.JButton" name="accountButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/home_button.png"/>
@@ -225,7 +225,7 @@
             <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="accountButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="accountButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="noReservationsLabel">

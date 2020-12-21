@@ -182,7 +182,23 @@ public class MonitorVideo extends javax.swing.JFrame {
     }//GEN-LAST:event_scheduleButtonActionPerformed
 
     private void dynamicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dynamicButtonActionPerformed
-
+        switch(loggedUser.getRole()){
+            case 1:
+                Statistics statistics = new Statistics(loggedUser);
+                statistics.setLocation(this.getLocation());
+                statistics.setVisible(true);
+                this.dispose();
+                break;
+            case 2:
+         
+                break;
+            case 3:
+                Reservations reservation = new Reservations(loggedUser);
+                reservation.setLocation(this.getLocation());
+                reservation.setVisible(true);
+                this.dispose();
+                break;
+        }
     }//GEN-LAST:event_dynamicButtonActionPerformed
 
     private void uploadVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadVideoButtonActionPerformed
