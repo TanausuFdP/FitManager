@@ -1,8 +1,10 @@
 package es.ulpgc.fitmanager.view.gui;
 
+import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
 import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -11,21 +13,26 @@ import javax.swing.DefaultListModel;
 public class TimeTable extends javax.swing.JFrame {
 
     private final User loggedUser;
+    private ActivityController activityController = new ActivityController();
     private final ReservationController reservationController = new ReservationController();
     private final DefaultListModel listModel = new DefaultListModel();
     
     public TimeTable(User user) {
         this.loggedUser = user;
         initComponents();
-        addReservations();
+        addActivities();
     }
 
-    private void addReservations() {
-        List<Activity> reservations = reservationController.getReservationsByClientId(loggedUser.getId());
-        if (reservations.isEmpty()) noReservationsLabel.setText("No tiene ninguna reserva");
+    private void addActivities() {
+        List<Activity> activities = new ArrayList<Activity> ();
+        for (Activity activity : activityController.getActivitiesByType(true)) 
+            activities.add(activity);
+        for (Activity activity : activityController.getActivitiesByType(false)) 
+            activities.add(activity);
+        if (activities.isEmpty()) noReservationsLabel.setText("No tiene ninguna reserva");
         else {
-            sortReservationsList(reservations);
-            for (Activity activity : reservations) {
+            sortReservationsList(activities);
+            for (Activity activity : activities) {
                 listModel.addElement(activity);
             }
         }
