@@ -278,7 +278,7 @@ public class MainMenu extends javax.swing.JFrame {
         else if (loggedUser.getRole() == 1) //Administrador
             JOptionPane.showMessageDialog(null, "Este programa permite las siguientes opciones: \n"
                     + "- Pulsa el icono de la casa para volver a la pantalla inicial.\n"
-                    + "- Pulsa el icono de la galería de reproducción para ir a ver los vídeos ?.\n"
+                    + "- Pulsa el icono de la galería de reproducción para ir a ver los vídeos.\n"
                     + "- Pulsa el icono de la casilla con un tick para acceder a las estadísticas del gimnasio.\n"
                     + "- Pulsa el icono del calendario para ver el horario del gimnasio"
                     + "(todas las actividades ordenadas por fecha).\n"
