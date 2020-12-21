@@ -3,6 +3,7 @@ package es.ulpgc.fitmanager.view.repository;
 import es.ulpgc.fitmanager.controller.exceptions.InvalidRoleException;
 import es.ulpgc.fitmanager.controller.exceptions.NonMatchingPasswordException;
 import es.ulpgc.fitmanager.controller.exceptions.UserNotFoundException;
+import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -12,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class UserRepository {
@@ -113,5 +116,19 @@ public class UserRepository {
             throw new UserNotFoundException("No se pudo encontrar ningún usuario con id "
                     + user.getId() + ".");
         }
+    }
+
+    public List<User> getUsersByRole(Connection conn, int role) {
+        String sql = "SELECT * FROM User";
+        List<User> usersList = new ArrayList<>();
+        try (PreparedStatement statement = conn.prepareStatement(sql)){
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()){
+                
+            }
+        } catch (SQLException ex) {
+            throw new UserNotFoundException("No se han encontrado clientes");
+        }
+        return usersList;
     }
 }

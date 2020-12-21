@@ -6,7 +6,10 @@ import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.Reservation;
 import es.ulpgc.fitmanager.model.User;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.DefaultListModel;
 import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
 
@@ -21,6 +24,8 @@ public class NewReservation extends javax.swing.JFrame {
     private ReservationController reservationController = new ReservationController();
     private final DefaultListModel listModel = new DefaultListModel();
     
+    private Map<Integer, Integer> activitiesId = new HashMap<>();
+    
     public NewReservation(User user) {
         initComponents();
         this.loggedUser = user;
@@ -29,9 +34,16 @@ public class NewReservation extends javax.swing.JFrame {
     
     private void activitiesToList(boolean type){
         List<Activity> activitiesByType = activityController.getActivitiesByType(type);
+        activitiesId = new HashMap<>();
         //if (reservations.isEmpty()) noReservationsLabel.setText("No tiene ninguna reserva");
         //else {
-            activitiesByType.stream().forEach(listModel::addElement);
+        int count = 0;
+        for (Activity activity : activitiesByType) {
+            listModel.addElement(activity);
+            activitiesId.put(count, activity.getId());
+            count++;
+        }
+            //activitiesByType.stream().forEach(listModel::addElement);
         //}
         jList1.setModel(listModel);
         jList1.setSelectionMode(SINGLE_SELECTION);
@@ -291,10 +303,12 @@ public class NewReservation extends javax.swing.JFrame {
     }//GEN-LAST:event_activitiesToggleButtonActionPerformed
 
     private void reservationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationButtonActionPerformed
-        String activityName = ((String) jList1.getSelectedValue()).substring(0, jList1.getSelectedValue().indexOf(":")); //FALLA.
-        Activity activity = activityController.getActivityByName(activityName);
-        Reservation reservation = new Reservation(loggedUser.getId(), activity.getId()); 
+        Reservation reservation = new Reservation(loggedUser.getId(), activitiesId.get(jList1.getSelectedIndex())); 
         reservationController.insertReservation(reservation);
+        Reservations reservations = new Reservations(loggedUser);
+        reservations.setLocation(this.getLocation());
+        reservations.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_reservationButtonActionPerformed
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked

@@ -4,6 +4,8 @@ import es.ulpgc.fitmanager.controller.action.GetUserByIdAction;
 import es.ulpgc.fitmanager.controller.action.GetUserByUsernameAndPasswordAction;
 import es.ulpgc.fitmanager.controller.action.InsertUserAction;
 import es.ulpgc.fitmanager.controller.action.UpdateUserAction;
+import es.ulpgc.fitmanager.controller.action.GetUsersByRoleAction;
+import es.ulpgc.fitmanager.controller.exceptions.EmptyListException;
 import es.ulpgc.fitmanager.controller.exceptions.NonMatchingPasswordException;
 import es.ulpgc.fitmanager.controller.exceptions.UserAlreadyExistsException;
 import es.ulpgc.fitmanager.controller.exceptions.UserNotFoundException;
@@ -11,6 +13,8 @@ import es.ulpgc.fitmanager.model.User;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class UserController extends Controller {
@@ -19,6 +23,7 @@ public class UserController extends Controller {
         getUserByUsernameAndPasswordAction = new GetUserByUsernameAndPasswordAction();
         updateUserAction = new UpdateUserAction();
         insertUserAction = new InsertUserAction();
+        getUsersByRoleAction = new GetUsersByRoleAction();
     }
 
     private final GetUserByIdAction getUserByIdAction;
@@ -28,6 +33,8 @@ public class UserController extends Controller {
     private final UpdateUserAction updateUserAction;
 
     private final InsertUserAction insertUserAction;
+    
+    private final GetUsersByRoleAction getUsersByRoleAction;
 
     public User getUserById(Integer id){
         Connection conn = connectToDB();
@@ -66,6 +73,16 @@ public class UserController extends Controller {
         } catch (UserAlreadyExistsException ex) {
             log.error(ex.getLocalizedMessage());
             return null;
+        }
+    }
+    
+    public List<User> getUsersByRole(int role){
+        Connection conn = connectToDB();
+        try{
+            return getUsersByRoleAction.execute(conn, role);
+        } catch (EmptyListException ex) {
+            log.error(ex.getLocalizedMessage());
+            return new ArrayList<>();
         }
     }
 }

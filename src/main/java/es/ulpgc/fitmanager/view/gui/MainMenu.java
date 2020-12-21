@@ -294,9 +294,21 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_helpButtonActionPerformed
 
     private void dynamicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dynamicButtonActionPerformed
-        Reservations reservation = new Reservations(loggedUser);
-        reservation.setLocation(this.getLocation());
-        reservation.setVisible(true);
+        switch(loggedUser.getRole()){
+            case 1:
+                Statistics statistics = new Statistics(loggedUser);
+                statistics.setLocation(this.getLocation());
+                statistics.setVisible(true);
+                break;
+            case 2:
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
+                break;
+            case 3:
+                Reservations reservation = new Reservations(loggedUser);
+                reservation.setLocation(this.getLocation());
+                reservation.setVisible(true);
+                break;
+        }
         this.dispose();
     }//GEN-LAST:event_dynamicButtonActionPerformed
 
