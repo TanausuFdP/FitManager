@@ -1,11 +1,16 @@
 package es.ulpgc.fitmanager.view.gui;
 
+import es.ulpgc.fitmanager.controller.dbcontroller.VideoController;
 import es.ulpgc.fitmanager.model.User;
+import es.ulpgc.fitmanager.model.Video;
+import java.util.List;
+import javax.swing.DefaultListModel;
 
 
 public class VideosClient extends javax.swing.JFrame {
 
     private final User loggedUser;
+    private final DefaultListModel listModel = new DefaultListModel();
     
     public VideosClient(User user) {
         initComponents();
@@ -21,6 +26,14 @@ public class VideosClient extends javax.swing.JFrame {
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
                 break;
         }
+        
+        jList1.setModel(listModel);
+        VideoController videoController = new VideoController();
+        List<Video>videos = videoController.getVideos();
+        for (Video video : videos) {
+            listModel.addElement(video);
+        }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -39,7 +52,7 @@ public class VideosClient extends javax.swing.JFrame {
         videosButton = new javax.swing.JButton();
         directsButton = new javax.swing.JButton();
         accountButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        showVideoButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,10 +118,10 @@ public class VideosClient extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("VER VÍDEO");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        showVideoButton.setText("VER VÍDEO");
+        showVideoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                showVideoButtonActionPerformed(evt);
             }
         });
 
@@ -135,7 +148,7 @@ public class VideosClient extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(directsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(showVideoButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -146,7 +159,7 @@ public class VideosClient extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(showVideoButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -211,19 +224,15 @@ public class VideosClient extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_dynamicButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void showVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showVideoButtonActionPerformed
         
         String videoName = jList1.getSelectedValue();
-        
-        /*
-         * Aquí sería buscar el nombre del video en la base de datos y pasar la URL 
-         * al constructor
-         */
-        PlayVideo playVideo = new PlayVideo(loggedUser,"");
+        Video video = (Video)listModel.getElementAt(jList1.getSelectedIndex());
+        PlayVideo playVideo = new PlayVideo(loggedUser,video.getUrl());
         playVideo.setLocation(this.getLocation());
         playVideo.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_showVideoButtonActionPerformed
 
 
 
@@ -231,7 +240,6 @@ public class VideosClient extends javax.swing.JFrame {
     private javax.swing.JButton accountButton;
     private javax.swing.JButton directsButton;
     private javax.swing.JButton dynamicButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
@@ -239,6 +247,7 @@ public class VideosClient extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton scheduleButton;
+    private javax.swing.JButton showVideoButton;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JButton videosButton;
     // End of variables declaration//GEN-END:variables

@@ -137,7 +137,7 @@ public class DeleteVideo extends javax.swing.JFrame {
     private void deleteVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteVideoButtonActionPerformed
         Video video = (Video) listModel.get(videos.getSelectedIndex());
         videoController.deleteVideo(video.getId());   
-        
+        listModel.removeElementAt(videos.getSelectedIndex());
     }//GEN-LAST:event_deleteVideoButtonActionPerformed
 
 
