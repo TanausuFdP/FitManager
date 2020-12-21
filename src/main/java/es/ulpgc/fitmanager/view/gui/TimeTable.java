@@ -1,17 +1,56 @@
 package es.ulpgc.fitmanager.view.gui;
 
+import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
+import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
+import java.util.Collections;
+import java.util.List;
+import javax.swing.DefaultListModel;
 
 
 
 public class TimeTable extends javax.swing.JFrame {
 
     private final User loggedUser;
+    private final ReservationController reservationController = new ReservationController();
+    private final DefaultListModel listModel = new DefaultListModel();
+    
     public TimeTable(User user) {
         this.loggedUser = user;
         initComponents();
+        addReservations();
     }
 
+    private void addReservations() {
+        List<Activity> reservations = reservationController.getReservationsByClientId(loggedUser.getId());
+        if (reservations.isEmpty()) noReservationsLabel.setText("No tiene ninguna reserva");
+        else {
+            sortReservationsList(reservations);
+            for (Activity activity : reservations) {
+                listModel.addElement(activity);
+            }
+        }
+        jList1.setModel(listModel);
+    }
+
+        private void sortReservationsList(List<Activity> reservations) {
+            Activity lessDate;
+            int lessDateIndex;
+            for (int i= 0; i < reservations.size(); i++) {
+                //lessDate = reservations.get(i);
+                lessDateIndex = i;
+                for(int j= i+1; j < reservations.size(); j++)
+                    if(reservations.get(lessDateIndex).getDate().compareTo(reservations.get(j).getDate()) > 0)
+                        //lessDate = reservations.get(j);
+                        lessDateIndex = j;
+                if(lessDateIndex != i){
+                    lessDate = reservations.get(lessDateIndex);
+                    reservations.set(lessDateIndex, reservations.get(i));
+                    reservations.set(i, lessDate);
+                }
+            }
+        }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -28,6 +67,7 @@ public class TimeTable extends javax.swing.JFrame {
         videosButton1 = new javax.swing.JButton();
         directsButton1 = new javax.swing.JButton();
         accountButton2 = new javax.swing.JButton();
+        noReservationsLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -114,7 +154,10 @@ public class TimeTable extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGap(61, 61, 61)
+                                .addComponent(noReservationsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -122,8 +165,10 @@ public class TimeTable extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(titleLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(noReservationsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -188,8 +233,10 @@ public class TimeTable extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel noReservationsLabel;
     private javax.swing.JButton scheduleButton1;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JButton videosButton1;
     // End of variables declaration//GEN-END:variables
+
 }

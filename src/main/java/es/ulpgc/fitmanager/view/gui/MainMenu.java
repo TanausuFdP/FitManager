@@ -313,7 +313,10 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_dynamicButtonActionPerformed
 
     private void scheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scheduleButtonActionPerformed
-        
+        TimeTable timeTable = new TimeTable(loggedUser);
+        timeTable.setLocation(this.getLocation());
+        timeTable.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_scheduleButtonActionPerformed
 
     private void videosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButtonActionPerformed

@@ -1,11 +1,14 @@
 package es.ulpgc.fitmanager.view.gui;
 
 
+import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
 import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.DefaultListModel;
 
 
@@ -14,6 +17,7 @@ public class Reservations extends javax.swing.JFrame {
 
     private final User loggedUser;
     private final ReservationController reservationController = new ReservationController();
+    private final ActivityController activityController = new ActivityController();
     private final DefaultListModel listModel = new DefaultListModel();
     
     public Reservations(User user) {
@@ -26,7 +30,11 @@ public class Reservations extends javax.swing.JFrame {
         List<Activity> reservations = reservationController.getReservationsByClientId(loggedUser.getId());
         if (reservations.isEmpty())noReservationsLabel.setText("No tiene ninguna reserva");
         else {
-            reservations.stream().forEach(listModel::addElement);
+            int count = 0;
+            for (Activity activity : reservations) {
+                listModel.addElement(activity);
+                count++;
+            }
         }
         jList1.setModel(listModel);
     }
@@ -133,6 +141,11 @@ public class Reservations extends javax.swing.JFrame {
 
         viewReservationButton.setText("Ver reserva");
         viewReservationButton.setEnabled(false);
+        viewReservationButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewReservationButtonActionPerformed(evt);
+            }
+        });
 
         cancelReservationButton.setText("Cancelar reserva");
         cancelReservationButton.setEnabled(false);
@@ -302,6 +315,16 @@ public class Reservations extends javax.swing.JFrame {
             cancelReservationButton.setEnabled(true);
         }
     }//GEN-LAST:event_jList1MouseClicked
+
+    private void viewReservationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewReservationButtonActionPerformed
+        Object activity2 = listModel.get(jList1.getSelectedIndex());
+        Activity activity = (Activity) activity2;
+        
+        ShowReservation showReservation = new ShowReservation(loggedUser, activity);
+        showReservation.setLocation(this.getLocation());
+        showReservation.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_viewReservationButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
