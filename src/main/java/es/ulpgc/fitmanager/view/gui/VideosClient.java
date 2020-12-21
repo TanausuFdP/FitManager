@@ -80,6 +80,11 @@ public class VideosClient extends javax.swing.JFrame {
         titleLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         titleLabel.setText("Vídeos");
 
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png"))); // NOI18N
@@ -119,6 +124,7 @@ public class VideosClient extends javax.swing.JFrame {
         });
 
         showVideoButton.setText("VER VÍDEO");
+        showVideoButton.setEnabled(false);
         showVideoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showVideoButtonActionPerformed(evt);
@@ -233,6 +239,10 @@ public class VideosClient extends javax.swing.JFrame {
         playVideo.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_showVideoButtonActionPerformed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        if(!jList1.isSelectionEmpty()) showVideoButton.setEnabled(true);
+    }//GEN-LAST:event_jList1MouseClicked
 
 
 

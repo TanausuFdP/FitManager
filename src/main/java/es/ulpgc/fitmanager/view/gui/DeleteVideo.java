@@ -70,12 +70,18 @@ public class DeleteVideo extends javax.swing.JFrame {
         });
 
         deleteVideoButton.setText("ELIMINAR VÍDEO");
+        deleteVideoButton.setEnabled(false);
         deleteVideoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteVideoButtonActionPerformed(evt);
             }
         });
 
+        videos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                videosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(videos);
 
         javax.swing.GroupLayout generalPanelLayout = new javax.swing.GroupLayout(generalPanel);
@@ -83,14 +89,12 @@ public class DeleteVideo extends javax.swing.JFrame {
         generalPanelLayout.setHorizontalGroup(
             generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(generalPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(generalPanelLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(generalPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
             .addGroup(generalPanelLayout.createSequentialGroup()
                 .addGap(87, 87, 87)
@@ -139,6 +143,10 @@ public class DeleteVideo extends javax.swing.JFrame {
         videoController.deleteVideo(video.getId());   
         listModel.removeElementAt(videos.getSelectedIndex());
     }//GEN-LAST:event_deleteVideoButtonActionPerformed
+
+    private void videosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_videosMouseClicked
+        if(!videos.isSelectionEmpty()) deleteVideoButton.setEnabled(true);
+    }//GEN-LAST:event_videosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
