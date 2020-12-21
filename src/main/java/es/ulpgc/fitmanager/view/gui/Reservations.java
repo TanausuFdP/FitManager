@@ -104,6 +104,8 @@ public class Reservations extends javax.swing.JFrame {
         titleLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         titleLabel.setText("Mis reservas");
 
+        noReservationsLabel.setForeground(new java.awt.Color(255, 0, 0));
+
         directsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/directs_button.png"))); // NOI18N
         directsButton.setBorderPainted(false);
         directsButton.setContentAreaFilled(false);
