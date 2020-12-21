@@ -28,17 +28,6 @@ public class VideoRepository {
         }
     }
 
-    public Video getVideoByURL(Connection conn, String videoUrl) {
-        String sql = "SELECT * FROM Video WHERE url=?";
-        try (PreparedStatement statement = conn.prepareStatement(sql)){
-            statement.setString(1,videoUrl);
-            ResultSet resultSet = statement.executeQuery();
-            return getVideo(resultSet);
-        } catch (SQLException ex) {
-            throw new VideoNotFoundException("No se ha encontrado ningún vídeo con la url "+ videoUrl + ".");
-        }
-    }
-    
     private Video getVideo(ResultSet resultSet) throws SQLException {
         return Video.builder()
                 .id(resultSet.getInt("id"))
@@ -50,18 +39,83 @@ public class VideoRepository {
                 .build();
     }
 
-    public List<VideoCategory> getCategories(Connection conn){
-        String sql = "SELECT * FROM VideoCategory";
-        List<VideoCategory>categories = new ArrayList<>();
-        
+    public Video getVideoByUrl(Connection conn, String videoUrl) {
+        String sql = "SELECT * FROM Video WHERE url=?";
+        try (PreparedStatement statement = conn.prepareStatement(sql)){
+            statement.setString(1,videoUrl);
+            ResultSet resultSet = statement.executeQuery();
+            return getVideo(resultSet);
+        } catch (SQLException ex) {
+            throw new VideoNotFoundException("No se ha encontrado ningún vídeo con la url "+ videoUrl + ".");
+        }
+    }
+
+    public List<Video> getAllVideos(Connection conn) {
+        String sql = "SELECT * FROM Video";
+        List<Video>videos = new ArrayList<>();
         try (PreparedStatement statement = conn.prepareStatement(sql)){
             ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){
-                categories.add(VideoCategory.builder()
-                        .id(resultSet.getInt("id"))
-                        .name(resultSet.getString("name"))
-                        .build());
-            }
+            while(resultSet.next()) videos.add(getVideo(resultSet));
+            if (videos.isEmpty()) throw new EmptyListException("No se han encontrado vídeos");
+            return videos;
+        } catch (SQLException ex) {
+            log.error(ex.getLocalizedMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    public List<Video> getVideosByVideoListId(Connection conn, Integer videoListId){
+        String sql = "SELECT * FROM Video WHERE videoListId=?";
+        List<Video>videos = new ArrayList<>();
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+            preparedStatement.setInt(1, videoListId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) videos.add(getVideo(resultSet));
+            if (videos.isEmpty()) throw new EmptyListException("No se han encontrado categorías");
+            return videos;
+        } catch (SQLException ex) {
+            log.error(ex.getLocalizedMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    public VideoList getVideoListById(Connection conn, Integer videoListId) {
+        String sql = "SELECT * FROM VideoList WHERE id=?";
+        try (PreparedStatement statement = conn.prepareStatement(sql)){
+            statement.setInt(1,videoListId);
+            ResultSet resultSet = statement.executeQuery();
+            return getVideoList(resultSet);
+        } catch (SQLException ex) {
+            throw new VideoListNotFoundException("No se ha encontrado ninguna lista de vídeos con el id "
+                    + videoListId + ".");
+        }
+    }
+
+    private VideoList getVideoList(ResultSet resultSet) throws SQLException {
+        return VideoList.builder()
+                .id(resultSet.getInt("id"))
+                .title(resultSet.getString("title"))
+                .build();
+    }
+
+    public VideoList getVideoListByTitle(Connection conn, String title) {
+        String sql = "SELECT * FROM VideoList WHERE title=?";
+        try (PreparedStatement statement = conn.prepareStatement(sql)){
+            statement.setString(1,title);
+            ResultSet resultSet = statement.executeQuery();
+            return getVideoList(resultSet);
+        } catch (SQLException ex) {
+            throw new VideoListNotFoundException("No se ha encontrado ninguna lista de vídeos con el título "
+                    + title + ".");
+        }
+    }
+
+    public List<VideoCategory> getVideoCategories(Connection conn){
+        String sql = "SELECT * FROM VideoCategory";
+        List<VideoCategory>categories = new ArrayList<>();
+        try (PreparedStatement statement = conn.prepareStatement(sql)){
+            ResultSet resultSet = statement.executeQuery();
+            while(resultSet.next()) categories.add(getVideoCategory(resultSet));
             if (categories.isEmpty()) throw new EmptyListException("No se han encontrado categorías");
             return categories;
         } catch (SQLException ex) { 
@@ -69,62 +123,12 @@ public class VideoRepository {
             return new ArrayList<>();
         }
     }
-    
-    public void deleteVideo(Connection conn, Integer videoId){
-        String sql = "DELETE FROM Video WHERE id=?";
-        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
-            preparedStatement.setInt(1,videoId);
-            preparedStatement.executeUpdate();
-        } catch (SQLException ex) { log.error(ex.getLocalizedMessage()); }
-    }
-    
-    public List<Video>getVideos(Connection conn){
-        String sql = "SELECT * FROM Video";
-        List<Video>videos = new ArrayList<>();
-        
-        try (PreparedStatement statement = conn.prepareStatement(sql)){
-            ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){
-                videos.add(Video.builder()
-                        .id(resultSet.getInt("id"))
-                        .title(resultSet.getString("title"))
-                        .length(resultSet.getDouble("length"))
-                        .url(resultSet.getString("url"))
-                        .categoryId(resultSet.getInt("categoryId"))
-                        .videoListId(resultSet.getInt("videoListId"))
-                        .build());
-            }
-            if (videos.isEmpty()) throw new EmptyListException("No se han encontrado categorías");
-            return videos;
-        } catch (SQLException ex) { 
-            log.error(ex.getLocalizedMessage());
-            return new ArrayList<>();
-        }
-    }
-    
-    public List<Video>getVideosByVideoListId(Connection conn, Integer videoListId){
-        String sql = "SELECT * FROM Video WHERE videoListId=?";
-        List<Video>videos = new ArrayList<>();
-        
-        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
-            preparedStatement.setInt(1, videoListId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while(resultSet.next()){
-                videos.add(Video.builder()
-                        .id(resultSet.getInt("id"))
-                        .title(resultSet.getString("title"))
-                        .length(resultSet.getDouble("length"))
-                        .url(resultSet.getString("url"))
-                        .categoryId(resultSet.getInt("categoryId"))
-                        .videoListId(resultSet.getInt("videoListId"))
-                        .build());
-            }
-            if (videos.isEmpty()) throw new EmptyListException("No se han encontrado categorías");
-            return videos;
-        } catch (SQLException ex) { 
-            log.error(ex.getLocalizedMessage());
-            return new ArrayList<>();
-        }
+
+    private VideoCategory getVideoCategory(ResultSet resultSet) throws SQLException {
+        return VideoCategory.builder()
+                .id(resultSet.getInt("id"))
+                .name(resultSet.getString("name"))
+                .build();
     }
     
     public void insertVideo(Connection conn, Video video) {
@@ -142,37 +146,7 @@ public class VideoRepository {
         }
     }
 
-    public VideoList getVideoListById (Connection conn, Integer videoListId) {
-        String sql = "SELECT * FROM VideoList WHERE id=?";
-        try (PreparedStatement statement = conn.prepareStatement(sql)){
-            statement.setInt(1,videoListId);
-            ResultSet resultSet = statement.executeQuery();
-            return getVideoList(resultSet);
-        } catch (SQLException ex) {
-            throw new VideoListNotFoundException("No se ha encontrado ninguna lista de vídeos con el id "
-                    + videoListId + ".");
-        }
-    }
-    public VideoList getVideoListByTitle(Connection conn, String title) {
-        String sql = "SELECT * FROM VideoList WHERE title=?";
-        try (PreparedStatement statement = conn.prepareStatement(sql)){
-            statement.setString(1,title);
-            ResultSet resultSet = statement.executeQuery();
-            return getVideoList(resultSet);
-        } catch (SQLException ex) {
-            throw new VideoListNotFoundException("No se ha encontrado ninguna lista de vídeos con el título "
-                    + title + ".");
-        }
-    }
-
-    private VideoList getVideoList(ResultSet resultSet) throws SQLException {
-        return VideoList.builder()
-                .id(resultSet.getInt("id"))
-                .title(resultSet.getString("title"))
-                .build();
-    }
-
-    public void insertVideoList (Connection conn, VideoList videoList) {
+    public void insertVideoList(Connection conn, VideoList videoList) {
         String sql = "INSERT INTO VideoList (title) values (?)";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
             preparedStatement.setString(1,videoList.getTitle());
@@ -180,5 +154,13 @@ public class VideoRepository {
         } catch (SQLException ex) {
             log.error(ex.getLocalizedMessage());
         }
+    }
+
+    public void deleteVideo (Connection conn, Integer videoId) {
+        String sql = "DELETE FROM Video WHERE id=?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+            preparedStatement.setInt(1,videoId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) { log.error(ex.getLocalizedMessage()); }
     }
 }

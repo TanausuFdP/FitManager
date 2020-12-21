@@ -21,31 +21,21 @@ public class ActivityController extends Controller {
     public ActivityController() {
         getActivityByIdAction = new GetActivityByIdAction();
         getActivityByNameAction = new GetActivityByNameAction();
-        insertActivityAction = new InsertActivityAction();
-        getActivitiesByTypeAction = new GetActivityByTypeAction();
         getActivitiesByMonitorIdAction = new GetActivitiesByMonitorIdAction();
-        
+        getActivitiesByTypeAction = new GetActivityByTypeAction();
+        insertActivityAction = new InsertActivityAction();
+
     }
-    private final GetActivityByTypeAction getActivitiesByTypeAction;
-    
     private final GetActivityByIdAction getActivityByIdAction;
 
     private final GetActivityByNameAction getActivityByNameAction;
 
-    private final InsertActivityAction insertActivityAction;
-    
     private final GetActivitiesByMonitorIdAction getActivitiesByMonitorIdAction;
 
-    public List<Activity> getActivityByMonitorId(Integer monitorId){
-        Connection conn = connectToDB();
-        try{
-            return getActivitiesByMonitorIdAction.execute(conn, monitorId);
-        } catch (EmptyListException ex) {
-            log.error(ex.getLocalizedMessage());
-            return new ArrayList<>();
-        }
-    }
-    
+    private final GetActivityByTypeAction getActivitiesByTypeAction;
+
+    private final InsertActivityAction insertActivityAction;
+
     public Activity getActivityById(Integer activityId) {
         Connection conn = connectToDB();
         try {
@@ -66,6 +56,26 @@ public class ActivityController extends Controller {
         }
     }
 
+    public List<Activity> getActivitiesByMonitorId(Integer monitorId){
+        Connection conn = connectToDB();
+        try{
+            return getActivitiesByMonitorIdAction.execute(conn, monitorId);
+        } catch (EmptyListException ex) {
+            log.error(ex.getLocalizedMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    public List<Activity> getActivitiesByType(boolean type){
+        Connection conn = connectToDB();
+        try{
+            return getActivitiesByTypeAction.execute(conn, type);
+        } catch (EmptyListException ex) {
+            log.error(ex.getLocalizedMessage());
+            return new ArrayList<>();
+        }
+    }
+
     public Activity insertActivity(Activity activity) {
         Connection conn = connectToDB();
         try {
@@ -76,13 +86,5 @@ public class ActivityController extends Controller {
         }
     }
     
-    public List<Activity> getActivitiesByType(boolean type){
-        Connection conn = connectToDB();
-        try{
-            return getActivitiesByTypeAction.execute(conn, type);
-        } catch (EmptyListException ex) {
-            log.error(ex.getLocalizedMessage());
-            return new ArrayList<>();
-        }
-    }
+
 }

@@ -21,20 +21,20 @@ public class UserController extends Controller {
     public UserController() {
         getUserByIdAction = new GetUserByIdAction();
         getUserByUsernameAndPasswordAction = new GetUserByUsernameAndPasswordAction();
-        updateUserAction = new UpdateUserAction();
-        insertUserAction = new InsertUserAction();
         getUsersByRoleAction = new GetUsersByRoleAction();
+        insertUserAction = new InsertUserAction();
+        updateUserAction = new UpdateUserAction();
     }
 
     private final GetUserByIdAction getUserByIdAction;
 
     private final GetUserByUsernameAndPasswordAction getUserByUsernameAndPasswordAction;
 
-    private final UpdateUserAction updateUserAction;
+    private final GetUsersByRoleAction getUsersByRoleAction;
 
     private final InsertUserAction insertUserAction;
-    
-    private final GetUsersByRoleAction getUsersByRoleAction;
+
+    private final UpdateUserAction updateUserAction;
 
     public User getUserById(Integer id){
         Connection conn = connectToDB();
@@ -56,13 +56,13 @@ public class UserController extends Controller {
         }
     }
 
-    public User updateUser(User user){
+    public List<User> getUsersByRole(int role){
         Connection conn = connectToDB();
-        try {
-            return updateUserAction.execute(conn, user);
-        }catch (UserNotFoundException ex){
+        try{
+            return getUsersByRoleAction.execute(conn, role);
+        } catch (EmptyListException |UserNotFoundException ex) {
             log.error(ex.getLocalizedMessage());
-            return null;
+            return new ArrayList<>();
         }
     }
 
@@ -75,14 +75,14 @@ public class UserController extends Controller {
             return null;
         }
     }
-    
-    public List<User> getUsersByRole(int role){
+
+    public User updateUser(User user){
         Connection conn = connectToDB();
-        try{
-            return getUsersByRoleAction.execute(conn, role);
-        } catch (EmptyListException ex) {
+        try {
+            return updateUserAction.execute(conn, user);
+        }catch (UserNotFoundException ex){
             log.error(ex.getLocalizedMessage());
-            return new ArrayList<>();
+            return null;
         }
     }
 }

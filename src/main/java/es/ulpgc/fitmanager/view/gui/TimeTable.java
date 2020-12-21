@@ -42,7 +42,7 @@ public class TimeTable extends javax.swing.JFrame {
     private void addActivitiesMonitor() {
         
         
-        for (Activity activity : activityController.getActivityByMonitorId(loggedUser.getId())) 
+        for (Activity activity : activityController.getActivitiesByMonitorId(loggedUser.getId()))
             activitiesMonitor.add(activity);
         if (activitiesMonitor.isEmpty()) noReservationsLabel.setText("No tiene ninguna actividad/sala");
         else {

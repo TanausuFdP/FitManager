@@ -16,11 +16,11 @@ public class InsertVideoAction {
 
     public Video execute(Connection conn, Video video) {
         try {
-            videoRepository.getVideoByURL(conn, video.getUrl());
+            videoRepository.getVideoByUrl(conn, video.getUrl());
             throw new VideoAlreadyExistsException("Ya existe un vídeo con la url " + video.getUrl());
         } catch (VideoNotFoundException ex) {
             videoRepository.insertVideo(conn, video);
-            return videoRepository.getVideoByURL(conn, video.getUrl());
+            return videoRepository.getVideoByUrl(conn, video.getUrl());
         }
     }
 }

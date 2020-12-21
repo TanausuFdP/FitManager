@@ -14,6 +14,6 @@ public class GetVideoCategoriesAction {
     }
     
     public List<VideoCategory> execute(Connection conn){
-        return videoRepository.getCategories(conn);
+        return videoRepository.getVideoCategories(conn);
     }
 }

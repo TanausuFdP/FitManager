@@ -14,10 +14,12 @@ import java.util.List;
 public class ReservationController extends Controller {
     public ReservationController() {
         getReservationByIdsAction = new GetReservationByIdsAction();
+        getReservationsByClientIdAction = new GetReservationByClientIdAction();
         insertReservationAction = new InsertReservationAction();
         cancelReservationAction = new CancelReservationAction();
-        getReservationsByClientIdAction = new GetReservationByClientIdAction();
     }
+
+    private final GetReservationByIdsAction getReservationByIdsAction;
 
     private final GetReservationByClientIdAction getReservationsByClientIdAction;
 
@@ -25,7 +27,15 @@ public class ReservationController extends Controller {
 
     private final CancelReservationAction cancelReservationAction;
 
-    private final GetReservationByIdsAction getReservationByIdsAction;
+    public Reservation getReservationByIds(Integer clientId, Integer activityId){
+        Connection conn = connectToDB();
+        try {
+            return getReservationByIdsAction.execute(conn, clientId,activityId);
+        } catch (ReservationNotFoundException ex){
+            log.error(ex.getLocalizedMessage());
+            return null;
+        }
+    }
 
     public List<Activity> getReservationsByClientId(Integer clientId){
         Connection conn = connectToDB();
@@ -37,16 +47,6 @@ public class ReservationController extends Controller {
         } catch (UserNotFoundException ex){
             log.error(ex.getLocalizedMessage());
             return new ArrayList<>();
-        }
-    }
-
-    public Reservation getReservationByIds(Integer clientId, Integer activityId){
-        Connection conn = connectToDB();
-        try {
-            return getReservationByIdsAction.execute(conn, clientId,activityId);
-        } catch (ReservationNotFoundException ex){
-            log.error(ex.getLocalizedMessage());
-            return null;
         }
     }
 

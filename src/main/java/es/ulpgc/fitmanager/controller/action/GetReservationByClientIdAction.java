@@ -17,6 +17,6 @@ public class GetReservationByClientIdAction {
     private final ReservationRepository reservationRepository;
 
     public List<Activity> execute(Connection conn, Integer userId) {
-        return reservationRepository.getActivities(conn, userId);
+        return reservationRepository.getActivitiesByClientId(conn, userId);
     }
 }

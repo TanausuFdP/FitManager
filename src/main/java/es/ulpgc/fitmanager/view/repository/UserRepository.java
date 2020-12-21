@@ -1,9 +1,9 @@
 package es.ulpgc.fitmanager.view.repository;
 
+import es.ulpgc.fitmanager.controller.exceptions.EmptyListException;
 import es.ulpgc.fitmanager.controller.exceptions.InvalidRoleException;
 import es.ulpgc.fitmanager.controller.exceptions.NonMatchingPasswordException;
 import es.ulpgc.fitmanager.controller.exceptions.UserNotFoundException;
-import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -28,26 +28,8 @@ public class UserRepository {
             ResultSet resultSet = statement.executeQuery();
             return getUser(resultSet);
         } catch (SQLException ex) {
-            throw new UserNotFoundException("No se ha encontrado ningún usuario con el id "+id+".");
+            throw new UserNotFoundException("No se ha encontrado ningún usuario con el id " + id + ".");
         }
-    }
-
-    public User getUserByUsernameAndPassword(Connection conn, String username, String password) {
-        String sql = "SELECT * FROM User WHERE username=?";
-        User user;
-        try (PreparedStatement statement = conn.prepareStatement(sql)){
-            statement.setString(1,username);
-            ResultSet resultSet = statement.executeQuery();
-            user = getUser(resultSet);
-        } catch (SQLException ex) {
-            throw new UserNotFoundException("No se ha encontrado ningún usuario con el nombre" +
-                    " de usuario " + username + " .");
-        }
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new NonMatchingPasswordException("La contraseña introducida " +
-                    "no coincide con la base de datos");
-        }
-        return user;
     }
 
     private User getUser(ResultSet resultSet) throws SQLException {
@@ -60,6 +42,43 @@ public class UserRepository {
                 .phoneNumber(resultSet.getInt("phoneNumber"))
                 .role(resultSet.getInt("role"))
                 .build();
+    }
+
+    public User getUserByUsernameAndPassword(Connection conn, String username, String password) {
+        String sql = "SELECT * FROM User WHERE username=?";
+        User user;
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1,username);
+            ResultSet resultSet = statement.executeQuery();
+            user = getUser(resultSet);
+        } catch (SQLException ex) {
+            throw new UserNotFoundException("No se ha encontrado ningún usuario con el nombre" +
+                    " de usuario " + username + ".");
+        }
+        checkPassword(password, user);
+        return user;
+    }
+
+    private void checkPassword(String password, User user) {
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new NonMatchingPasswordException("La contraseña introducida " +
+                    "no coincide con la base de datos");
+        }
+    }
+
+    public List<User> getUsersByRole(Connection conn, int role) {
+        String sql = "SELECT * FROM User WHERE role=?";
+        List<User> usersList = new ArrayList<>();
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+            preparedStatement.setInt(1,role);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) usersList.add(getUser(resultSet));
+            if (usersList.isEmpty()) throw new EmptyListException("No se han encontrado usuarios " +
+                    "con el rol " + role + ".");
+            return usersList;
+        } catch (SQLException ex) {
+            throw new UserNotFoundException("No se han encontrado usuarios");
+        }
     }
 
     public void insertUser(Connection conn, User user){
@@ -116,19 +135,5 @@ public class UserRepository {
             throw new UserNotFoundException("No se pudo encontrar ningún usuario con id "
                     + user.getId() + ".");
         }
-    }
-
-    public List<User> getUsersByRole(Connection conn, int role) {
-        String sql = "SELECT * FROM User";
-        List<User> usersList = new ArrayList<>();
-        try (PreparedStatement statement = conn.prepareStatement(sql)){
-            ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){
-                
-            }
-        } catch (SQLException ex) {
-            throw new UserNotFoundException("No se han encontrado clientes");
-        }
-        return usersList;
     }
 }
