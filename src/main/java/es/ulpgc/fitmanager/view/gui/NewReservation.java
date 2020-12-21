@@ -1,10 +1,14 @@
 package es.ulpgc.fitmanager.view.gui;
 
+import es.ulpgc.fitmanager.controller.action.GetActivityByNameAction;
 import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
+import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
 import es.ulpgc.fitmanager.model.Activity;
+import es.ulpgc.fitmanager.model.Reservation;
 import es.ulpgc.fitmanager.model.User;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
 
 public class NewReservation extends javax.swing.JFrame {
 
@@ -14,6 +18,7 @@ public class NewReservation extends javax.swing.JFrame {
     private final User loggedUser;
     
     private ActivityController activityController = new ActivityController();
+    private ReservationController reservationController = new ReservationController();
     private final DefaultListModel listModel = new DefaultListModel();
     
     public NewReservation(User user) {
@@ -29,6 +34,7 @@ public class NewReservation extends javax.swing.JFrame {
             activitiesByType.stream().forEach(listModel::addElement);
         //}
         jList1.setModel(listModel);
+        jList1.setSelectionMode(SINGLE_SELECTION);
     }
 
     @SuppressWarnings("unchecked")
@@ -52,7 +58,7 @@ public class NewReservation extends javax.swing.JFrame {
         dynamicButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        reservationButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -144,12 +150,18 @@ public class NewReservation extends javax.swing.JFrame {
         });
 
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
-        jButton1.setText("Reservar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        reservationButton.setText("Reservar");
+        reservationButton.setEnabled(false);
+        reservationButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                reservationButtonActionPerformed(evt);
             }
         });
 
@@ -191,7 +203,7 @@ public class NewReservation extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(97, 97, 97)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(reservationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -210,7 +222,7 @@ public class NewReservation extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addComponent(reservationButton, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -267,16 +279,27 @@ public class NewReservation extends javax.swing.JFrame {
     }//GEN-LAST:event_videosButtonActionPerformed
 
     private void roomsToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsToggleButtonActionPerformed
+        listModel.clear();
+        reservationButton.setEnabled(false);
         activitiesToList(ROOM);
     }//GEN-LAST:event_roomsToggleButtonActionPerformed
 
     private void activitiesToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activitiesToggleButtonActionPerformed
+        listModel.clear();
+        reservationButton.setEnabled(false);
         activitiesToList(ACTIVITY);
     }//GEN-LAST:event_activitiesToggleButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jList1.getSelectedValue();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void reservationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationButtonActionPerformed
+        String activityName = ((String) jList1.getSelectedValue()).substring(0, jList1.getSelectedValue().indexOf(":")); //FALLA.
+        Activity activity = activityController.getActivityByName(activityName);
+        Reservation reservation = new Reservation(loggedUser.getId(), activity.getId()); 
+        reservationController.insertReservation(reservation);
+    }//GEN-LAST:event_reservationButtonActionPerformed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        if(!jList1.isSelectionEmpty()) reservationButton.setEnabled(true);
+    }//GEN-LAST:event_jList1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -286,13 +309,13 @@ public class NewReservation extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton directsButton;
     private javax.swing.JButton dynamicButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel logo;
+    private javax.swing.JButton reservationButton;
     private javax.swing.JToggleButton roomsToggleButton;
     private javax.swing.JButton scheduleButton;
     private javax.swing.JLabel titleLabel;
