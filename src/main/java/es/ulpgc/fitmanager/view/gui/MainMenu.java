@@ -318,9 +318,23 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void scheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scheduleButtonActionPerformed
         TimeTable timeTable = new TimeTable(loggedUser);
-        timeTable.setLocation(this.getLocation());
-        timeTable.setVisible(true);
+        switch(loggedUser.getRole()){
+            case 1:
+                TimeTableAdmin timeTableAdmin = new TimeTableAdmin(loggedUser);
+                timeTableAdmin.setVisible(true);
+                break;
+            case 2:
+                timeTable.setLocation(this.getLocation());
+                timeTable.setVisible(true);
+                break;
+            case 3:
+                timeTable.setLocation(this.getLocation());
+                timeTable.setVisible(true);
+                break;
+        }
         this.dispose();
+        
+        
     }//GEN-LAST:event_scheduleButtonActionPerformed
 
     private void videosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButtonActionPerformed

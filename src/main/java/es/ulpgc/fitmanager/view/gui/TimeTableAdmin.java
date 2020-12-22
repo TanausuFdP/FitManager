@@ -1,92 +1,16 @@
 package es.ulpgc.fitmanager.view.gui;
 
-import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
-import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
-import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.DefaultListModel;
 
-
-
-public class TimeTable extends javax.swing.JFrame {
+public class TimeTableAdmin extends javax.swing.JFrame {
 
     private final User loggedUser;
-    private ActivityController activityController = new ActivityController();
-    private final ReservationController reservationController = new ReservationController();
-    private final DefaultListModel listModel = new DefaultListModel();
-    private List<Activity> activitiesClient = new ArrayList<Activity> ();
-    private List<Activity> activitiesMonitor = new ArrayList<Activity> ();
     
-    public TimeTable(User user) {
-        this.loggedUser = user;
+    public TimeTableAdmin(User user) {
         initComponents();
-        switch(loggedUser.getRole()){
-            case 1:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
-                break;
-            case 2:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
-                addActivitiesClient();
-                sortReservationsList(activitiesClient);
-                break;
-            case 3:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
-                addActivitiesMonitor();
-                sortReservationsList(activitiesMonitor);
-                break;
-        }
+        loggedUser = user;
     }
 
-    private void addActivitiesMonitor() {
-        
-        
-        for (Activity activity : activityController.getActivitiesByMonitorId(loggedUser.getId()))
-            activitiesMonitor.add(activity);
-        if (activitiesMonitor.isEmpty()) noReservationsLabel.setText("No tiene ninguna actividad/sala");
-        else {
-            sortReservationsList(activitiesMonitor);
-            for (Activity activity : activitiesMonitor) {
-                listModel.addElement(activity);
-            }
-        }
-        jList1.setModel(listModel);
-    }
-    
-    private void addActivitiesClient() {
-        
-        for (Activity activity : activityController.getActivitiesByType(Activity.ROOM)) 
-            activitiesClient.add(activity);
-        for (Activity activity : activityController.getActivitiesByType(Activity.ACTIVITY)) 
-            activitiesClient.add(activity);
-        if (activitiesClient.isEmpty()) noReservationsLabel.setText("No tiene ninguna reserva");
-        else {
-            sortReservationsList(activitiesClient);
-            for (Activity activity : activitiesClient) {
-                listModel.addElement(activity);
-            }
-        }
-        jList1.setModel(listModel);
-    }
-
-    private void sortReservationsList(List<Activity> activities) {
-        Activity lessDate;
-        int lessDateIndex;
-        for (int i= 0; i < activities.size(); i++) {
-            //lessDate = reservations.get(i);
-            lessDateIndex = i;
-            for(int j= i+1; j < activities.size(); j++)
-                if(activities.get(lessDateIndex).getDate().compareTo(activities.get(j).getDate()) > 0)
-                    //lessDate = reservations.get(j);
-                    lessDateIndex = j;
-            if(lessDateIndex != i){
-                lessDate = activities.get(lessDateIndex);
-                activities.set(lessDateIndex, activities.get(i));
-                activities.set(i, lessDate);
-            }
-        }
-    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -104,10 +28,10 @@ public class TimeTable extends javax.swing.JFrame {
         videosButton = new javax.swing.JButton();
         directsButton = new javax.swing.JButton();
         accountButton = new javax.swing.JButton();
-        noReservationsLabel = new javax.swing.JLabel();
+        insertClass = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
         logoPanel.setBackground(new java.awt.Color(255, 0, 0));
 
@@ -167,7 +91,14 @@ public class TimeTable extends javax.swing.JFrame {
             }
         });
 
-        noReservationsLabel.setForeground(new java.awt.Color(255, 0, 0));
+        insertClass.setText("Añadir actividad");
+        insertClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertClassActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Eliminar actividad");
 
         javax.swing.GroupLayout generalPanelLayout = new javax.swing.GroupLayout(generalPanel);
         generalPanel.setLayout(generalPanelLayout);
@@ -176,39 +107,36 @@ public class TimeTable extends javax.swing.JFrame {
             .addGroup(generalPanelLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titleLabel)
                     .addGroup(generalPanelLayout.createSequentialGroup()
-                        .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(titleLabel)
-                            .addGroup(generalPanelLayout.createSequentialGroup()
-                                .addComponent(dynamicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(scheduleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(accountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(videosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(directsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(generalPanelLayout.createSequentialGroup()
-                        .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, generalPanelLayout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addComponent(noReservationsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(dynamicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(scheduleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(accountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(videosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(directsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(insertClass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
         generalPanelLayout.setVerticalGroup(
             generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, generalPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(titleLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(noReservationsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(insertClass)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(40, 40, 40)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -226,7 +154,7 @@ public class TimeTable extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(logoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(generalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(generalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,31 +167,25 @@ public class TimeTable extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void dynamicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dynamicButtonActionPerformed
         switch(loggedUser.getRole()){
             case 1:
-                Statistics statistics = new Statistics(loggedUser);
-                statistics.setLocation(this.getLocation());
-                statistics.setVisible(true);
-                break;
+            Statistics statistics = new Statistics(loggedUser);
+            statistics.setLocation(this.getLocation());
+            statistics.setVisible(true);
+            break;
             case 2:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
-                break;
+            dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
+            break;
             case 3:
-                Reservations reservation = new Reservations(loggedUser);
-                reservation.setLocation(this.getLocation());
-                reservation.setVisible(true);
-                break;
+            Reservations reservation = new Reservations(loggedUser);
+            reservation.setLocation(this.getLocation());
+            reservation.setVisible(true);
+            break;
         }
         this.dispose();
     }//GEN-LAST:event_dynamicButtonActionPerformed
-
-    private void accountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountButtonActionPerformed
-        MainMenu mainMenu = new MainMenu(loggedUser);
-        mainMenu.setLocation(this.getLocation());
-        mainMenu.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_accountButtonActionPerformed
 
     private void videosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButtonActionPerformed
         VideosClient videos = new VideosClient(loggedUser);
@@ -285,22 +207,35 @@ public class TimeTable extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_videosButtonActionPerformed
 
-    
+    private void accountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountButtonActionPerformed
+        MainMenu mainMenu = new MainMenu(loggedUser);
+        mainMenu.setLocation(this.getLocation());
+        mainMenu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_accountButtonActionPerformed
+
+    private void insertClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertClassActionPerformed
+        InsertActivity insertActivity = new InsertActivity(loggedUser);
+        insertActivity.setLocation(this.getLocation());
+        insertActivity.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_insertClassActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accountButton;
     private javax.swing.JButton directsButton;
     private javax.swing.JButton dynamicButton;
     private javax.swing.JPanel generalPanel;
+    private javax.swing.JButton insertClass;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel logoPanel;
-    private javax.swing.JLabel noReservationsLabel;
     private javax.swing.JButton scheduleButton;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JButton videosButton;
     // End of variables declaration//GEN-END:variables
-
 }

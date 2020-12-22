@@ -298,6 +298,12 @@ public class ModifyAccount extends javax.swing.JFrame {
                     .phoneNumber(Integer.valueOf(phoneNumber.getText()))
                     .role(loggedUser.getRole())
                     .build());
+            
+            MainMenu mainMenu = new MainMenu(loggedUser);
+            mainMenu.setLocation(this.getLocation());
+            mainMenu.setVisible(true);
+            this.dispose();
+            jLabel3.setText("Cambios realizados");
             //indicar que se ha cambiado. Puede que volver atrás.
         } else {
             jLabel3.setText("Error al realizar los cambios");
