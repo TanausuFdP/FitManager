@@ -14,6 +14,6 @@ public class GetActivitiesByMonitorIdAction {
     private final ActivityRepository activityRepository;
     
     public List<Activity> execute(Connection conn, Integer monitorId){
-        return (List<Activity>) activityRepository.getActivitiesByMonitorId(conn, monitorId);
+        return activityRepository.getActivitiesByMonitorId(conn, monitorId);
     }
 }

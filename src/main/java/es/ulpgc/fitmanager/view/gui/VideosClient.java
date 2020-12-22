@@ -29,7 +29,7 @@ public class VideosClient extends javax.swing.JFrame {
         
         jList1.setModel(listModel);
         VideoController videoController = new VideoController();
-        List<Video>videos = videoController.getVideos();
+        List<Video>videos = videoController.getAllVideos();
         for (Video video : videos) {
             listModel.addElement(video);
         }
@@ -123,7 +123,7 @@ public class VideosClient extends javax.swing.JFrame {
             }
         });
 
-        showVideoButton.setText("VER VÍDEO");
+        showVideoButton.setText("Ver vídeo");
         showVideoButton.setEnabled(false);
         showVideoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,8 +219,7 @@ public class VideosClient extends javax.swing.JFrame {
                 this.dispose();
                 break;
             //case 2:
-                //dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
-                //break;
+            //break;
             case 3:
                 Reservations reservation = new Reservations(loggedUser);
                 reservation.setLocation(this.getLocation());

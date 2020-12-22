@@ -19,9 +19,9 @@ public class ActivityRepository {
 
     public Activity getActivityById(Connection conn, Integer activityId) {
         String sql = "SELECT * FROM Activity WHERE id=?";
-        try (PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setInt(1, activityId);
-            ResultSet resultSet = statement.executeQuery();
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+            preparedStatement.setInt(1, activityId);
+            ResultSet resultSet = preparedStatement.executeQuery();
             return getActivity(resultSet);
         } catch (SQLException ex) {
             throw new ActivityNotFoundException("No se ha encontrado ninguna actividad" +
@@ -46,9 +46,9 @@ public class ActivityRepository {
     
     public Activity getActivityByName(Connection conn, String name) {
         String sql = "SELECT * FROM Activity WHERE name=?";
-        try (PreparedStatement statement = conn.prepareStatement(sql)){
-            statement.setString(1,name);
-            ResultSet resultSet = statement.executeQuery();
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+            preparedStatement.setString(1,name);
+            ResultSet resultSet = preparedStatement.executeQuery();
             return getActivity(resultSet);
         } catch (SQLException ex) {
             throw new ActivityNotFoundException("No se ha encontrado ninguna actividad "
@@ -59,9 +59,9 @@ public class ActivityRepository {
     public List<Activity> getActivitiesByMonitorId(Connection conn, Integer monitorId) {
         String sql = "SELECT * FROM Activity WHERE monitorId=?";
         List<Activity> activities = new ArrayList<>();
-        try (PreparedStatement statement = conn.prepareStatement(sql)){
-            statement.setInt(1, monitorId);
-            ResultSet resultSet = statement.executeQuery();
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+            preparedStatement.setInt(1, monitorId);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) activities.add(getActivity(resultSet));
             if (activities.isEmpty()) throw new EmptyListException("No se han encontrado actividades");
             return activities;
@@ -74,9 +74,9 @@ public class ActivityRepository {
     public List<Activity> getActivitiesByType(Connection conn, boolean type) {
         String sql = "SELECT * FROM Activity WHERE room=?";
         List<Activity> activities = new ArrayList<>();
-        try (PreparedStatement statement = conn.prepareStatement(sql)){
-            statement.setBoolean(1, type);
-            ResultSet resultSet = statement.executeQuery();
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+            preparedStatement.setBoolean(1, type);
+            ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) activities.add(getActivity(resultSet));
             if (activities.isEmpty()) throw new EmptyListException("No se han encontrado actividades");
             return activities;
@@ -85,7 +85,19 @@ public class ActivityRepository {
             return new ArrayList<>();
         }
     }
-
+    
+    public Integer getCountOfActivitiesByMonitorId(Connection conn, Integer monitorId, boolean room) {
+        String sql = "SELECT COUNT (*) FROM Activity WHERE monitorId=? AND room=?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+            preparedStatement.setInt(1,monitorId);
+            preparedStatement.setBoolean(2,room);
+            return preparedStatement.executeQuery().getInt(1);
+        } catch (SQLException ex) {
+            log.error(ex.getLocalizedMessage());
+            return 0;
+        }
+    }
+    
     public void insertActivity(Connection conn, Activity activity){
         String sql = "INSERT INTO Activity " +
                 "(name, description, capacity, duration, date, weekly, room, monitorId)"

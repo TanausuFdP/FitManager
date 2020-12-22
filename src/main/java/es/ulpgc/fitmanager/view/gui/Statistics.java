@@ -107,6 +107,11 @@ public class Statistics extends javax.swing.JFrame {
         });
 
         monitorButton.setText("Monitores");
+        monitorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                monitorButtonActionPerformed(evt);
+            }
+        });
 
         activityButton.setText("Actividades");
         activityButton.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +121,11 @@ public class Statistics extends javax.swing.JFrame {
         });
 
         roomsButton.setText("Salas");
+        roomsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roomsButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -206,17 +216,17 @@ public class Statistics extends javax.swing.JFrame {
     private void dynamicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dynamicButtonActionPerformed
         switch(loggedUser.getRole()){
             case 1:
-            dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
-            break;
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
+                break;
             case 2:
-            dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
-            break;
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
+                break;
             case 3:
-            Reservations reservation = new Reservations(loggedUser);
-            reservation.setLocation(this.getLocation());
-            reservation.setVisible(true);
-            this.dispose();
-            break;
+                Reservations reservation = new Reservations(loggedUser);
+                reservation.setLocation(this.getLocation());
+                reservation.setVisible(true);
+                this.dispose();
+                break;
         }
     }//GEN-LAST:event_dynamicButtonActionPerformed
 
@@ -245,7 +255,10 @@ public class Statistics extends javax.swing.JFrame {
     }//GEN-LAST:event_videosButtonActionPerformed
 
     private void activityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activityButtonActionPerformed
-        // TODO add your handling code here:
+        ActivityStatistics activityStatistics = new ActivityStatistics(loggedUser);
+        activityStatistics.setLocation(this.getLocation());
+        activityStatistics.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_activityButtonActionPerformed
 
     private void accountButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountButton1ActionPerformed
@@ -256,8 +269,25 @@ public class Statistics extends javax.swing.JFrame {
     }//GEN-LAST:event_accountButton1ActionPerformed
 
     private void clientButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientButtonActionPerformed
-        // TODO add your handling code here:
+        ClientStatistics clientStatistics = new ClientStatistics(loggedUser);
+        clientStatistics.setLocation(this.getLocation());
+        clientStatistics.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_clientButtonActionPerformed
+
+    private void monitorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monitorButtonActionPerformed
+        MonitorStatistics monitorStatistics = new MonitorStatistics(loggedUser);
+        monitorStatistics.setLocation(this.getLocation());
+        monitorStatistics.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_monitorButtonActionPerformed
+
+    private void roomsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsButtonActionPerformed
+        RoomStatistics roomStatistics = new RoomStatistics(loggedUser);
+        roomStatistics.setLocation(this.getLocation());
+        roomStatistics.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_roomsButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

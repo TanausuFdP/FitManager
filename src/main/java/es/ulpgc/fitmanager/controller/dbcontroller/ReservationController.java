@@ -22,7 +22,7 @@ public class ReservationController extends Controller {
     private final GetReservationByIdsAction getReservationByIdsAction;
 
     private final GetReservationByClientIdAction getReservationsByClientIdAction;
-
+    
     private final InsertReservationAction insertReservationAction;
 
     private final CancelReservationAction cancelReservationAction;
@@ -49,7 +49,7 @@ public class ReservationController extends Controller {
             return new ArrayList<>();
         }
     }
-
+    
     public Reservation insertReservation(Reservation reservation){
         Connection conn = connectToDB();
         try {

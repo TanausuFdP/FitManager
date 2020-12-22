@@ -15,9 +15,6 @@ import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
 
 public class NewReservation extends javax.swing.JFrame {
 
-    private static final boolean ROOM = true;
-    private static final boolean ACTIVITY = false;
-    
     private final User loggedUser;
     
     private ActivityController activityController = new ActivityController();
@@ -29,7 +26,7 @@ public class NewReservation extends javax.swing.JFrame {
     public NewReservation(User user) {
         initComponents();
         this.loggedUser = user;
-        activitiesToList(ROOM);
+        activitiesToList(Activity.ROOM);
     }
     
     private void activitiesToList(boolean type){
@@ -211,13 +208,13 @@ public class NewReservation extends javax.swing.JFrame {
     private void roomsToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsToggleButtonActionPerformed
         listModel.clear();
         reservationButton.setEnabled(false);
-        activitiesToList(ROOM);
+        activitiesToList(Activity.ROOM);
     }//GEN-LAST:event_roomsToggleButtonActionPerformed
 
     private void activitiesToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activitiesToggleButtonActionPerformed
         listModel.clear();
         reservationButton.setEnabled(false);
-        activitiesToList(ACTIVITY);
+        activitiesToList(Activity.ACTIVITY);
     }//GEN-LAST:event_activitiesToggleButtonActionPerformed
 
     private void reservationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservationButtonActionPerformed

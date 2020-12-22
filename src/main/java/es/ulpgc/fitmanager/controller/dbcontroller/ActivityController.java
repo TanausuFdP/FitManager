@@ -4,6 +4,7 @@ import es.ulpgc.fitmanager.controller.action.GetActivityByTypeAction;
 import es.ulpgc.fitmanager.controller.action.GetActivityByIdAction;
 import es.ulpgc.fitmanager.controller.action.GetActivitiesByMonitorIdAction;
 import es.ulpgc.fitmanager.controller.action.GetActivityByNameAction;
+import es.ulpgc.fitmanager.controller.action.GetCountOfActivitiesByMonitorIdAction;
 import es.ulpgc.fitmanager.controller.action.InsertActivityAction;
 import es.ulpgc.fitmanager.controller.exceptions.ActivityAlreadyExistsException;
 import es.ulpgc.fitmanager.controller.exceptions.ActivityNotFoundException;
@@ -23,6 +24,7 @@ public class ActivityController extends Controller {
         getActivityByNameAction = new GetActivityByNameAction();
         getActivitiesByMonitorIdAction = new GetActivitiesByMonitorIdAction();
         getActivitiesByTypeAction = new GetActivityByTypeAction();
+        getCountOfActivitiesByMonitorIdAction = new GetCountOfActivitiesByMonitorIdAction();
         insertActivityAction = new InsertActivityAction();
 
     }
@@ -33,6 +35,8 @@ public class ActivityController extends Controller {
     private final GetActivitiesByMonitorIdAction getActivitiesByMonitorIdAction;
 
     private final GetActivityByTypeAction getActivitiesByTypeAction;
+    
+    private final GetCountOfActivitiesByMonitorIdAction getCountOfActivitiesByMonitorIdAction;
 
     private final InsertActivityAction insertActivityAction;
 
@@ -75,6 +79,12 @@ public class ActivityController extends Controller {
             return new ArrayList<>();
         }
     }
+    
+    public Integer getCountOfActivitiesByMonitorId(Integer monitorId, boolean room){
+        Connection conn = connectToDB();
+        return getCountOfActivitiesByMonitorIdAction.execute(conn, monitorId,room);
+    }
+
 
     public Activity insertActivity(Activity activity) {
         Connection conn = connectToDB();
@@ -85,6 +95,4 @@ public class ActivityController extends Controller {
             return null;
         }
     }
-    
-
 }

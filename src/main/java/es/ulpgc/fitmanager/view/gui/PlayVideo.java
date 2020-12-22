@@ -58,7 +58,6 @@ public class PlayVideo extends javax.swing.JFrame {
         generalPanel = new javax.swing.JPanel();
         buttonsPanel = new javax.swing.JPanel();
         playPauseButton = new javax.swing.JButton();
-        playPauseButton1 = new javax.swing.JButton();
         volume = new javax.swing.JSlider();
         titlePanel = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
@@ -82,19 +81,7 @@ public class PlayVideo extends javax.swing.JFrame {
             }
         });
 
-        playPauseButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/stop blanco (1).png"))); // NOI18N
-        playPauseButton1.setBorder(null);
-        playPauseButton1.setBorderPainted(false);
-        playPauseButton1.setContentAreaFilled(false);
-        playPauseButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        playPauseButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playPauseButton1ActionPerformed(evt);
-            }
-        });
-
         volume.setBackground(new java.awt.Color(255, 255, 255));
-        volume.setValue(50);
         volume.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 volumeStateChanged(evt);
@@ -108,17 +95,13 @@ public class PlayVideo extends javax.swing.JFrame {
             .addGroup(buttonsPanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(playPauseButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(playPauseButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(volume, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(volume, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buttonsPanelLayout.setVerticalGroup(
             buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonsPanelLayout.createSequentialGroup()
                 .addGroup(buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(playPauseButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(playPauseButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(volume, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -210,10 +193,6 @@ public class PlayVideo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_playPauseButtonActionPerformed
 
-    private void playPauseButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseButton1ActionPerformed
-        oracleVid.stop();
-    }//GEN-LAST:event_playPauseButton1ActionPerformed
-
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         VideosClient videos = new VideosClient(loggedUser);
         videos.setLocation(this.getLocation());
@@ -232,7 +211,6 @@ public class PlayVideo extends javax.swing.JFrame {
     private javax.swing.JPanel generalPanel;
     private javax.swing.JLabel logo;
     private javax.swing.JButton playPauseButton;
-    private javax.swing.JButton playPauseButton1;
     private javax.swing.JPanel titlePanel;
     private javax.swing.JPanel videoPanel;
     private javax.swing.JSlider volume;

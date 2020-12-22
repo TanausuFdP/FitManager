@@ -259,6 +259,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Monitores"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="monitorButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="activityButton">
           <Properties>
@@ -272,6 +275,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Salas"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="roomsButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

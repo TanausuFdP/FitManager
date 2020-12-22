@@ -67,9 +67,6 @@ public class ReservationRepository {
     }
 
 
-
-
-
     public Integer getReservationsOfActivity(Connection conn, Integer activityId) {
         String sql = "Select COUNT (*) FROM Reservation WHERE activityId=?";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
@@ -80,7 +77,7 @@ public class ReservationRepository {
             return 0;
         }
     }
-
+    
     public void insertReservation(Connection conn, Reservation reservation) {
         String sql = "INSERT INTO Reservation (clientId, activityId)" +
                 "values (?,?)";

@@ -56,9 +56,9 @@ public class TimeTable extends javax.swing.JFrame {
     
     private void addActivitiesClient() {
         
-        for (Activity activity : activityController.getActivitiesByType(true)) 
+        for (Activity activity : activityController.getActivitiesByType(Activity.ROOM)) 
             activitiesMonitor.add(activity);
-        for (Activity activity : activityController.getActivitiesByType(false)) 
+        for (Activity activity : activityController.getActivitiesByType(Activity.ACTIVITY)) 
             activitiesMonitor.add(activity);
         if (activitiesMonitor.isEmpty()) noReservationsLabel.setText("No tiene ninguna reserva");
         else {
