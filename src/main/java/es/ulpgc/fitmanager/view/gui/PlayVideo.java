@@ -70,7 +70,7 @@ public class PlayVideo extends javax.swing.JFrame {
 
         buttonsPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/play blanco.png"))); // NOI18N
+        playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/play negro.png"))); // NOI18N
         playPauseButton.setBorder(null);
         playPauseButton.setBorderPainted(false);
         playPauseButton.setContentAreaFilled(false);
@@ -95,8 +95,9 @@ public class PlayVideo extends javax.swing.JFrame {
             .addGroup(buttonsPanelLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(playPauseButton)
-                .addGap(18, 18, 18)
-                .addComponent(volume, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(volume, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(8, 8, 8))
         );
         buttonsPanelLayout.setVerticalGroup(
             buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,11 +186,11 @@ public class PlayVideo extends javax.swing.JFrame {
         if (flag == 0){
             flag = 1;
             oracleVid.pause();
-            playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pause.png")));
+            playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pause negro.png")));
         }else{
             flag = 0;
             oracleVid.play();
-            playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/play blanco.png")));
+            playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/play negro.png")));
         }
     }//GEN-LAST:event_playPauseButtonActionPerformed
 
