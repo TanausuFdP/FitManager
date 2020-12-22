@@ -57,13 +57,13 @@ public class TimeTable extends javax.swing.JFrame {
     private void addActivitiesClient() {
         
         for (Activity activity : activityController.getActivitiesByType(Activity.ROOM)) 
-            activitiesMonitor.add(activity);
+            activitiesClient.add(activity);
         for (Activity activity : activityController.getActivitiesByType(Activity.ACTIVITY)) 
-            activitiesMonitor.add(activity);
-        if (activitiesMonitor.isEmpty()) noReservationsLabel.setText("No tiene ninguna reserva");
+            activitiesClient.add(activity);
+        if (activitiesClient.isEmpty()) noReservationsLabel.setText("No tiene ninguna reserva");
         else {
-            sortReservationsList(activitiesMonitor);
-            for (Activity activity : activitiesMonitor) {
+            sortReservationsList(activitiesClient);
+            for (Activity activity : activitiesClient) {
                 listModel.addElement(activity);
             }
         }
