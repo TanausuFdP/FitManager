@@ -102,41 +102,37 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="currentPasswordLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="phoneNumberLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="newPasswordLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="currentPasswordLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="newPasswordLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                           <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="currentPassword" min="-2" pref="139" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="phoneNumber" pref="139" max="32767" attributes="0"/>
+                                              <Component id="currentPassword" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="newPassword" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="newPassword2" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="newPasswordLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="newPassword" min="-2" pref="139" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="phoneNumberLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="phoneNumber" min="-2" pref="139" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="newPasswordLabel2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="newPassword2" min="-2" pref="139" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                                           <Component id="acceptButton" min="-2" pref="102" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="cancelButton" min="-2" pref="102" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
                   <Component id="clearButton" min="-2" pref="108" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -156,29 +152,29 @@
                       <Component id="phoneNumberLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="phoneNumber" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="currentPasswordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="currentPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="newPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="newPasswordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="newPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="newPasswordLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="newPassword2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Component id="clearButton" min="-2" pref="35" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="acceptButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       <Component id="cancelButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -229,14 +225,10 @@
             <Property name="text" type="java.lang.String" value="Clave actual:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="currentPassword">
-        </Component>
         <Component class="javax.swing.JLabel" name="newPasswordLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Clave nueva:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="newPassword">
         </Component>
         <Component class="javax.swing.JButton" name="cancelButton">
           <Properties>
@@ -259,14 +251,18 @@
             <Property name="text" type="java.lang.String" value="Repetir clave:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="newPassword2">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="ff" type="rgb"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="currentPassword">
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="newPassword">
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="newPassword2">
         </Component>
       </SubComponents>
     </Container>
