@@ -33,7 +33,6 @@ public class Statistics extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(320, 568));
         setMinimumSize(new java.awt.Dimension(320, 568));
-        setPreferredSize(new java.awt.Dimension(320, 568));
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(255, 0, 0));
@@ -58,11 +57,6 @@ public class Statistics extends javax.swing.JFrame {
         dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button_pressed.png"))); // NOI18N
         dynamicButton.setBorderPainted(false);
         dynamicButton.setContentAreaFilled(false);
-        dynamicButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dynamicButtonActionPerformed(evt);
-            }
-        });
 
         scheduleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/schedule_button.png"))); // NOI18N
         scheduleButton.setBorderPainted(false);
@@ -213,25 +207,11 @@ public class Statistics extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void dynamicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dynamicButtonActionPerformed
-        switch(loggedUser.getRole()){
-            case 1:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
-                break;
-            case 2:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
-                break;
-            case 3:
-                Reservations reservation = new Reservations(loggedUser);
-                reservation.setLocation(this.getLocation());
-                reservation.setVisible(true);
-                this.dispose();
-                break;
-        }
-    }//GEN-LAST:event_dynamicButtonActionPerformed
-
     private void scheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scheduleButtonActionPerformed
-
+        TimeTable timeTable = new TimeTable(loggedUser);
+        timeTable.setLocation(this.getLocation());
+        timeTable.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_scheduleButtonActionPerformed
 
     private void videosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButtonActionPerformed

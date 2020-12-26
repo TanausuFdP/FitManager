@@ -9,14 +9,14 @@ import javax.swing.DefaultListModel;
 
 
 
-public class TimeTable extends javax.swing.JFrame {
+public class Workday extends javax.swing.JFrame {
 
     private final User loggedUser;
     private ActivityController activityController = new ActivityController();
     private final DefaultListModel listModel = new DefaultListModel();
-    private List<Activity> activitiesClient = new ArrayList<> ();
+    private List<Activity> activitiesMonitor = new ArrayList<> ();
     
-    public TimeTable(User user) {
+    public Workday(User user) {
         this.loggedUser = user;
         initComponents();
         switch(loggedUser.getRole()){
@@ -25,32 +25,27 @@ public class TimeTable extends javax.swing.JFrame {
                 break;
             case 2:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
-                addActivitiesClient();
-                sortReservationsList(activitiesClient);
+                addActivitiesMonitor();
                 break;
             case 3:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
-                addActivitiesClient();
-                sortReservationsList(activitiesClient);
                 break;
         }
     }
-    
-    private void addActivitiesClient() {
-        
-        for (Activity activity : activityController.getActivitiesByType(Activity.ROOM)) 
-            activitiesClient.add(activity);
-        for (Activity activity : activityController.getActivitiesByType(Activity.ACTIVITY)) 
-            activitiesClient.add(activity);
-        if (activitiesClient.isEmpty()) noReservationsLabel.setText("No tiene ninguna reserva");
+
+    private void addActivitiesMonitor() {
+        for (Activity activity : activityController.getActivitiesByMonitorId(loggedUser.getId()))
+            activitiesMonitor.add(activity);
+        if (activitiesMonitor.isEmpty()) noActivitiesLabel.setText("No tiene ninguna actividad/sala");
         else {
-            sortReservationsList(activitiesClient);
-            for (Activity activity : activitiesClient) {
+            sortReservationsList(activitiesMonitor);
+            for (Activity activity : activitiesMonitor) {
                 listModel.addElement(activity);
             }
         }
         jList1.setModel(listModel);
     }
+    
 
     private void sortReservationsList(List<Activity> activities) {
         Activity lessDate;
@@ -84,7 +79,7 @@ public class TimeTable extends javax.swing.JFrame {
         videosButton = new javax.swing.JButton();
         directsButton = new javax.swing.JButton();
         accountButton = new javax.swing.JButton();
-        noReservationsLabel = new javax.swing.JLabel();
+        noActivitiesLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -107,22 +102,22 @@ public class TimeTable extends javax.swing.JFrame {
         generalPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         titleLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        titleLabel.setText("Horario");
+        titleLabel.setText("Jornada laboral");
 
         jScrollPane1.setViewportView(jList1);
 
-        dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png"))); // NOI18N
+        dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button_pressed.png"))); // NOI18N
         dynamicButton.setBorderPainted(false);
         dynamicButton.setContentAreaFilled(false);
-        dynamicButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dynamicButtonActionPerformed(evt);
-            }
-        });
 
-        scheduleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/schedule_button_pressed.png"))); // NOI18N
+        scheduleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/schedule_button.png"))); // NOI18N
         scheduleButton.setBorderPainted(false);
         scheduleButton.setContentAreaFilled(false);
+        scheduleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                scheduleButtonActionPerformed(evt);
+            }
+        });
 
         videosButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/video_button.png"))); // NOI18N
         videosButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -147,7 +142,7 @@ public class TimeTable extends javax.swing.JFrame {
             }
         });
 
-        noReservationsLabel.setForeground(new java.awt.Color(255, 0, 0));
+        noActivitiesLabel.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout generalPanelLayout = new javax.swing.GroupLayout(generalPanel);
         generalPanel.setLayout(generalPanelLayout);
@@ -176,7 +171,7 @@ public class TimeTable extends javax.swing.JFrame {
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, generalPanelLayout.createSequentialGroup()
                                 .addGap(61, 61, 61)
-                                .addComponent(noReservationsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(noActivitiesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         generalPanelLayout.setVerticalGroup(
@@ -185,7 +180,7 @@ public class TimeTable extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(titleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(noReservationsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(noActivitiesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -219,27 +214,6 @@ public class TimeTable extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void dynamicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dynamicButtonActionPerformed
-        switch(loggedUser.getRole()){
-            case 1:
-                Statistics statistics = new Statistics(loggedUser);
-                statistics.setLocation(this.getLocation());
-                statistics.setVisible(true);
-                break;
-            case 2:
-                Workday workday = new Workday(loggedUser);
-                workday.setLocation(this.getLocation());
-                workday.setVisible(true);
-                break;
-            case 3:
-                Reservations reservation = new Reservations(loggedUser);
-                reservation.setLocation(this.getLocation());
-                reservation.setVisible(true);
-                break;
-        }
-        this.dispose();
-    }//GEN-LAST:event_dynamicButtonActionPerformed
-
     private void accountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountButtonActionPerformed
         MainMenu mainMenu = new MainMenu(loggedUser);
         mainMenu.setLocation(this.getLocation());
@@ -267,6 +241,13 @@ public class TimeTable extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_videosButtonActionPerformed
 
+    private void scheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scheduleButtonActionPerformed
+        TimeTable timeTable = new TimeTable(loggedUser);
+        timeTable.setLocation(this.getLocation());
+        timeTable.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_scheduleButtonActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -279,7 +260,7 @@ public class TimeTable extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel logoPanel;
-    private javax.swing.JLabel noReservationsLabel;
+    private javax.swing.JLabel noActivitiesLabel;
     private javax.swing.JButton scheduleButton;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JButton videosButton;

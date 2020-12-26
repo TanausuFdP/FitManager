@@ -216,21 +216,22 @@ public class VideosClient extends javax.swing.JFrame {
                 Statistics statistics = new Statistics(loggedUser);
                 statistics.setLocation(this.getLocation());
                 statistics.setVisible(true);
-                this.dispose();
                 break;
-            //case 2:
-            //break;
+            case 2:
+                Workday workday = new Workday(loggedUser);
+                workday.setLocation(this.getLocation());
+                workday.setVisible(true);
+                break;
             case 3:
                 Reservations reservation = new Reservations(loggedUser);
                 reservation.setLocation(this.getLocation());
                 reservation.setVisible(true);
-                this.dispose();
                 break;
         }
+        this.dispose();
     }//GEN-LAST:event_dynamicButtonActionPerformed
 
     private void showVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showVideoButtonActionPerformed
-
         Video video = (Video)listModel.getElementAt(jList1.getSelectedIndex());
         PlayVideo playVideo = new PlayVideo(loggedUser,video.getUrl());
         playVideo.setLocation(this.getLocation());

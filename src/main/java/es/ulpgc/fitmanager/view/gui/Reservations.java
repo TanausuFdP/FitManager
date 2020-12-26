@@ -141,11 +141,6 @@ public class Reservations extends javax.swing.JFrame {
         dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button_pressed.png"))); // NOI18N
         dynamicButton.setBorderPainted(false);
         dynamicButton.setContentAreaFilled(false);
-        dynamicButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dynamicButtonActionPerformed(evt);
-            }
-        });
 
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -297,13 +292,6 @@ public class Reservations extends javax.swing.JFrame {
         timeTable.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_scheduleButtonActionPerformed
-
-    private void dynamicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dynamicButtonActionPerformed
-        Reservations reservation = new Reservations(loggedUser);
-        reservation.setLocation(this.getLocation());
-        reservation.setVisible(true);
-        this.dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_dynamicButtonActionPerformed
 
     private void videosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButtonActionPerformed
         VideosClient videos = new VideosClient(loggedUser);

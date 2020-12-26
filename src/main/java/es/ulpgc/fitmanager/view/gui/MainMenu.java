@@ -305,7 +305,9 @@ public class MainMenu extends javax.swing.JFrame {
                 statistics.setVisible(true);
                 break;
             case 2:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
+                Workday workday = new Workday(loggedUser);
+                workday.setLocation(this.getLocation());
+                workday.setVisible(true);
                 break;
             case 3:
                 Reservations reservation = new Reservations(loggedUser);
@@ -333,8 +335,6 @@ public class MainMenu extends javax.swing.JFrame {
                 break;
         }
         this.dispose();
-        
-        
     }//GEN-LAST:event_scheduleButtonActionPerformed
 
     private void videosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButtonActionPerformed
