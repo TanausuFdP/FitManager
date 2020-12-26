@@ -323,16 +323,14 @@ public class MainMenu extends javax.swing.JFrame {
         switch(loggedUser.getRole()){
             case 1:
                 TimeTableAdmin timeTableAdmin = new TimeTableAdmin(loggedUser);
+                timeTableAdmin.setLocation(this.getLocation());
                 timeTableAdmin.setVisible(true);
-                break;
             case 2:
                 timeTable.setLocation(this.getLocation());
                 timeTable.setVisible(true);
-                break;
             case 3:
                 timeTable.setLocation(this.getLocation());
                 timeTable.setVisible(true);
-                break;
         }
         this.dispose();
     }//GEN-LAST:event_scheduleButtonActionPerformed

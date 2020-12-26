@@ -9,6 +9,17 @@ public class TimeTableAdmin extends javax.swing.JFrame {
     public TimeTableAdmin(User user) {
         initComponents();
         loggedUser = user;
+        switch(loggedUser.getRole()){
+            case 1:
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
+                break;
+            case 2:
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
+                break;
+            case 3:
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
+                break;
+        }
     }
 
     
@@ -171,18 +182,20 @@ public class TimeTableAdmin extends javax.swing.JFrame {
     private void dynamicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dynamicButtonActionPerformed
         switch(loggedUser.getRole()){
             case 1:
-            Statistics statistics = new Statistics(loggedUser);
-            statistics.setLocation(this.getLocation());
-            statistics.setVisible(true);
-            break;
+                Statistics statistics = new Statistics(loggedUser);
+                statistics.setLocation(this.getLocation());
+                statistics.setVisible(true);
+                break;
             case 2:
-            dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
-            break;
+                Workday workday = new Workday(loggedUser);
+                workday.setLocation(this.getLocation());
+                workday.setVisible(true);
+                break;
             case 3:
-            Reservations reservation = new Reservations(loggedUser);
-            reservation.setLocation(this.getLocation());
-            reservation.setVisible(true);
-            break;
+                Reservations reservation = new Reservations(loggedUser);
+                reservation.setLocation(this.getLocation());
+                reservation.setVisible(true);
+                break;
         }
         this.dispose();
     }//GEN-LAST:event_dynamicButtonActionPerformed

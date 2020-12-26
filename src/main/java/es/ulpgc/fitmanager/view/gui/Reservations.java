@@ -1,14 +1,10 @@
 package es.ulpgc.fitmanager.view.gui;
 
 
-import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
 import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.swing.DefaultListModel;
 
 
@@ -17,7 +13,6 @@ public class Reservations extends javax.swing.JFrame {
 
     private final User loggedUser;
     private final ReservationController reservationController = new ReservationController();
-    private final ActivityController activityController = new ActivityController();
     private final DefaultListModel listModel = new DefaultListModel();
     private List<Activity> reservations;
     
@@ -45,11 +40,9 @@ public class Reservations extends javax.swing.JFrame {
         Activity lessDate;
         int lessDateIndex;
         for (int i= 0; i < reservations.size(); i++) {
-            //lessDate = reservations.get(i);
             lessDateIndex = i;
             for(int j= i+1; j < reservations.size(); j++)
                 if(reservations.get(lessDateIndex).getDate().compareTo(reservations.get(j).getDate()) > 0)
-                    //lessDate = reservations.get(j);
                     lessDateIndex = j;
             if(lessDateIndex != i){
                 lessDate = reservations.get(lessDateIndex);
@@ -288,8 +281,18 @@ public class Reservations extends javax.swing.JFrame {
 
     private void scheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scheduleButtonActionPerformed
         TimeTable timeTable = new TimeTable(loggedUser);
-        timeTable.setLocation(this.getLocation());
-        timeTable.setVisible(true);
+        switch(loggedUser.getRole()){
+            case 1:
+                TimeTableAdmin timeTableAdmin = new TimeTableAdmin(loggedUser);
+                timeTableAdmin.setLocation(this.getLocation());
+                timeTableAdmin.setVisible(true);
+            case 2:
+                timeTable.setLocation(this.getLocation());
+                timeTable.setVisible(true);
+            case 3:
+                timeTable.setLocation(this.getLocation());
+                timeTable.setVisible(true);
+        }
         this.dispose();
     }//GEN-LAST:event_scheduleButtonActionPerformed
 

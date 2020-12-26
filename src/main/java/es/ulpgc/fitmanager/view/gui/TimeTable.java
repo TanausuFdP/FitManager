@@ -25,19 +25,15 @@ public class TimeTable extends javax.swing.JFrame {
                 break;
             case 2:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
-                addActivitiesClient();
-                sortReservationsList(activitiesClient);
                 break;
             case 3:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
-                addActivitiesClient();
-                sortReservationsList(activitiesClient);
                 break;
         }
+        addActivitiesClient();
     }
     
     private void addActivitiesClient() {
-        
         for (Activity activity : activityController.getActivitiesByType(Activity.ROOM)) 
             activitiesClient.add(activity);
         for (Activity activity : activityController.getActivitiesByType(Activity.ACTIVITY)) 
