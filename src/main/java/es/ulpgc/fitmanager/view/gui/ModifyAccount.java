@@ -204,46 +204,67 @@ public class ModifyAccount extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {
         MainMenu mainMenu = new MainMenu(loggedUser);
         mainMenu.setLocation(this.getLocation());
         mainMenu.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_backButtonActionPerformed
+    }
 
-    private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptButtonActionPerformed
-        if (ableToUpdate()) {
-            loggedUser = userController.updateUser(User.builder()
+    private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if(newPassword.getText().isEmpty() && newPassword2.getText().isEmpty()){
+            if(!phoneNumber.getText().isEmpty() || !phoneNumber.getText().equals(loggedUser.getPhoneNumber())){
+                loggedUser = userController.updateUser(User.builder()
                     .username(loggedUser.getUsername())
                     .id(loggedUser.getId())
                     .name(loggedUser.getName())
                     .surname(loggedUser.getSurname())
-                    .password(newPassword.getText())
+                    .password(loggedUser.getPassword())
                     .phoneNumber(Integer.valueOf(phoneNumber.getText()))
                     .role(loggedUser.getRole())
                     .build());
-            
-            MainMenu mainMenu = new MainMenu(loggedUser);
-            mainMenu.setLocation(this.getLocation());
-            mainMenu.setVisible(true);
-            this.dispose();
-            jLabel3.setText("Cambios realizados");
-            //indicar que se ha cambiado. Puede que volver atrás.
+                System.out.println("Cambio de telefono");
+                MainMenu mainMenu = new MainMenu(loggedUser);
+                mainMenu.setLocation(this.getLocation());
+                mainMenu.setVisible(true);
+                this.dispose();
+            } else {
+               jLabel3.setText("Error al introducir el teléfono");
+            }
         } else {
-            jLabel3.setText("Error al realizar los cambios");
+            if(passwordEncoder.matches(currentPassword.getText(),loggedUser.getPassword()) &&
+               passwordEncoder.matches(newPassword.getText(),newPassword2.getText())){
+                if(!phoneNumber.getText().isEmpty() || !phoneNumber.getText().equals(loggedUser.getPhoneNumber())){
+                    loggedUser = userController.updateUser(User.builder()
+                        .username(loggedUser.getUsername())
+                        .id(loggedUser.getId())
+                        .name(loggedUser.getName())
+                        .surname(loggedUser.getSurname())
+                        .password(newPassword.getText())
+                        .phoneNumber(Integer.valueOf(phoneNumber.getText()))
+                        .role(loggedUser.getRole())
+                        .build());
+                    System.out.println("Cambio de contraseña y telefono");
+                } else {
+                    loggedUser = userController.updateUser(User.builder()
+                        .username(loggedUser.getUsername())
+                        .id(loggedUser.getId())
+                        .name(loggedUser.getName())
+                        .surname(loggedUser.getSurname())
+                        .password(newPassword.getText())
+                        .phoneNumber(loggedUser.getPhoneNumber())
+                        .role(loggedUser.getRole())
+                        .build());
+                    System.out.println("Cambio de contraseña");
+                }
+                MainMenu mainMenu = new MainMenu(loggedUser);
+                mainMenu.setLocation(this.getLocation());
+                mainMenu.setVisible(true);
+                this.dispose();
+            } else {
+                jLabel3.setText("Error al introducir la contraseña");
+            }
         }
-    }//GEN-LAST:event_acceptButtonActionPerformed
-
-    private boolean ableToUpdate() { return !unableToUpdate();}
-
-    private boolean unableToUpdate() {
-        return  ((newPassword.getText().isEmpty() ||
-                newPassword2.getText().isEmpty()) &&
-                (!phoneNumber.getText().isEmpty() ||
-                !phoneNumber.getText().equals(loggedUser.getPhoneNumber()))) ||
-                ((!newPassword.getText().isEmpty() ||
-                !newPassword2.getText().isEmpty()) &&
-                !passwordEncoder.matches(currentPassword.getText(),loggedUser.getPassword()));
     }
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
