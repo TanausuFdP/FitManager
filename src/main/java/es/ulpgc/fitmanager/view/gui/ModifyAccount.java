@@ -213,17 +213,8 @@ public class ModifyAccount extends javax.swing.JFrame {
 
     private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {
         if(newPassword.getText().isEmpty() && newPassword2.getText().isEmpty()){
-            if(!phoneNumber.getText().isEmpty() || !phoneNumber.getText().equals(loggedUser.getPhoneNumber())){
-                loggedUser = userController.updateUser(User.builder()
-                    .username(loggedUser.getUsername())
-                    .id(loggedUser.getId())
-                    .name(loggedUser.getName())
-                    .surname(loggedUser.getSurname())
-                    .password(loggedUser.getPassword())
-                    .phoneNumber(Integer.valueOf(phoneNumber.getText()))
-                    .role(loggedUser.getRole())
-                    .build());
-                System.out.println("Cambio de telefono");
+            if(!(phoneNumber.getText().isEmpty() || phoneNumber.getText().equals(loggedUser.getPhoneNumber()))){
+                loggedUser.setPhoneNumber(Integer.valueOf(phoneNumber.getText()));
                 MainMenu mainMenu = new MainMenu(loggedUser);
                 mainMenu.setLocation(this.getLocation());
                 mainMenu.setVisible(true);
@@ -234,7 +225,7 @@ public class ModifyAccount extends javax.swing.JFrame {
         } else {
             if(passwordEncoder.matches(currentPassword.getText(),loggedUser.getPassword()) &&
                passwordEncoder.matches(newPassword.getText(),newPassword2.getText())){
-                if(!phoneNumber.getText().isEmpty() || !phoneNumber.getText().equals(loggedUser.getPhoneNumber())){
+                if(!(phoneNumber.getText().isEmpty() || phoneNumber.getText().equals(loggedUser.getPhoneNumber()))){
                     loggedUser = userController.updateUser(User.builder()
                         .username(loggedUser.getUsername())
                         .id(loggedUser.getId())
@@ -244,7 +235,6 @@ public class ModifyAccount extends javax.swing.JFrame {
                         .phoneNumber(Integer.valueOf(phoneNumber.getText()))
                         .role(loggedUser.getRole())
                         .build());
-                    System.out.println("Cambio de contraseña y telefono");
                 } else {
                     loggedUser = userController.updateUser(User.builder()
                         .username(loggedUser.getUsername())
@@ -255,7 +245,6 @@ public class ModifyAccount extends javax.swing.JFrame {
                         .phoneNumber(loggedUser.getPhoneNumber())
                         .role(loggedUser.getRole())
                         .build());
-                    System.out.println("Cambio de contraseña");
                 }
                 MainMenu mainMenu = new MainMenu(loggedUser);
                 mainMenu.setLocation(this.getLocation());
