@@ -1,5 +1,6 @@
 package es.ulpgc.fitmanager.controller.dbcontroller;
 
+import es.ulpgc.fitmanager.controller.action.DeleteActivityByIdAction;
 import es.ulpgc.fitmanager.controller.action.GetActivityByTypeAction;
 import es.ulpgc.fitmanager.controller.action.GetActivityByIdAction;
 import es.ulpgc.fitmanager.controller.action.GetActivitiesByMonitorIdAction;
@@ -20,14 +21,16 @@ import java.util.List;
 public class ActivityController extends Controller {
 
     public ActivityController() {
+        deleteActivityByIdAction = new DeleteActivityByIdAction();
         getActivityByIdAction = new GetActivityByIdAction();
         getActivityByNameAction = new GetActivityByNameAction();
         getActivitiesByMonitorIdAction = new GetActivitiesByMonitorIdAction();
         getActivitiesByTypeAction = new GetActivityByTypeAction();
         getCountOfActivitiesByMonitorIdAction = new GetCountOfActivitiesByMonitorIdAction();
         insertActivityAction = new InsertActivityAction();
-
     }
+    private final DeleteActivityByIdAction deleteActivityByIdAction;
+    
     private final GetActivityByIdAction getActivityByIdAction;
 
     private final GetActivityByNameAction getActivityByNameAction;
@@ -40,6 +43,11 @@ public class ActivityController extends Controller {
 
     private final InsertActivityAction insertActivityAction;
 
+    public void deleteActivityById(Integer activityId){
+        Connection conn = connectToDB();
+        deleteActivityByIdAction.execute(conn, activityId);
+    }
+    
     public Activity getActivityById(Integer activityId) {
         Connection conn = connectToDB();
         try {

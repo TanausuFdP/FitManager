@@ -16,7 +16,14 @@ import java.util.List;
 
 @Slf4j
 public class ActivityRepository {
-
+    public void deleteActivityById(Connection conn, Integer activityId){
+        String sql = "DELETE FROM Activity WHERE id=?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+            preparedStatement.setInt(1,activityId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) { log.error(ex.getLocalizedMessage()); }
+    }
+    
     public Activity getActivityById(Connection conn, Integer activityId) {
         String sql = "SELECT * FROM Activity WHERE id=?";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {

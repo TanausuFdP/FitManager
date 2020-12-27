@@ -34,11 +34,17 @@ public class TimeTable extends javax.swing.JFrame {
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
                 addButton.setVisible(false);
                 deleteButton.setVisible(false);
+                if(scheduleList.isSelectionEmpty()){
+                    deleteButton.setEnabled(false);
+                }
                 break;
             case 3:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
                 addButton.setVisible(false);
                 deleteButton.setVisible(false);
+                if(scheduleList.isSelectionEmpty()){
+                    deleteButton.setEnabled(false);
+                }
                 break;
         }
         addActivities();
@@ -125,6 +131,11 @@ public class TimeTable extends javax.swing.JFrame {
         });
 
         deleteButton.setText("Eliminar");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         scheduleListScrollPane.setViewportView(scheduleList);
 
@@ -169,32 +180,30 @@ public class TimeTable extends javax.swing.JFrame {
         whitePanelLayout.setHorizontalGroup(
             whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(whitePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scheduleListScrollPane)
-                .addContainerGap())
-            .addGroup(whitePanelLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titleLabel)
                     .addGroup(whitePanelLayout.createSequentialGroup()
-                        .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(titleLabel)
-                            .addGroup(whitePanelLayout.createSequentialGroup()
-                                .addComponent(dynamicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(scheduleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(videosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(directsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(buttonsSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 7, Short.MAX_VALUE))
+                        .addComponent(dynamicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(scheduleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(videosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(directsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonsSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 7, Short.MAX_VALUE))
+            .addGroup(whitePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scheduleListScrollPane)
                     .addGroup(whitePanelLayout.createSequentialGroup()
                         .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(deleteButton)
-                        .addGap(21, 21, 21))))
+                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         whitePanelLayout.setVerticalGroup(
             whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,6 +301,15 @@ public class TimeTable extends javax.swing.JFrame {
         insertActivity.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        if(!scheduleList.isSelectionEmpty()){
+            int index = scheduleList.getSelectedIndex();
+            Activity activity = (Activity) listModel.get(index);
+            activityController.deleteActivityById(activity.getId());
+            listModel.remove(index);
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     
 

@@ -97,7 +97,6 @@ public class InsertActivity extends javax.swing.JFrame {
 
         descriptionLabel.setText("Descripción:");
 
-        descriptionText.setEditable(false);
         descriptionText.setColumns(20);
         descriptionText.setRows(5);
         descriptionTextScrollPane.setViewportView(descriptionText);
@@ -226,9 +225,9 @@ public class InsertActivity extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        MainMenu mainMenu = new MainMenu(loggedUser);
-        mainMenu.setLocation(this.getLocation());
-        mainMenu.setVisible(true);
+        TimeTable timeTable = new TimeTable(loggedUser);
+        timeTable.setLocation(this.getLocation());
+        timeTable.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
@@ -248,6 +247,10 @@ public class InsertActivity extends javax.swing.JFrame {
                 activityType,
                 monitors.get(instructorComboBox.getSelectedIndex()).getId());
         activityController.insertActivity(activity);
+        TimeTable timeTable = new TimeTable(loggedUser);
+        timeTable.setLocation(this.getLocation());
+        timeTable.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_addButtonActionPerformed
 
   
