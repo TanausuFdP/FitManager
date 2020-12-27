@@ -29,22 +29,19 @@ public class TimeTable extends javax.swing.JFrame {
         switch(loggedUser.getRole()){
             case 1:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
+                if(scheduleList.isSelectionEmpty()){
+                    deleteButton.setEnabled(false);
+                }
                 break;
             case 2:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
                 addButton.setVisible(false);
                 deleteButton.setVisible(false);
-                if(scheduleList.isSelectionEmpty()){
-                    deleteButton.setEnabled(false);
-                }
                 break;
             case 3:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
                 addButton.setVisible(false);
                 deleteButton.setVisible(false);
-                if(scheduleList.isSelectionEmpty()){
-                    deleteButton.setEnabled(false);
-                }
                 break;
         }
         addActivities();
@@ -137,6 +134,11 @@ public class TimeTable extends javax.swing.JFrame {
             }
         });
 
+        scheduleList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                scheduleListMouseClicked(evt);
+            }
+        });
         scheduleListScrollPane.setViewportView(scheduleList);
 
         dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png"))); // NOI18N
@@ -310,6 +312,12 @@ public class TimeTable extends javax.swing.JFrame {
             listModel.remove(index);
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void scheduleListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scheduleListMouseClicked
+        if(!scheduleList.isSelectionEmpty()){
+            deleteButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_scheduleListMouseClicked
 
     
 

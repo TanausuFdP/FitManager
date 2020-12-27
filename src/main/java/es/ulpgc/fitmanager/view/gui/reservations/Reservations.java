@@ -1,7 +1,6 @@
 package es.ulpgc.fitmanager.view.gui.reservations;
 
 
-import es.ulpgc.fitmanager.view.gui.reservations.NewReservation;
 import es.ulpgc.fitmanager.view.gui.video.MonitorVideo;
 import es.ulpgc.fitmanager.view.gui.main.MainMenu;
 import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;

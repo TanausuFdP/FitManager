@@ -2,11 +2,9 @@ package es.ulpgc.fitmanager.view.gui.statistics;
 
 import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
 import es.ulpgc.fitmanager.controller.dbcontroller.UserController;
-import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
 import java.util.List;
 import javax.swing.DefaultListModel;
-import org.jfree.data.xy.XYSeries;
 
 
 public class MonitorStatistics extends javax.swing.JFrame {
@@ -28,10 +26,11 @@ public class MonitorStatistics extends javax.swing.JFrame {
         List<User>monitors = userController.getUsersByRole(User.MONITOR_ROLE);
         
         for (User monitor : monitors) {
-            int sizeActivities = activityController.getCountOfActivitiesByMonitorId(monitor.getId(), Activity.ACTIVITY);
+            /*int sizeActivities = activityController.getCountOfActivitiesByMonitorId(monitor.getId(), Activity.ACTIVITY);
             int sizeRooms = activityController.getCountOfActivitiesByMonitorId(monitor.getId(), Activity.ROOM);
             listModel.addElement(monitor.getName() + " " + monitor.getSurname() +
-                    ": " + sizeActivities + " actividad/es y " + sizeRooms + " salas");
+                    ": " + sizeActivities + " actividad/es y " + sizeRooms + " salas");*/
+            listModel.addElement(monitor);
         }
         
     }
@@ -47,6 +46,7 @@ public class MonitorStatistics extends javax.swing.JFrame {
         titleLabel = new javax.swing.JLabel();
         instructorsListScrollPane = new javax.swing.JScrollPane();
         instructorsList = new javax.swing.JList<>();
+        showMoreButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,7 +84,20 @@ public class MonitorStatistics extends javax.swing.JFrame {
         titleLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         titleLabel.setText("Monitores");
 
+        instructorsList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                instructorsListMouseClicked(evt);
+            }
+        });
         instructorsListScrollPane.setViewportView(instructorsList);
+
+        showMoreButton.setText("Ver más");
+        showMoreButton.setEnabled(false);
+        showMoreButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showMoreButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout whitePanelLayout = new javax.swing.GroupLayout(whitePanel);
         whitePanel.setLayout(whitePanelLayout);
@@ -97,7 +110,8 @@ public class MonitorStatistics extends javax.swing.JFrame {
                     .addGroup(whitePanelLayout.createSequentialGroup()
                         .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(backButton)
-                            .addComponent(titleLabel))
+                            .addComponent(titleLabel)
+                            .addComponent(showMoreButton))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -110,7 +124,9 @@ public class MonitorStatistics extends javax.swing.JFrame {
                 .addComponent(titleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(instructorsListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(showMoreButton)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -138,6 +154,20 @@ public class MonitorStatistics extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void showMoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMoreButtonActionPerformed
+        User monitor = (User) listModel.get(instructorsList.getSelectedIndex());
+        MonitorInformation monitorInformation = new MonitorInformation(loggedUser,monitor);
+        monitorInformation.setLocation(this.getLocation());
+        monitorInformation.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_showMoreButtonActionPerformed
+
+    private void instructorsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_instructorsListMouseClicked
+        if(!instructorsList.isSelectionEmpty()){
+            showMoreButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_instructorsListMouseClicked
+
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -146,6 +176,7 @@ public class MonitorStatistics extends javax.swing.JFrame {
     private javax.swing.JScrollPane instructorsListScrollPane;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel redPanel;
+    private javax.swing.JButton showMoreButton;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JPanel whitePanel;
     // End of variables declaration//GEN-END:variables
