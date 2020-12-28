@@ -64,7 +64,6 @@ public class CancelReservationMessage extends javax.swing.JFrame {
         warningLabel.setText("Aviso");
 
         reservationNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        reservationNameLabel.setText("jLabel1");
 
         informationLabel.setText("¿Desea cancelar la reserva?");
 
@@ -113,8 +112,8 @@ public class CancelReservationMessage extends javax.swing.JFrame {
                 .addComponent(topSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(warningLabel)
-                .addGap(18, 18, 18)
-                .addComponent(reservationNameLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reservationNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(informationLabel)
                 .addGap(33, 33, 33)
@@ -123,7 +122,7 @@ public class CancelReservationMessage extends javax.swing.JFrame {
                     .addComponent(noButton))
                 .addGap(18, 18, 18)
                 .addComponent(bottomSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -117,6 +117,7 @@ public class Reservations extends javax.swing.JFrame {
 
         noReservationsLabel.setForeground(new java.awt.Color(255, 0, 0));
 
+        reservationsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         reservationsList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 reservationsListMouseClicked(evt);

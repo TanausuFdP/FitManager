@@ -117,8 +117,8 @@
                   <Component id="topSeparator" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="warningLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="reservationNameLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="reservationNameLabel" min="-2" pref="12" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="informationLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
@@ -128,7 +128,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="bottomSeparator" min="-2" pref="10" max="-2" attributes="0"/>
-                  <EmptySpace pref="161" max="32767" attributes="0"/>
+                  <EmptySpace pref="175" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -150,7 +150,6 @@
         <Component class="javax.swing.JLabel" name="reservationNameLabel">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="informationLabel">

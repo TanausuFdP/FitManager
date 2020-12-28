@@ -88,6 +88,7 @@ public class VideosClient extends javax.swing.JFrame {
         titleLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         titleLabel.setText("Vídeos");
 
+        videosList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         videosList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 videosListMouseClicked(evt);

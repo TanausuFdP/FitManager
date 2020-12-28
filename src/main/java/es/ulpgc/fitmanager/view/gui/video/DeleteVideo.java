@@ -69,6 +69,7 @@ public class DeleteVideo extends javax.swing.JFrame {
             }
         });
 
+        videosList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         videosList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 videosListMouseClicked(evt);

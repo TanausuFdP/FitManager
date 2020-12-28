@@ -99,6 +99,7 @@ public class Workday extends javax.swing.JFrame {
 
         noActivitiesLabel.setForeground(new java.awt.Color(255, 0, 0));
 
+        workList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         workListScrollPane.setViewportView(workList);
 
         workdayButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button_pressed.png"))); // NOI18N
