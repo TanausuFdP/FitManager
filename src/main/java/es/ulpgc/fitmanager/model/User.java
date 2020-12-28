@@ -21,5 +21,9 @@ public class User {
     private Integer role;
     /** Only used if role == MONITOR_ROLE*/
     private Integer videoListId;
-
+    
+    @Override
+    public String toString(){
+        return name + " " + surname + " " + phoneNumber;
+    }
 }
