@@ -1,14 +1,30 @@
 package es.ulpgc.fitmanager.view.gui.statistics;
 
+import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
+import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
+import java.util.List;
+import javax.swing.DefaultListModel;
 
 
 public class RoomStatistics extends javax.swing.JFrame {
 
     private final User loggedUser;
+    
+    private final ActivityController activityController = new ActivityController();
+    
+    private final DefaultListModel listModel = new DefaultListModel();
+    
     public RoomStatistics(User user) {
         initComponents();
         loggedUser = user;
+        
+        roomsList.setModel(listModel);
+        List<Activity> activities = activityController.getActivitiesByType(Activity.ROOM);
+        
+        for (Activity activity : activities) {
+            listModel.addElement(activity + " Aforo: " + activity.getCapacity());
+        }
     }
 
   
@@ -21,7 +37,8 @@ public class RoomStatistics extends javax.swing.JFrame {
         whitePanel = new javax.swing.JPanel();
         backButton = new javax.swing.JButton();
         titleLabel = new javax.swing.JLabel();
-        statisticsPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        roomsList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,16 +76,7 @@ public class RoomStatistics extends javax.swing.JFrame {
         titleLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         titleLabel.setText("Salas");
 
-        javax.swing.GroupLayout statisticsPanelLayout = new javax.swing.GroupLayout(statisticsPanel);
-        statisticsPanel.setLayout(statisticsPanelLayout);
-        statisticsPanelLayout.setHorizontalGroup(
-            statisticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        statisticsPanelLayout.setVerticalGroup(
-            statisticsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 283, Short.MAX_VALUE)
-        );
+        jScrollPane1.setViewportView(roomsList);
 
         javax.swing.GroupLayout whitePanelLayout = new javax.swing.GroupLayout(whitePanel);
         whitePanel.setLayout(whitePanelLayout);
@@ -77,7 +85,7 @@ public class RoomStatistics extends javax.swing.JFrame {
             .addGroup(whitePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(statisticsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(whitePanelLayout.createSequentialGroup()
                         .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(backButton)
@@ -93,8 +101,8 @@ public class RoomStatistics extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(titleLabel)
                 .addGap(18, 18, 18)
-                .addComponent(statisticsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -126,9 +134,10 @@ public class RoomStatistics extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel redPanel;
-    private javax.swing.JPanel statisticsPanel;
+    private javax.swing.JList<String> roomsList;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JPanel whitePanel;
     // End of variables declaration//GEN-END:variables
