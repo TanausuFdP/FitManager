@@ -7,6 +7,7 @@ import es.ulpgc.fitmanager.view.gui.video.PlayVideo;
 import es.ulpgc.fitmanager.view.gui.main.MainMenu;
 import es.ulpgc.fitmanager.controller.dbcontroller.VideoController;
 import es.ulpgc.fitmanager.model.User;
+import static es.ulpgc.fitmanager.model.User.ADMIN_ROLE;
 import es.ulpgc.fitmanager.model.Video;
 import es.ulpgc.fitmanager.view.gui.workday.Workday;
 import java.util.List;

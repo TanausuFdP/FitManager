@@ -4,6 +4,7 @@ package es.ulpgc.fitmanager.view.gui.video;
 import es.ulpgc.fitmanager.view.gui.main.MainMenu;
 import es.ulpgc.fitmanager.view.gui.video.DeleteVideo;
 import es.ulpgc.fitmanager.model.User;
+import static es.ulpgc.fitmanager.model.User.*;
 import es.ulpgc.fitmanager.view.gui.reservations.Reservations;
 import es.ulpgc.fitmanager.view.gui.statistics.Statistics;
 import es.ulpgc.fitmanager.view.gui.timetable.TimeTable;
@@ -16,6 +17,17 @@ public class MonitorVideo extends javax.swing.JFrame {
     public MonitorVideo(User user) {
         initComponents();
         loggedUser = user;
+        switch(loggedUser.getRole()){
+            case 1:
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
+                break;
+            case 2:
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
+                break;
+            case 3:
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
+                break;
+        }
     }
 
     @SuppressWarnings("unchecked")
