@@ -19,7 +19,7 @@ public class DeleteVideo extends javax.swing.JFrame {
         initComponents();
         loggedUser = user;
         
-        List<Video>videos = videoController.getAllVideos();
+        List<Video> videos = videoController.getVideosByVideoListId(loggedUser.getVideoListId());
         for (Video video : videos) {
             listModel.addElement(video);
         }
