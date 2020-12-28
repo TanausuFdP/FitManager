@@ -284,37 +284,15 @@ public class Reservations extends javax.swing.JFrame {
 
     private void scheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scheduleButtonActionPerformed
         TimeTable timeTable = new TimeTable(loggedUser);
-        switch(loggedUser.getRole()){
-            case User.ADMIN_ROLE:
-                timeTable.setLocation(this.getLocation());
-                timeTable.setVisible(true);
-            case User.MONITOR_ROLE:
-                timeTable.setLocation(this.getLocation());
-                timeTable.setVisible(true);
-            case User.CLIENT_ROLE:
-                timeTable.setLocation(this.getLocation());
-                timeTable.setVisible(true);
-        }
+        timeTable.setLocation(this.getLocation());
+        timeTable.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_scheduleButtonActionPerformed
 
     private void videosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButtonActionPerformed
         VideosClient videos = new VideosClient(loggedUser);
-        switch(loggedUser.getRole()){
-            case User.ADMIN_ROLE:
-                videos.setLocation(this.getLocation());
-                videos.setVisible(true);
-                break;
-            case User.MONITOR_ROLE:
-                MonitorVideo monitorVideo = new MonitorVideo(loggedUser);
-                monitorVideo.setLocation(this.getLocation());
-                monitorVideo.setVisible(true);
-                break;
-            case User.CLIENT_ROLE:
-                videos.setLocation(this.getLocation());
-                videos.setVisible(true);
-                break;
-        }
+        videos.setLocation(this.getLocation());
+        videos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_videosButtonActionPerformed
 

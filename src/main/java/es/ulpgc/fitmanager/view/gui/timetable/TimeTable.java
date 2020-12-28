@@ -279,21 +279,8 @@ public class TimeTable extends javax.swing.JFrame {
 
     private void videosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButtonActionPerformed
         VideosClient videos = new VideosClient(loggedUser);
-        switch(loggedUser.getRole()){
-            case User.ADMIN_ROLE:
-                videos.setLocation(this.getLocation());
-                videos.setVisible(true);
-                break;
-            case User.MONITOR_ROLE:
-                MonitorVideo monitorVideo = new MonitorVideo(loggedUser);
-                monitorVideo.setLocation(this.getLocation());
-                monitorVideo.setVisible(true);
-                break;
-            case User.CLIENT_ROLE:
-                videos.setLocation(this.getLocation());
-                videos.setVisible(true);
-                break;
-        }
+        videos.setLocation(this.getLocation());
+        videos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_videosButtonActionPerformed
 

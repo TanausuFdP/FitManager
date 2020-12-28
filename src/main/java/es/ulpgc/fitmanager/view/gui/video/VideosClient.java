@@ -60,6 +60,7 @@ public class VideosClient extends javax.swing.JFrame {
         homeButton = new javax.swing.JButton();
         videosButton = new javax.swing.JButton();
         directsButton = new javax.swing.JButton();
+        showMyVideoListButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,6 +139,14 @@ public class VideosClient extends javax.swing.JFrame {
         directsButton.setBorderPainted(false);
         directsButton.setContentAreaFilled(false);
 
+        showMyVideoListButton.setText("Ver mi lista");
+        showMyVideoListButton.setEnabled(false);
+        showMyVideoListButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showMyVideoListButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout whitePanelLayout = new javax.swing.GroupLayout(whitePanel);
         whitePanel.setLayout(whitePanelLayout);
         whitePanelLayout.setHorizontalGroup(
@@ -145,23 +154,29 @@ public class VideosClient extends javax.swing.JFrame {
             .addGroup(whitePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(videosListScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(whitePanelLayout.createSequentialGroup()
-                            .addComponent(titleLabel)
-                            .addGap(239, 239, 239)))
                     .addGroup(whitePanelLayout.createSequentialGroup()
-                        .addComponent(dynamicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(scheduleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(videosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(directsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(buttonsSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(showVideoButton))
+                        .addComponent(showVideoButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(showMyVideoListButton))
+                    .addGroup(whitePanelLayout.createSequentialGroup()
+                        .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(videosListScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(whitePanelLayout.createSequentialGroup()
+                                    .addComponent(titleLabel)
+                                    .addGap(239, 239, 239)))
+                            .addGroup(whitePanelLayout.createSequentialGroup()
+                                .addComponent(dynamicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(scheduleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(homeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(videosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(directsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(buttonsSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         whitePanelLayout.setVerticalGroup(
@@ -172,7 +187,9 @@ public class VideosClient extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(videosListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(showVideoButton)
+                .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(showVideoButton)
+                    .addComponent(showMyVideoListButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(buttonsSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -259,6 +276,13 @@ public class VideosClient extends javax.swing.JFrame {
         if(!videosList.isSelectionEmpty()) showVideoButton.setEnabled(true);
     }//GEN-LAST:event_videosListMouseClicked
 
+    private void showMyVideoListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showMyVideoListButtonActionPerformed
+        MonitorVideo monitorVideo = new MonitorVideo(loggedUser);
+        monitorVideo.setLocation(this.getLocation());
+        monitorVideo.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_showMyVideoListButtonActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -269,6 +293,7 @@ public class VideosClient extends javax.swing.JFrame {
     private javax.swing.JLabel logo;
     private javax.swing.JPanel redPanel;
     private javax.swing.JButton scheduleButton;
+    private javax.swing.JButton showMyVideoListButton;
     private javax.swing.JButton showVideoButton;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JButton videosButton;
