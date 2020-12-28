@@ -4,16 +4,17 @@ import es.ulpgc.fitmanager.view.repository.ActivityRepository;
 import es.ulpgc.fitmanager.model.Activity;
 
 import java.sql.Connection;
+import java.time.LocalDateTime;
 
-public class GetActivityByNameAction {
+public class GetActivityByKeyAction {
 
-    public GetActivityByNameAction(){
+    public GetActivityByKeyAction(){
         activityRepository = new ActivityRepository();
     }
 
     private final ActivityRepository activityRepository;
 
-    public Activity execute(Connection conn, String activityName) {
-        return activityRepository.getActivityByName(conn, activityName);
+    public Activity execute(Connection conn, String name, LocalDateTime date, Integer monitorId) {
+        return activityRepository.getActivityByKey(conn, name, date, monitorId);
     }
 }

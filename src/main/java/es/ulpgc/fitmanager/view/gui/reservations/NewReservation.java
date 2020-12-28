@@ -1,6 +1,5 @@
 package es.ulpgc.fitmanager.view.gui.reservations;
 
-import es.ulpgc.fitmanager.controller.action.GetActivityByNameAction;
 import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
 import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
 import es.ulpgc.fitmanager.model.Activity;

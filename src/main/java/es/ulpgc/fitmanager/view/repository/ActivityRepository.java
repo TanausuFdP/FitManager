@@ -51,15 +51,18 @@ public class ActivityRepository {
                 .build();
     }
     
-    public Activity getActivityByName(Connection conn, String name) {
-        String sql = "SELECT * FROM Activity WHERE name=?";
+    public Activity getActivityByKey(Connection conn, String name, LocalDateTime date, Integer monitorId) {
+        String sql = "SELECT * FROM Activity WHERE name=? AND date=? AND monitorId=?";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
             preparedStatement.setString(1,name);
+            preparedStatement.setString(2, date
+                    .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+            preparedStatement.setInt(3,monitorId);
             ResultSet resultSet = preparedStatement.executeQuery();
             return getActivity(resultSet);
         } catch (SQLException ex) {
             throw new ActivityNotFoundException("No se ha encontrado ninguna actividad "
-                    + "de nombre" + name + ".");
+                    + "con esa clave.");
         }
     }
 

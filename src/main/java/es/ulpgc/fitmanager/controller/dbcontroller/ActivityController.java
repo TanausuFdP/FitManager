@@ -1,19 +1,14 @@
 package es.ulpgc.fitmanager.controller.dbcontroller;
 
-import es.ulpgc.fitmanager.controller.action.DeleteActivityByIdAction;
-import es.ulpgc.fitmanager.controller.action.GetActivityByTypeAction;
-import es.ulpgc.fitmanager.controller.action.GetActivityByIdAction;
-import es.ulpgc.fitmanager.controller.action.GetActivitiesByMonitorIdAction;
-import es.ulpgc.fitmanager.controller.action.GetActivityByNameAction;
-import es.ulpgc.fitmanager.controller.action.GetCountOfActivitiesByMonitorIdAction;
-import es.ulpgc.fitmanager.controller.action.InsertActivityAction;
-import es.ulpgc.fitmanager.controller.exceptions.ActivityAlreadyExistsException;
+import es.ulpgc.fitmanager.controller.action.*;
 import es.ulpgc.fitmanager.controller.exceptions.ActivityNotFoundException;
 import es.ulpgc.fitmanager.controller.exceptions.EmptyListException;
+import es.ulpgc.fitmanager.controller.exceptions.MonitorNotAvailableException;
 import es.ulpgc.fitmanager.model.Activity;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +18,7 @@ public class ActivityController extends Controller {
     public ActivityController() {
         deleteActivityByIdAction = new DeleteActivityByIdAction();
         getActivityByIdAction = new GetActivityByIdAction();
-        getActivityByNameAction = new GetActivityByNameAction();
+        getActivityByKeyAction = new GetActivityByKeyAction();
         getActivitiesByMonitorIdAction = new GetActivitiesByMonitorIdAction();
         getActivitiesByTypeAction = new GetActivityByTypeAction();
         getCountOfActivitiesByMonitorIdAction = new GetCountOfActivitiesByMonitorIdAction();
@@ -33,7 +28,7 @@ public class ActivityController extends Controller {
     
     private final GetActivityByIdAction getActivityByIdAction;
 
-    private final GetActivityByNameAction getActivityByNameAction;
+    private final GetActivityByKeyAction getActivityByKeyAction;
 
     private final GetActivitiesByMonitorIdAction getActivitiesByMonitorIdAction;
 
@@ -58,10 +53,11 @@ public class ActivityController extends Controller {
         }
     }
 
-    public Activity getActivityByName(String activityName) {
+    public Activity getActivityByKey(String activityName,
+                                     LocalDateTime date, Integer monitorId) {
         Connection conn = connectToDB();
         try {
-            return getActivityByNameAction.execute(conn, activityName);
+            return getActivityByKeyAction.execute(conn, activityName, date, monitorId);
         } catch (ActivityNotFoundException ex) {
             log.error(ex.getLocalizedMessage());
             return null;
@@ -98,7 +94,7 @@ public class ActivityController extends Controller {
         Connection conn = connectToDB();
         try {
             return insertActivityAction.execute(conn, activity);
-        } catch (ActivityAlreadyExistsException ex) {
+        } catch (MonitorNotAvailableException ex) {
             log.error(ex.getLocalizedMessage());
             return null;
         }
