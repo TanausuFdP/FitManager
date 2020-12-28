@@ -3,11 +3,9 @@ package es.ulpgc.fitmanager.view.gui.video;
 import es.ulpgc.fitmanager.view.gui.timetable.TimeTable;
 import es.ulpgc.fitmanager.view.gui.statistics.Statistics;
 import es.ulpgc.fitmanager.view.gui.reservations.Reservations;
-import es.ulpgc.fitmanager.view.gui.video.PlayVideo;
 import es.ulpgc.fitmanager.view.gui.main.MainMenu;
 import es.ulpgc.fitmanager.controller.dbcontroller.VideoController;
 import es.ulpgc.fitmanager.model.User;
-import static es.ulpgc.fitmanager.model.User.ADMIN_ROLE;
 import es.ulpgc.fitmanager.model.Video;
 import es.ulpgc.fitmanager.view.gui.workday.Workday;
 import java.util.List;
@@ -25,12 +23,14 @@ public class VideosClient extends javax.swing.JFrame {
         switch(loggedUser.getRole()){
             case User.ADMIN_ROLE:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
+                showMyVideoListButton.setVisible(false);
                 break;
             case User.MONITOR_ROLE:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
                 break;
             case User.CLIENT_ROLE:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
+                showMyVideoListButton.setVisible(false);
                 break;
         }
         
@@ -140,7 +140,6 @@ public class VideosClient extends javax.swing.JFrame {
         directsButton.setContentAreaFilled(false);
 
         showMyVideoListButton.setText("Ver mi lista");
-        showMyVideoListButton.setEnabled(false);
         showMyVideoListButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showMyVideoListButtonActionPerformed(evt);
