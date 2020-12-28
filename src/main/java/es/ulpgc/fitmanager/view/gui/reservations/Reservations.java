@@ -337,12 +337,10 @@ public class Reservations extends javax.swing.JFrame {
 
     private void cancelReservationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelReservationButtonActionPerformed
         Activity activity = (Activity)listModel.getElementAt(reservationsList.getSelectedIndex());
-        reservationController.cancelReservation(loggedUser.getId(), activity.getId());
-        listModel.removeElementAt(reservationsList.getSelectedIndex());
-        if(reservationsList.isSelectionEmpty()){
-            viewReservationButton.setEnabled(false);
-            cancelReservationButton.setEnabled(false);
-        }
+        CancelReservationMessage cancel = new CancelReservationMessage(loggedUser, activity);
+        cancel.setLocation(this.getLocation());
+        cancel.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_cancelReservationButtonActionPerformed
 
 

@@ -1,16 +1,19 @@
 package es.ulpgc.fitmanager.view.gui.reservations;
 
+import es.ulpgc.fitmanager.controller.dbcontroller.UserController;
 import es.ulpgc.fitmanager.view.gui.reservations.Reservations;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ShowReservation extends javax.swing.JFrame {
 
     private final User loggedUser;
     private final Activity activity;
+    private UserController userController = new UserController();
     
     public ShowReservation(User user, Activity activity) {
         initComponents();
@@ -20,12 +23,17 @@ public class ShowReservation extends javax.swing.JFrame {
     }
 
     private void showActivityElements() {
+        LocalDateTime finalDate = activity.getDate().plusMinutes(activity.getDuration());
         titleLabel.setText(activity.getName());
         descriptionText.setWrapStyleWord(true);
         descriptionText.setLineWrap(true);
         descriptionText.setText(activity.getDescription());
-        durationLabel.setText(activity.getDuration() + " minutos");
+        instructorLabel.setText(userController.getUserById(activity.getMonitorId()).getName());
         dateLabel.setText("" + activity.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+        finalLabel.setText("" + finalDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
+        durationLabel.setText(activity.getDuration() + " minutos");
+        weeklyCheckBox.setSelected(activity.getWeekly());
+        capacityLabel.setText(activity.getCapacity().toString());
     }
     
     @SuppressWarnings("unchecked")
@@ -37,13 +45,23 @@ public class ShowReservation extends javax.swing.JFrame {
         whitePanel = new javax.swing.JPanel();
         backButton = new javax.swing.JButton();
         titleLabel = new javax.swing.JLabel();
-        descriptionLabel = new javax.swing.JLabel();
         descriptionTextScrollPane = new javax.swing.JScrollPane();
         descriptionText = new javax.swing.JTextArea();
-        durationInformationLabel = new javax.swing.JLabel();
-        durationLabel = new javax.swing.JLabel();
+        separator1 = new javax.swing.JSeparator();
+        instructorInformationLabel = new javax.swing.JLabel();
+        instructorLabel = new javax.swing.JLabel();
+        separator2 = new javax.swing.JSeparator();
         dateInformationLabel = new javax.swing.JLabel();
         dateLabel = new javax.swing.JLabel();
+        finalInformationLabel = new javax.swing.JLabel();
+        finalLabel = new javax.swing.JLabel();
+        durationInformationLabel = new javax.swing.JLabel();
+        durationLabel = new javax.swing.JLabel();
+        separator3 = new javax.swing.JSeparator();
+        weeklyInformationLabel = new javax.swing.JLabel();
+        weeklyCheckBox = new javax.swing.JCheckBox();
+        capacityInformationLabel = new javax.swing.JLabel();
+        capacityLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -85,16 +103,43 @@ public class ShowReservation extends javax.swing.JFrame {
         titleLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         titleLabel.setText("Título actividad");
 
-        descriptionLabel.setText("Descripción:");
+        descriptionTextScrollPane.setBorder(null);
 
         descriptionText.setEditable(false);
         descriptionText.setColumns(20);
         descriptionText.setRows(5);
         descriptionTextScrollPane.setViewportView(descriptionText);
 
+        instructorInformationLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        instructorInformationLabel.setText("Monitor:");
+
+        instructorLabel.setText("jLabel1");
+
+        dateInformationLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        dateInformationLabel.setText("Inicio:");
+
+        dateLabel.setText("jLabel1");
+
+        finalInformationLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        finalInformationLabel.setText("Final:");
+
+        finalLabel.setText("jLabel1");
+
+        durationInformationLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         durationInformationLabel.setText("Duración:");
 
-        dateInformationLabel.setText("Inicio:");
+        durationLabel.setText("jLabel1");
+
+        weeklyInformationLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        weeklyInformationLabel.setText("Semanal:");
+
+        weeklyCheckBox.setEnabled(false);
+        weeklyCheckBox.setFocusable(false);
+
+        capacityInformationLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        capacityInformationLabel.setText("Aforo:");
+
+        capacityLabel.setText("jLabel1");
 
         javax.swing.GroupLayout whitePanelLayout = new javax.swing.GroupLayout(whitePanel);
         whitePanel.setLayout(whitePanelLayout);
@@ -105,25 +150,52 @@ public class ShowReservation extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(whitePanelLayout.createSequentialGroup()
                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(whitePanelLayout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(descriptionLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(descriptionTextScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, whitePanelLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(durationInformationLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(dateInformationLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(instructorInformationLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(instructorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(whitePanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(separator2))
+                    .addComponent(separator3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(whitePanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(durationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dateLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(2, 2, 2)))
-                .addGap(180, 180, 180))
-            .addGroup(whitePanelLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(titleLabel)
+                            .addComponent(dateInformationLabel)
+                            .addComponent(finalInformationLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                            .addComponent(finalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(whitePanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(durationInformationLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(durationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(whitePanelLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(weeklyInformationLabel)
+                            .addComponent(capacityInformationLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(capacityLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(whitePanelLayout.createSequentialGroup()
+                                .addComponent(weeklyCheckBox)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(whitePanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(separator1))
+                    .addGroup(whitePanelLayout.createSequentialGroup()
+                        .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(whitePanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(descriptionTextScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(whitePanelLayout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(titleLabel)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         whitePanelLayout.setVerticalGroup(
@@ -133,30 +205,47 @@ public class ShowReservation extends javax.swing.JFrame {
                 .addComponent(backButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(titleLabel)
-                .addGap(46, 46, 46)
-                .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(descriptionLabel)
-                    .addComponent(descriptionTextScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(descriptionTextScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(durationInformationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(durationLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(separator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dateInformationLabel)
-                    .addComponent(dateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(289, Short.MAX_VALUE))
+                    .addComponent(instructorInformationLabel)
+                    .addComponent(instructorLabel))
+                .addGap(18, 18, 18)
+                .addComponent(separator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dateLabel)
+                    .addComponent(dateInformationLabel))
+                .addGap(18, 18, 18)
+                .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(finalLabel)
+                    .addComponent(finalInformationLabel))
+                .addGap(18, 18, 18)
+                .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(durationLabel)
+                    .addComponent(durationInformationLabel))
+                .addGap(18, 18, 18)
+                .addComponent(separator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(weeklyInformationLabel)
+                    .addComponent(weeklyCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(capacityInformationLabel)
+                    .addComponent(capacityLabel))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(whitePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(redPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(redPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(whitePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,16 +269,26 @@ public class ShowReservation extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JLabel capacityInformationLabel;
+    private javax.swing.JLabel capacityLabel;
     private javax.swing.JLabel dateInformationLabel;
     private javax.swing.JLabel dateLabel;
-    private javax.swing.JLabel descriptionLabel;
     private javax.swing.JTextArea descriptionText;
     private javax.swing.JScrollPane descriptionTextScrollPane;
     private javax.swing.JLabel durationInformationLabel;
     private javax.swing.JLabel durationLabel;
+    private javax.swing.JLabel finalInformationLabel;
+    private javax.swing.JLabel finalLabel;
+    private javax.swing.JLabel instructorInformationLabel;
+    private javax.swing.JLabel instructorLabel;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel redPanel;
+    private javax.swing.JSeparator separator1;
+    private javax.swing.JSeparator separator2;
+    private javax.swing.JSeparator separator3;
     private javax.swing.JLabel titleLabel;
+    private javax.swing.JCheckBox weeklyCheckBox;
+    private javax.swing.JLabel weeklyInformationLabel;
     private javax.swing.JPanel whitePanel;
     // End of variables declaration//GEN-END:variables
 

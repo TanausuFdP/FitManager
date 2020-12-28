@@ -17,6 +17,7 @@ public class ReservationController extends Controller {
         getReservationsByClientIdAction = new GetReservationByClientIdAction();
         insertReservationAction = new InsertReservationAction();
         cancelReservationAction = new CancelReservationAction();
+        getCountOfReservationsByActivityIdAction = new GetCountOfReservationsByActivityIdAction();
     }
 
     private final GetReservationByIdsAction getReservationByIdsAction;
@@ -26,6 +27,8 @@ public class ReservationController extends Controller {
     private final InsertReservationAction insertReservationAction;
 
     private final CancelReservationAction cancelReservationAction;
+    
+    private final GetCountOfReservationsByActivityIdAction getCountOfReservationsByActivityIdAction;
 
     public Reservation getReservationByIds(Integer clientId, Integer activityId){
         Connection conn = connectToDB();
@@ -47,6 +50,19 @@ public class ReservationController extends Controller {
         } catch (UserNotFoundException ex){
             log.error(ex.getLocalizedMessage());
             return new ArrayList<>();
+        }
+    }
+    
+    public int getCountOfReservationsByActivityId(Integer activityId){
+        Connection conn = connectToDB();
+        try {
+            return getCountOfReservationsByActivityIdAction.execute(conn, activityId);
+        } catch (EmptyListException ex) {
+            log.warn(ex.getLocalizedMessage());
+            return 0;
+        } catch (UserNotFoundException ex){
+            log.error(ex.getLocalizedMessage());
+            return 0;
         }
     }
     

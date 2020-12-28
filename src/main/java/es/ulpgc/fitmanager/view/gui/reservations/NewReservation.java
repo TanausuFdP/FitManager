@@ -22,6 +22,7 @@ public class NewReservation extends javax.swing.JFrame {
     private final DefaultListModel listModel = new DefaultListModel();
     
     private Map<Integer, Integer> activitiesId = new HashMap<>();
+    private List<Integer> activitiesNotAvailable = new ArrayList<>();
     
     public NewReservation(User user) {
         initComponents();
@@ -31,19 +32,32 @@ public class NewReservation extends javax.swing.JFrame {
     
     private void activitiesToList(boolean type){
         List<Activity> activitiesByType = activityController.getActivitiesByType(type);
+        List <Activity> reservedActivities = reservationController.getReservationsByClientId(loggedUser.getId());
         activitiesId = new HashMap<>();
-        //if (reservations.isEmpty()) noReservationsLabel.setText("No tiene ninguna reserva");
-        //else {
         int count = 0;
         for (Activity activity : activitiesByType) {
-            listModel.addElement(activity);
-            activitiesId.put(count, activity.getId());
-            count++;
+            if(!activitiesContains(reservedActivities, activity)){
+                if(reservationController.getCountOfReservationsByActivityId(activity.getId()) ==
+                        activity.getCapacity()){
+                    listModel.addElement(activity.getName() + " - Sin tickets disponibles");
+                    activitiesNotAvailable.add(count);
+                } else {
+                    listModel.addElement(activity);
+                    activitiesId.put(count, activity.getId());
+                }
+                count++;
+            }
         }
-            //activitiesByType.stream().forEach(listModel::addElement);
-        //}
         reservationsList.setModel(listModel);
         reservationsList.setSelectionMode(SINGLE_SELECTION);
+    }
+    
+    private boolean activitiesContains(List<Activity> list, Activity activity){
+        for (Activity activityOnList : list) {
+            if(activityOnList.getId() == activity.getId())
+                return true;
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -227,7 +241,10 @@ public class NewReservation extends javax.swing.JFrame {
     }//GEN-LAST:event_reserveButtonActionPerformed
 
     private void reservationsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reservationsListMouseClicked
-        if(!reservationsList.isSelectionEmpty()) reserveButton.setEnabled(true);
+        if(!reservationsList.isSelectionEmpty() && !activitiesNotAvailable.contains(reservationsList.getSelectedIndex()))
+            reserveButton.setEnabled(true);
+        else
+            reserveButton.setEnabled(false);
     }//GEN-LAST:event_reservationsListMouseClicked
 
 
