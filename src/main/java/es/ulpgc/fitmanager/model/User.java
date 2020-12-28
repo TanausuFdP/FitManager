@@ -8,9 +8,9 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class User {
-    public static final Integer ADMIN_ROLE = 1;
-    public static final Integer MONITOR_ROLE = 2;
-    public static final Integer CLIENT_ROLE = 3;
+    public static final int ADMIN_ROLE = 1;
+    public static final int MONITOR_ROLE = 2;
+    public static final int CLIENT_ROLE = 3;
 
     private Integer id;
     private String name;

@@ -18,13 +18,13 @@ public class MonitorVideo extends javax.swing.JFrame {
         initComponents();
         loggedUser = user;
         switch(loggedUser.getRole()){
-            case 1:
+            case User.ADMIN_ROLE:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
                 break;
-            case 2:
+            case User.MONITOR_ROLE:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
                 break;
-            case 3:
+            case User.CLIENT_ROLE:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
                 break;
         }
@@ -195,13 +195,13 @@ public class MonitorVideo extends javax.swing.JFrame {
     private void scheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scheduleButtonActionPerformed
         TimeTable timeTable = new TimeTable(loggedUser);
         switch(loggedUser.getRole()){
-            case 1:
+            case User.ADMIN_ROLE:
                 timeTable.setLocation(this.getLocation());
                 timeTable.setVisible(true);
-            case 2:
+            case User.MONITOR_ROLE:
                 timeTable.setLocation(this.getLocation());
                 timeTable.setVisible(true);
-            case 3:
+            case User.CLIENT_ROLE:
                 timeTable.setLocation(this.getLocation());
                 timeTable.setVisible(true);
         }
@@ -210,17 +210,17 @@ public class MonitorVideo extends javax.swing.JFrame {
 
     private void dynamicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dynamicButtonActionPerformed
         switch(loggedUser.getRole()){
-            case 1:
+            case User.ADMIN_ROLE:
                 Statistics statistics = new Statistics(loggedUser);
                 statistics.setLocation(this.getLocation());
                 statistics.setVisible(true);
                 break;
-            case 2:
+            case User.MONITOR_ROLE:
                 Workday workday = new Workday(loggedUser);
                 workday.setLocation(this.getLocation());
                 workday.setVisible(true);
                 break;
-            case 3:
+            case User.CLIENT_ROLE:
                 Reservations reservation = new Reservations(loggedUser);
                 reservation.setLocation(this.getLocation());
                 reservation.setVisible(true);

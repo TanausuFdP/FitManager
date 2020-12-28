@@ -9,14 +9,14 @@ public class Help extends javax.swing.JFrame {
         this.loggedUser = loggedUser;
         initComponents();
         switch(loggedUser.getRole()){
-            case 1:
+            case User.ADMIN_ROLE:
                 accountText2.setText("administrador. Su cuenta está siendo controlada");
                 accountText3.setText("por sus superiores. Para cualquier consulta,");
                 accountText4.setText("dirígase a ellos.");
                 dynamicIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
                 dynamicText.setText("Ver las estadísticas del gimnasio.");
                 break;
-            case 2:
+            case User.MONITOR_ROLE:
                 accountText2.setText("monitor. Su cuenta está siendo controlada");
                 accountText3.setText("por sus superiores. Para cualquier consulta,");
                 accountText4.setText("dirígase a ellos.");

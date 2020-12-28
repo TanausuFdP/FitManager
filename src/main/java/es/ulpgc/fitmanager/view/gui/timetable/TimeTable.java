@@ -27,18 +27,18 @@ public class TimeTable extends javax.swing.JFrame {
         this.loggedUser = user;
         initComponents();
         switch(loggedUser.getRole()){
-            case 1:
+            case User.ADMIN_ROLE:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
                 if(scheduleList.isSelectionEmpty()){
                     deleteButton.setEnabled(false);
                 }
                 break;
-            case 2:
+            case User.MONITOR_ROLE:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
                 addButton.setVisible(false);
                 deleteButton.setVisible(false);
                 break;
-            case 3:
+            case User.CLIENT_ROLE:
                 dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
                 addButton.setVisible(false);
                 deleteButton.setVisible(false);
@@ -251,17 +251,17 @@ public class TimeTable extends javax.swing.JFrame {
 
     private void dynamicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dynamicButtonActionPerformed
         switch(loggedUser.getRole()){
-            case 1:
+            case User.ADMIN_ROLE:
                 Statistics statistics = new Statistics(loggedUser);
                 statistics.setLocation(this.getLocation());
                 statistics.setVisible(true);
                 break;
-            case 2:
+            case User.MONITOR_ROLE:
                 Workday workday = new Workday(loggedUser);
                 workday.setLocation(this.getLocation());
                 workday.setVisible(true);
                 break;
-            case 3:
+            case User.CLIENT_ROLE:
                 Reservations reservation = new Reservations(loggedUser);
                 reservation.setLocation(this.getLocation());
                 reservation.setVisible(true);
@@ -280,16 +280,16 @@ public class TimeTable extends javax.swing.JFrame {
     private void videosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_videosButtonActionPerformed
         VideosClient videos = new VideosClient(loggedUser);
         switch(loggedUser.getRole()){
-            case 1:
+            case User.ADMIN_ROLE:
                 videos.setLocation(this.getLocation());
                 videos.setVisible(true);
                 break;
-            case 2:
+            case User.MONITOR_ROLE:
                 MonitorVideo monitorVideo = new MonitorVideo(loggedUser);
                 monitorVideo.setLocation(this.getLocation());
                 monitorVideo.setVisible(true);
                 break;
-            case 3:
+            case User.CLIENT_ROLE:
                 videos.setLocation(this.getLocation());
                 videos.setVisible(true);
                 break;

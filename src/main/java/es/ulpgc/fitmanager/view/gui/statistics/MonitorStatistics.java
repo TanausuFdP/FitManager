@@ -26,10 +26,6 @@ public class MonitorStatistics extends javax.swing.JFrame {
         List<User>monitors = userController.getUsersByRole(User.MONITOR_ROLE);
         
         for (User monitor : monitors) {
-            /*int sizeActivities = activityController.getCountOfActivitiesByMonitorId(monitor.getId(), Activity.ACTIVITY);
-            int sizeRooms = activityController.getCountOfActivitiesByMonitorId(monitor.getId(), Activity.ROOM);
-            listModel.addElement(monitor.getName() + " " + monitor.getSurname() +
-                    ": " + sizeActivities + " actividad/es y " + sizeRooms + " salas");*/
             listModel.addElement(monitor);
         }
         
