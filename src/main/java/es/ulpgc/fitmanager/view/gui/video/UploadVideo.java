@@ -176,6 +176,11 @@ public class UploadVideo extends javax.swing.JFrame {
                 categoryComboBox.getSelectedIndex(), 
                 Integer.parseInt(listTextField.getText()));
         videoController.insertVideo(video);
+        
+        MonitorVideo monitorVideo = new MonitorVideo(loggedUser);
+        monitorVideo.setLocation(this.getLocation());
+        monitorVideo.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_uploadVideoActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed

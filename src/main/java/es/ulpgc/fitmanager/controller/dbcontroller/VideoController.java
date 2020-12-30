@@ -22,9 +22,12 @@ public class VideoController extends Controller {
         getVideoByURLAction = new GetVideoByUrlAction();
         getAllVideosAction = new GetAllVideosAction();
         getVideosByVideoListIdAction = new GetVideosByVideoListIdAction();
+        getVideosByCategoryIdAction = new GetVideosByCategoryIdAction();
         getVideoListByIdAction = new GetVideoListByIdAction();
         getVideoListByTitleAction = new GetVideoListByTitleAction();
         getVideoCategoriesAction = new GetVideoCategoriesAction();
+        getVideoCategoryIdByNameAction = new GetVideoCategoryIdByNameAction();
+        getVideoListIdByMonitorIdAction = new GetVideoListIdByMonitorIdAction();
         insertVideoAction = new InsertVideoAction();
         insertVideoListAction = new InsertVideoListAction();
         deleteVideoAction = new DeleteVideoAction();
@@ -37,12 +40,18 @@ public class VideoController extends Controller {
     private final GetAllVideosAction getAllVideosAction;
 
     private final GetVideosByVideoListIdAction getVideosByVideoListIdAction;
+    
+    private final GetVideosByCategoryIdAction getVideosByCategoryIdAction;
 
     private final GetVideoListByIdAction getVideoListByIdAction;
 
     private final GetVideoListByTitleAction getVideoListByTitleAction;
 
     private final GetVideoCategoriesAction getVideoCategoriesAction;
+    
+    private final GetVideoCategoryIdByNameAction getVideoCategoryIdByNameAction;
+    
+    private final GetVideoListIdByMonitorIdAction getVideoListIdByMonitorIdAction;
 
     private final InsertVideoAction insertVideoAction;
 
@@ -81,10 +90,27 @@ public class VideoController extends Controller {
     }
     
     public List<Video> getVideosByVideoListId(Integer videoListId){
-        Connection conn = connectToDB();
-        return getVideosByVideoListIdAction.execute(conn, videoListId);
+        try{
+            Connection conn = connectToDB();
+            return getVideosByVideoListIdAction.execute(conn, videoListId);
+
+        }catch(EmptyListException ex){
+            log.error(ex.getLocalizedMessage());
+            return new ArrayList<>();
+        }
     }
 
+    public List<Video> getVideosByCategoryId(Integer categoryId){
+        try{
+            Connection conn = connectToDB();
+            return getVideosByCategoryIdAction.execute(conn, categoryId);
+        }catch (VideoNotFoundException ex){
+            log.error(ex.getLocalizedMessage());
+            return new ArrayList<>();
+        }
+        
+    }
+    
     public VideoList getVideoListById(Integer videoListId){
         Connection conn = connectToDB();
         try{
@@ -115,7 +141,17 @@ public class VideoController extends Controller {
             return new ArrayList<>();
         }
     }
+    
+    public Integer getVideoCategoryIdByName(String name){
+        Connection conn = connectToDB();
+        return getVideoCategoryIdByNameAction.execute(conn, name);
+    }
 
+    public Integer getVideoListIdByMonitorId(Integer monitorId){
+        Connection conn = connectToDB();
+        return getVideoListIdByMonitorIdAction.execute(conn,monitorId);
+    }
+    
     public Video insertVideo(Video video){
         Connection conn = connectToDB();
         try{

@@ -7,6 +7,7 @@ import es.ulpgc.fitmanager.view.gui.main.MainMenu;
 import es.ulpgc.fitmanager.controller.dbcontroller.VideoController;
 import es.ulpgc.fitmanager.model.User;
 import es.ulpgc.fitmanager.model.Video;
+import es.ulpgc.fitmanager.model.VideoCategory;
 import es.ulpgc.fitmanager.view.gui.workday.Workday;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -15,7 +16,12 @@ import javax.swing.DefaultListModel;
 public class VideosClient extends javax.swing.JFrame {
 
     private final User loggedUser;
+    
     private final DefaultListModel listModel = new DefaultListModel();
+    
+    private final VideoController videoController = new VideoController();
+    
+    private List<VideoCategory> videoCategories;
     
     public VideosClient(User user) {
         initComponents();
@@ -35,12 +41,15 @@ public class VideosClient extends javax.swing.JFrame {
         }
         
         videosList.setModel(listModel);
-        VideoController videoController = new VideoController();
         List<Video>videos = videoController.getAllVideos();
         for (Video video : videos) {
             listModel.addElement(video);
         }
-        
+                
+        videoCategories = videoController.getVideoCategories();
+        for (VideoCategory videoCategory : videoCategories) {
+            categoriesFilter.addItem(videoCategory.getName());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -61,6 +70,7 @@ public class VideosClient extends javax.swing.JFrame {
         videosButton = new javax.swing.JButton();
         directsButton = new javax.swing.JButton();
         showMyVideoListButton = new javax.swing.JButton();
+        categoriesFilter = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,6 +157,12 @@ public class VideosClient extends javax.swing.JFrame {
             }
         });
 
+        categoriesFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categoriesFilterActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout whitePanelLayout = new javax.swing.GroupLayout(whitePanel);
         whitePanel.setLayout(whitePanelLayout);
         whitePanelLayout.setHorizontalGroup(
@@ -161,10 +177,11 @@ public class VideosClient extends javax.swing.JFrame {
                     .addGroup(whitePanelLayout.createSequentialGroup()
                         .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(videosListScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(videosListScrollPane)
                                 .addGroup(whitePanelLayout.createSequentialGroup()
                                     .addComponent(titleLabel)
-                                    .addGap(239, 239, 239)))
+                                    .addGap(64, 64, 64)
+                                    .addComponent(categoriesFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(whitePanelLayout.createSequentialGroup()
                                 .addComponent(dynamicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -183,14 +200,16 @@ public class VideosClient extends javax.swing.JFrame {
             whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, whitePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(titleLabel)
+                .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titleLabel)
+                    .addComponent(categoriesFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(videosListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(showVideoButton)
                     .addComponent(showMyVideoListButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(buttonsSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -283,10 +302,21 @@ public class VideosClient extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_showMyVideoListButtonActionPerformed
 
+    private void categoriesFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriesFilterActionPerformed
+        listModel.removeAllElements();
+        String filterSelected = categoriesFilter.getSelectedItem().toString();
+        Integer videoCategoryId = videoController.getVideoCategoryIdByName(filterSelected);
+        List<Video> filteredVideos = videoController.getVideosByCategoryId(videoCategoryId);
+        for (Video video : filteredVideos) {
+            listModel.addElement(video);
+        }
+    }//GEN-LAST:event_categoriesFilterActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator buttonsSeparator;
+    private javax.swing.JComboBox<String> categoriesFilter;
     private javax.swing.JButton directsButton;
     private javax.swing.JButton dynamicButton;
     private javax.swing.JButton homeButton;

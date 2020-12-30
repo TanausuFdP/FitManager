@@ -71,14 +71,29 @@ public class VideoRepository {
             preparedStatement.setInt(1, videoListId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) videos.add(getVideo(resultSet));
-            if (videos.isEmpty()) throw new EmptyListException("No se han encontrado categorías");
+            if (videos.isEmpty()) throw new EmptyListException("No se han encontrado vídeos con ese ListId");
             return videos;
         } catch (SQLException ex) {
             log.error(ex.getLocalizedMessage());
             return new ArrayList<>();
         }
     }
-
+    
+    public List<Video> getVideosByCategoryId(Connection conn, Integer categoryId) {
+        String sql = "SELECT * FROM Video WHERE categoryId=?";
+        List<Video>videos = new ArrayList<>();
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+            preparedStatement.setInt(1, categoryId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) videos.add(getVideo(resultSet));
+            if (videos.isEmpty()) throw new VideoNotFoundException("No se han encontrado el vídeos con esa categoría");
+            return videos;
+        } catch (SQLException ex) {
+            log.error(ex.getLocalizedMessage());
+            return new ArrayList<>();
+        }
+    }
+    
     public VideoList getVideoListById(Connection conn, Integer videoListId) {
         String sql = "SELECT * FROM VideoList WHERE id=?";
         try (PreparedStatement statement = conn.prepareStatement(sql)){
@@ -129,6 +144,29 @@ public class VideoRepository {
                 .id(resultSet.getInt("id"))
                 .name(resultSet.getString("name"))
                 .build();
+    }
+    
+    public Integer getVideoCategoryIdByName(Connection conn, String name){
+        String sql = "SELECT * FROM VideoCategory WHERE name=?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+            preparedStatement.setString(1,name);
+            return preparedStatement.executeQuery().getInt(1);
+        } catch (SQLException ex) {
+            log.error(ex.getLocalizedMessage());
+            return 0;
+        }
+    }
+    
+    public Integer getVideoListIdByMonitorId(Connection conn, Integer monitorId){
+        String sql = "SELECT * FROM Monitor WHERE id=?";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
+            preparedStatement.setInt(1,monitorId);
+            return preparedStatement.executeQuery().getInt(2);
+        } catch (SQLException ex) {
+            log.error(ex.getLocalizedMessage());
+            return 0;
+        }
+        
     }
     
     public void insertVideo(Connection conn, Video video) {
