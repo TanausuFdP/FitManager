@@ -20,7 +20,7 @@ public class RoomStatistics extends javax.swing.JFrame {
         loggedUser = user;
         
         roomsList.setModel(listModel);
-        List<Activity> activities = activityController.getActivitiesByType(Activity.ROOM);
+        List<Activity> activities = activityController.getActivitiesByType(Activity.ROOM_TYPE);
         
         for (Activity activity : activities) {
             listModel.addElement(activity + " Aforo: " + activity.getCapacity());

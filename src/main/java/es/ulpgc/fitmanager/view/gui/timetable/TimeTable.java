@@ -2,9 +2,7 @@ package es.ulpgc.fitmanager.view.gui.timetable;
 
 import es.ulpgc.fitmanager.view.gui.statistics.Statistics;
 import es.ulpgc.fitmanager.view.gui.reservations.Reservations;
-import es.ulpgc.fitmanager.view.gui.video.MonitorVideo;
 import es.ulpgc.fitmanager.view.gui.main.MainMenu;
-import es.ulpgc.fitmanager.view.gui.timetable.InsertActivity;
 import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
@@ -48,10 +46,10 @@ public class TimeTable extends javax.swing.JFrame {
     }
     
     private void addActivities() {
-        activityController.getActivitiesByType(Activity.ROOM).forEach(activity -> { 
+        activityController.getActivitiesByType(Activity.ROOM_TYPE).forEach(activity -> {
             activitiesClient.add(activity);
         });
-        activityController.getActivitiesByType(Activity.ACTIVITY).forEach(activity -> { 
+        activityController.getActivitiesByType(Activity.ACTIVITY_TYPE).forEach(activity -> {
             activitiesClient.add(activity);
         });
         sortReservationsList(activitiesClient);

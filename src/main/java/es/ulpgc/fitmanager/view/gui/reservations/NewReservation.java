@@ -26,7 +26,7 @@ public class NewReservation extends javax.swing.JFrame {
     public NewReservation(User user) {
         initComponents();
         this.loggedUser = user;
-        activitiesToList(Activity.ROOM);
+        activitiesToList(Activity.ROOM_TYPE);
     }
     
     private void activitiesToList(boolean type){
@@ -221,13 +221,13 @@ public class NewReservation extends javax.swing.JFrame {
     private void roomsToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsToggleButtonActionPerformed
         listModel.clear();
         reserveButton.setEnabled(false);
-        activitiesToList(Activity.ROOM);
+        activitiesToList(Activity.ROOM_TYPE);
     }//GEN-LAST:event_roomsToggleButtonActionPerformed
 
     private void activitiesToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activitiesToggleButtonActionPerformed
         listModel.clear();
         reserveButton.setEnabled(false);
-        activitiesToList(Activity.ACTIVITY);
+        activitiesToList(Activity.ACTIVITY_TYPE);
     }//GEN-LAST:event_activitiesToggleButtonActionPerformed
 
     private void reserveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reserveButtonActionPerformed

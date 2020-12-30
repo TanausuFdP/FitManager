@@ -11,8 +11,8 @@ import java.time.format.DateTimeFormatter;
 @Builder
 @AllArgsConstructor
 public class Activity {
-    public static final boolean ROOM = true;
-    public static final boolean ACTIVITY = false;
+    public static final boolean ROOM_TYPE = true;
+    public static final boolean ACTIVITY_TYPE = false;
     
     private Integer id;
     private String name;

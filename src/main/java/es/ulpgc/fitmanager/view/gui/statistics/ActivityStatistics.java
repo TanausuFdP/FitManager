@@ -2,10 +2,9 @@
 package es.ulpgc.fitmanager.view.gui.statistics;
 
 import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
-import es.ulpgc.fitmanager.controller.dbcontroller.UserController;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
-import java.util.ArrayList;
+
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -23,7 +22,7 @@ public class ActivityStatistics extends javax.swing.JFrame {
         loggedUser = user;
             
         activitiesList.setModel(listModel);
-        List<Activity> activities = activityController.getActivitiesByType(Activity.ACTIVITY);
+        List<Activity> activities = activityController.getActivitiesByType(Activity.ACTIVITY_TYPE);
         
         for (Activity activity : activities) {
             listModel.addElement(activity + " Aforo: " + activity.getCapacity());
