@@ -1,6 +1,6 @@
 package es.ulpgc.fitmanager.controller.dbcontroller;
 
-import es.ulpgc.fitmanager.controller.action.*;
+import es.ulpgc.fitmanager.controller.action.reservation.*;
 import es.ulpgc.fitmanager.controller.exceptions.*;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.Reservation;

@@ -1,6 +1,6 @@
 package es.ulpgc.fitmanager.controller.dbcontroller;
 
-import es.ulpgc.fitmanager.controller.action.*;
+import es.ulpgc.fitmanager.controller.action.video.*;
 import es.ulpgc.fitmanager.controller.exceptions.EmptyListException;
 import es.ulpgc.fitmanager.controller.exceptions.VideoAlreadyExistsException;
 import es.ulpgc.fitmanager.controller.exceptions.VideoListAlreadyExistsException;

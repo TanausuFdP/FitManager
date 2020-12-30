@@ -1,6 +1,6 @@
 package es.ulpgc.fitmanager.controller.dbcontroller;
 
-import es.ulpgc.fitmanager.controller.action.*;
+import es.ulpgc.fitmanager.controller.action.activity.*;
 import es.ulpgc.fitmanager.controller.exceptions.ActivityNotFoundException;
 import es.ulpgc.fitmanager.controller.exceptions.EmptyListException;
 import es.ulpgc.fitmanager.controller.exceptions.MonitorNotAvailableException;

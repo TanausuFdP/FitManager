@@ -1,10 +1,6 @@
 package es.ulpgc.fitmanager.controller.dbcontroller;
 
-import es.ulpgc.fitmanager.controller.action.GetUserByIdAction;
-import es.ulpgc.fitmanager.controller.action.GetUserByUsernameAndPasswordAction;
-import es.ulpgc.fitmanager.controller.action.InsertUserAction;
-import es.ulpgc.fitmanager.controller.action.UpdateUserAction;
-import es.ulpgc.fitmanager.controller.action.GetUsersByRoleAction;
+import es.ulpgc.fitmanager.controller.action.user.*;
 import es.ulpgc.fitmanager.controller.exceptions.EmptyListException;
 import es.ulpgc.fitmanager.controller.exceptions.NonMatchingPasswordException;
 import es.ulpgc.fitmanager.controller.exceptions.UserAlreadyExistsException;
