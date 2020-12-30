@@ -22,7 +22,8 @@ public class UserRepository {
     private final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     public User getUserById(Connection conn, Integer id) {
-        String sql = "SELECT * FROM User WHERE id=?";
+        String sql = "SELECT * FROM User U LEFT JOIN" +
+                " Monitor M ON U.id = M.id WHERE U.id=?";
         try (PreparedStatement statement = conn.prepareStatement(sql)){
             statement.setInt(1,id);
             ResultSet resultSet = statement.executeQuery();
@@ -41,11 +42,13 @@ public class UserRepository {
                 .password(resultSet.getString("password"))
                 .phoneNumber(resultSet.getInt("phoneNumber"))
                 .role(resultSet.getInt("role"))
+                .videoListId(resultSet.getInt("videoListId"))
                 .build();
     }
 
     public User getUserByUsernameAndPassword(Connection conn, String username, String password) {
-        String sql = "SELECT * FROM User WHERE username=?";
+        String sql = "SELECT * FROM User U LEFT JOIN" +
+                " Monitor M ON U.id = M.id WHERE username=?";
         User user;
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1,username);
@@ -95,14 +98,15 @@ public class UserRepository {
         } catch (SQLException ex) {
             log.error(ex.getLocalizedMessage());
         }
+        insertUserRole(conn, user);
     }
 
-    public void insertUserRole(Connection conn, User userInDB, Integer videoListId) {
-        String sql = getSQL(userInDB.getRole());
+    private void insertUserRole(Connection conn, User user) {
+        String sql = getSQL(user.getRole());
         try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
-            preparedStatement.setInt(1,userInDB.getId());
-            if (userInDB.getRole() == 2)
-                preparedStatement.setInt(2,videoListId);
+            preparedStatement.setInt(1, user.getId());
+            if (user.getRole() == User.MONITOR_ROLE)
+                preparedStatement.setInt(2, user.getVideoListId());
             preparedStatement.executeUpdate();
         } catch (SQLException ex) { log.error(ex.getMessage()); }
     }

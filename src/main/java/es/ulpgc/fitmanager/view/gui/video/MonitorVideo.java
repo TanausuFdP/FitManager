@@ -21,9 +21,7 @@ public class MonitorVideo extends javax.swing.JFrame {
         loggedUser = user;
         
         monitorVideosList.setModel(listModel);
-        
-        Integer videoListId = videoController.getVideoListIdByMonitorId(loggedUser.getId());
-        System.out.println(""+videoListId);
+        Integer videoListId = loggedUser.getVideoListId();
         List<Video> videosByVideoListId = videoController.getVideosByVideoListId(videoListId);
         for (Video video : videosByVideoListId) {
             listModel.addElement(video);
