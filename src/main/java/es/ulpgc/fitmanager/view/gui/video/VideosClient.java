@@ -241,17 +241,8 @@ public class VideosClient extends javax.swing.JFrame {
 
     private void scheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scheduleButtonActionPerformed
         TimeTable timeTable = new TimeTable(loggedUser);
-        switch(loggedUser.getRole()){
-            case User.ADMIN_ROLE:
-                timeTable.setLocation(this.getLocation());
-                timeTable.setVisible(true);
-            case User.MONITOR_ROLE:
-                timeTable.setLocation(this.getLocation());
-                timeTable.setVisible(true);
-            case User.CLIENT_ROLE:
-                timeTable.setLocation(this.getLocation());
-                timeTable.setVisible(true);
-        }
+        timeTable.setLocation(this.getLocation());
+        timeTable.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_scheduleButtonActionPerformed
 
