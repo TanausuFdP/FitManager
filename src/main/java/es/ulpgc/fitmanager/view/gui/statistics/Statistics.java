@@ -8,6 +8,7 @@ import es.ulpgc.fitmanager.view.gui.statistics.ClientStatistics;
 import es.ulpgc.fitmanager.view.gui.statistics.ActivityStatistics;
 import es.ulpgc.fitmanager.model.User;
 import es.ulpgc.fitmanager.view.gui.timetable.TimeTable;
+import es.ulpgc.fitmanager.view.gui.video.Directs;
 import es.ulpgc.fitmanager.view.gui.video.VideosClient;
 
 public class Statistics extends javax.swing.JFrame {
@@ -127,6 +128,11 @@ public class Statistics extends javax.swing.JFrame {
         directsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/directs_button.png"))); // NOI18N
         directsButton.setBorderPainted(false);
         directsButton.setContentAreaFilled(false);
+        directsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                directsButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout whitePanelLayout = new javax.swing.GroupLayout(whitePanel);
         whitePanel.setLayout(whitePanelLayout);
@@ -262,6 +268,13 @@ public class Statistics extends javax.swing.JFrame {
         roomStatistics.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_roomsButtonActionPerformed
+
+    private void directsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_directsButtonActionPerformed
+        Directs directs = new Directs(loggedUser);
+        directs.setLocation(this.getLocation());
+        directs.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_directsButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

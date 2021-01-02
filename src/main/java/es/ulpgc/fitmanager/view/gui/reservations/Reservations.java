@@ -7,6 +7,7 @@ import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
 import es.ulpgc.fitmanager.view.gui.timetable.TimeTable;
+import es.ulpgc.fitmanager.view.gui.video.Directs;
 import es.ulpgc.fitmanager.view.gui.video.VideosClient;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -183,6 +184,11 @@ public class Reservations extends javax.swing.JFrame {
         directsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/directs_button.png"))); // NOI18N
         directsButton.setBorderPainted(false);
         directsButton.setContentAreaFilled(false);
+        directsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                directsButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout whitePanelLayout = new javax.swing.GroupLayout(whitePanel);
         whitePanel.setLayout(whitePanelLayout);
@@ -321,6 +327,13 @@ public class Reservations extends javax.swing.JFrame {
         cancel.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cancelReservationButtonActionPerformed
+
+    private void directsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_directsButtonActionPerformed
+        Directs directs = new Directs(loggedUser);
+        directs.setLocation(this.getLocation());
+        directs.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_directsButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

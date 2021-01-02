@@ -6,6 +6,7 @@ import es.ulpgc.fitmanager.view.gui.video.MonitorVideo;
 import es.ulpgc.fitmanager.view.gui.reservations.Reservations;
 import es.ulpgc.fitmanager.view.gui.statistics.Statistics;
 import es.ulpgc.fitmanager.view.gui.timetable.TimeTable;
+import es.ulpgc.fitmanager.view.gui.video.Directs;
 import es.ulpgc.fitmanager.view.gui.video.VideosClient;
 import es.ulpgc.fitmanager.view.gui.workday.Workday;
 import java.awt.Color;
@@ -153,6 +154,11 @@ public class MainMenu extends javax.swing.JFrame {
         directsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/directs_button.png"))); // NOI18N
         directsButton.setBorderPainted(false);
         directsButton.setContentAreaFilled(false);
+        directsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                directsButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout whitePanelLayout = new javax.swing.GroupLayout(whitePanel);
         whitePanel.setLayout(whitePanelLayout);
@@ -310,6 +316,13 @@ public class MainMenu extends javax.swing.JFrame {
         videos.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_videosButtonActionPerformed
+
+    private void directsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_directsButtonActionPerformed
+        Directs directs = new Directs(loggedUser);
+        directs.setLocation(this.getLocation());
+        directs.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_directsButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accountButton;
