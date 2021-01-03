@@ -70,7 +70,7 @@ public class UserRepository {
     }
 
     public List<User> getUsersByRole(Connection conn, int role) {
-        String sql = "SELECT * FROM User WHERE role=?";
+        String sql = "SELECT * FROM User U LEFT JOIN Monitor M on U.id = M.id WHERE role=?";
         List<User> usersList = new ArrayList<>();
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
             preparedStatement.setInt(1,role);

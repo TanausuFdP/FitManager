@@ -65,8 +65,6 @@ public class VideoRepository {
     }
 
     public List<Video> getVideosByVideoListId(Connection conn, Integer videoListId){
-        if (videoListId.equals(0)) throw new VideoListNotFoundException("No se ha encontrado ninguna lista" +
-                " de vídeos con el id " + videoListId + ".");
         String sql = "SELECT * FROM Video WHERE videoListId=?";
         List<Video>videos = new ArrayList<>();
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){

@@ -91,10 +91,13 @@ public class VideoController extends Controller {
     
     public List<Video> getVideosByVideoListId(Integer videoListId){
         try{
+            if (videoListId.equals(0))
+                throw new VideoListNotFoundException("No se ha encontrado ninguna lista" +
+                    " de vídeos con el id 0.");
             Connection conn = connectToDB();
             return getVideosByVideoListIdAction.execute(conn, videoListId);
 
-        }catch(EmptyListException ex){
+        }catch(EmptyListException|VideoListNotFoundException ex){
             log.error(ex.getLocalizedMessage());
             return new ArrayList<>();
         }
