@@ -1,8 +1,6 @@
 package es.ulpgc.fitmanager.view.repository;
 
-import es.ulpgc.fitmanager.controller.exceptions.EmptyListException;
-import es.ulpgc.fitmanager.controller.exceptions.VideoListNotFoundException;
-import es.ulpgc.fitmanager.controller.exceptions.VideoNotFoundException;
+import es.ulpgc.fitmanager.controller.exceptions.*;
 import es.ulpgc.fitmanager.model.Video;
 import es.ulpgc.fitmanager.model.VideoCategory;
 import es.ulpgc.fitmanager.model.VideoList;
@@ -146,25 +144,27 @@ public class VideoRepository {
                 .build();
     }
     
-    public Integer getVideoCategoryIdByName(Connection conn, String name){
+    public VideoCategory getVideoCategoryByName(Connection conn, String name){
         String sql = "SELECT * FROM VideoCategory WHERE name=?";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
             preparedStatement.setString(1,name);
-            return preparedStatement.executeQuery().getInt(1);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return getVideoCategory(resultSet);
         } catch (SQLException ex) {
-            log.error(ex.getLocalizedMessage());
-            return 0;
+            throw new VideoCategoryNotFoundException("No se ha encontrado ninguna categoría con el nombre "
+                    + name + ".");
+
         }
     }
     
-    public Integer getVideoListIdByMonitorId(Connection conn, Integer monitorId){
-        String sql = "SELECT * FROM Monitor WHERE id=?";
+    public VideoList getVideoListByMonitorId(Connection conn, Integer monitorId){
+        String sql = "SELECT * FROM VideoList VL JOIN Monitor M WHERE M.id=?";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
             preparedStatement.setInt(1,monitorId);
-            return preparedStatement.executeQuery().getInt(2);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return getVideoList(resultSet);
         } catch (SQLException ex) {
-            log.error(ex.getLocalizedMessage());
-            return 0;
+            throw new UserNotFoundException("No se ha encontrado ningún usuario con el id " + monitorId + ".");
         }
         
     }

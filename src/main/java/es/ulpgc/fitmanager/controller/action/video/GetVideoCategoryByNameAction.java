@@ -1,17 +1,18 @@
 package es.ulpgc.fitmanager.controller.action.video;
 
+import es.ulpgc.fitmanager.model.VideoCategory;
 import es.ulpgc.fitmanager.view.repository.VideoRepository;
 
 import java.sql.Connection;
 
-public class GetVideoCategoryIdByNameAction {
-    public GetVideoCategoryIdByNameAction() {
+public class GetVideoCategoryByNameAction {
+    public GetVideoCategoryByNameAction() {
         videoRepository = new VideoRepository();
     }
     
     private final VideoRepository videoRepository;
     
-    public Integer execute(Connection conn, String name){
-        return videoRepository.getVideoCategoryIdByName(conn, name);
+    public VideoCategory execute(Connection conn, String name){
+        return videoRepository.getVideoCategoryByName(conn, name);
     }
 }

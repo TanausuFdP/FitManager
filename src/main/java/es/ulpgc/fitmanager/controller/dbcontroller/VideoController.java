@@ -1,11 +1,7 @@
 package es.ulpgc.fitmanager.controller.dbcontroller;
 
 import es.ulpgc.fitmanager.controller.action.video.*;
-import es.ulpgc.fitmanager.controller.exceptions.EmptyListException;
-import es.ulpgc.fitmanager.controller.exceptions.VideoAlreadyExistsException;
-import es.ulpgc.fitmanager.controller.exceptions.VideoListAlreadyExistsException;
-import es.ulpgc.fitmanager.controller.exceptions.VideoListNotFoundException;
-import es.ulpgc.fitmanager.controller.exceptions.VideoNotFoundException;
+import es.ulpgc.fitmanager.controller.exceptions.*;
 import es.ulpgc.fitmanager.model.Video;
 import es.ulpgc.fitmanager.model.VideoCategory;
 import es.ulpgc.fitmanager.model.VideoList;
@@ -26,8 +22,8 @@ public class VideoController extends Controller {
         getVideoListByIdAction = new GetVideoListByIdAction();
         getVideoListByTitleAction = new GetVideoListByTitleAction();
         getVideoCategoriesAction = new GetVideoCategoriesAction();
-        getVideoCategoryIdByNameAction = new GetVideoCategoryIdByNameAction();
-        getVideoListIdByMonitorIdAction = new GetVideoListIdByMonitorIdAction();
+        getVideoCategoryByNameAction = new GetVideoCategoryByNameAction();
+        getVideoListByMonitorIdAction = new GetVideoListByMonitorIdAction();
         insertVideoAction = new InsertVideoAction();
         insertVideoListAction = new InsertVideoListAction();
         deleteVideoAction = new DeleteVideoAction();
@@ -49,9 +45,9 @@ public class VideoController extends Controller {
 
     private final GetVideoCategoriesAction getVideoCategoriesAction;
     
-    private final GetVideoCategoryIdByNameAction getVideoCategoryIdByNameAction;
+    private final GetVideoCategoryByNameAction getVideoCategoryByNameAction;
     
-    private final GetVideoListIdByMonitorIdAction getVideoListIdByMonitorIdAction;
+    private final GetVideoListByMonitorIdAction getVideoListByMonitorIdAction;
 
     private final InsertVideoAction insertVideoAction;
 
@@ -145,14 +141,24 @@ public class VideoController extends Controller {
         }
     }
     
-    public Integer getVideoCategoryIdByName(String name){
-        Connection conn = connectToDB();
-        return getVideoCategoryIdByNameAction.execute(conn, name);
+    public VideoCategory getVideoCategoryByName(String name){
+        try{
+            Connection conn = connectToDB();
+            return getVideoCategoryByNameAction.execute(conn, name);
+        } catch (VideoCategoryNotFoundException ex){
+            log.error(ex.getLocalizedMessage());
+            return null;
+        }
     }
 
-    public Integer getVideoListIdByMonitorId(Integer monitorId){
-        Connection conn = connectToDB();
-        return getVideoListIdByMonitorIdAction.execute(conn,monitorId);
+    public VideoList getVideoListByMonitorId(Integer monitorId){
+        try{
+            Connection conn = connectToDB();
+            return getVideoListByMonitorIdAction.execute(conn,monitorId);
+        } catch (UserNotFoundException ex) {
+            log.error(ex.getLocalizedMessage());
+            return null;
+        }
     }
     
     public Video insertVideo(Video video){
