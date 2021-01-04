@@ -88,18 +88,17 @@
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="categoryLabel" min="-2" max="-2" attributes="0"/>
                               <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
                               <Component id="urlLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="listLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="sizeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="nameTextField" max="32767" attributes="0"/>
                               <Component id="urlTextField" alignment="0" max="32767" attributes="0"/>
-                              <Component id="listTextField" alignment="0" max="32767" attributes="0"/>
                               <Component id="categoryComboBox" alignment="0" max="32767" attributes="0"/>
                               <Component id="sizeTextField" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
@@ -139,13 +138,8 @@
                       <Component id="sizeTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="listLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="listTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="uploadVideo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="239" max="32767" attributes="0"/>
+                  <EmptySpace pref="276" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -202,13 +196,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="sizeTextField">
-        </Component>
-        <Component class="javax.swing.JLabel" name="listLabel">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Lista del v&#xed;deo:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="listTextField">
         </Component>
         <Component class="javax.swing.JButton" name="uploadVideo">
           <Properties>

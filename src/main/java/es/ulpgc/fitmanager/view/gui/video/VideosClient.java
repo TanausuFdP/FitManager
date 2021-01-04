@@ -295,9 +295,8 @@ public class VideosClient extends javax.swing.JFrame {
 
     private void categoriesFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriesFilterActionPerformed
         listModel.removeAllElements();
-        String filterSelected = categoriesFilter.getSelectedItem().toString();
-        VideoCategory videoCategory = videoController.getVideoCategoryByName(filterSelected);
-        List<Video> filteredVideos = videoController.getVideosByCategoryId(videoCategory.getId());
+        Integer videoCategoryId = categoriesFilter.getSelectedIndex()+1;
+        List<Video> filteredVideos = videoController.getVideosByCategoryId(videoCategoryId);
         for (Video video : filteredVideos) {
             listModel.addElement(video);
         }

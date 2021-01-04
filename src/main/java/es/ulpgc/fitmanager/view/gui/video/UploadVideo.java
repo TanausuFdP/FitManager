@@ -40,8 +40,6 @@ public class UploadVideo extends javax.swing.JFrame {
         urlTextField = new javax.swing.JTextField();
         sizeLabel = new javax.swing.JLabel();
         sizeTextField = new javax.swing.JTextField();
-        listLabel = new javax.swing.JLabel();
-        listTextField = new javax.swing.JTextField();
         uploadVideo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -83,8 +81,6 @@ public class UploadVideo extends javax.swing.JFrame {
 
         sizeLabel.setText("Tamaño:");
 
-        listLabel.setText("Lista del vídeo:");
-
         uploadVideo.setText("SUBIR VÍDEO");
         uploadVideo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,17 +99,16 @@ public class UploadVideo extends javax.swing.JFrame {
                         .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(whitePanelLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
                         .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(categoryLabel)
                             .addComponent(nameLabel)
                             .addComponent(urlLabel)
-                            .addComponent(listLabel)
                             .addComponent(sizeLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nameTextField)
                             .addComponent(urlTextField)
-                            .addComponent(listTextField)
                             .addComponent(categoryComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(sizeTextField)
                             .addGroup(whitePanelLayout.createSequentialGroup()
@@ -143,12 +138,8 @@ public class UploadVideo extends javax.swing.JFrame {
                     .addComponent(sizeLabel)
                     .addComponent(sizeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(listLabel)
-                    .addComponent(listTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addComponent(uploadVideo)
-                .addContainerGap(239, Short.MAX_VALUE))
+                .addContainerGap(276, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -170,11 +161,12 @@ public class UploadVideo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void uploadVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadVideoActionPerformed
+        if (nameTextField.getText().equals("") || urlTextField.getText().equals("") || sizeTextField.getText().equals("")) return;
         Video video = new Video(null,nameTextField.getText(),
                 Double.parseDouble(sizeTextField.getText()),
                 urlTextField.getText(),
-                categoryComboBox.getSelectedIndex(), 
-                Integer.parseInt(listTextField.getText()));
+                categoryComboBox.getSelectedIndex()+1,
+                loggedUser.getVideoListId());
         videoController.insertVideo(video);
         
         MonitorVideo monitorVideo = new MonitorVideo(loggedUser);
@@ -196,8 +188,6 @@ public class UploadVideo extends javax.swing.JFrame {
     private javax.swing.JButton backButton;
     private javax.swing.JComboBox<String> categoryComboBox;
     private javax.swing.JLabel categoryLabel;
-    private javax.swing.JLabel listLabel;
-    private javax.swing.JTextField listTextField;
     private javax.swing.JLabel logo;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameTextField;
