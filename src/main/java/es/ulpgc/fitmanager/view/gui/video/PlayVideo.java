@@ -13,7 +13,7 @@ import javafx.scene.media.MediaView;
 
 public class PlayVideo extends javax.swing.JFrame {
 
-   private final JFXPanel jfxPanel = new JFXPanel(); 
+    private final JFXPanel jfxPanel = new JFXPanel(); 
     private MediaPlayer oracleVid;
     private int flag;
     private String path;
@@ -27,27 +27,26 @@ public class PlayVideo extends javax.swing.JFrame {
         this.path = path;
         setResizable(false);
         
-     
         videoPanel.add(jfxPanel, BorderLayout.CENTER);
-        
         
     }
 
     private void createScene(){
         Platform.runLater(new Runnable() {
-             @Override
-             public void run() {                 
-                File file = new File(path);                                   
-                    oracleVid = new MediaPlayer(                                       
-                        new Media(file.toURI().toString())
-                    );
-                    //se añade video al jfxPanel
-                    jfxPanel.setScene(new Scene(new Group(new MediaView(oracleVid))));                    
-                    oracleVid.setVolume(0.5);//volumen
-                    oracleVid.setCycleCount(MediaPlayer.INDEFINITE);//repite video
-                    oracleVid.play();//play video
-                    flag = 0;
-             }
+            @Override
+            public void run() {
+                File file = new File(path);
+                oracleVid = new MediaPlayer(new Media(file.toURI().toString()));
+                //se añade video al jfxPanel
+                MediaView mediaView = new MediaView(oracleVid);
+                mediaView.setFitHeight(videoPanel.getHeight());
+                mediaView.setFitWidth(videoPanel.getWidth());
+                jfxPanel.setScene(new Scene(new Group(mediaView)));
+                oracleVid.setVolume(0.5);//volumen
+                oracleVid.setCycleCount(MediaPlayer.INDEFINITE);//repite video
+                oracleVid.play();//play video
+                flag = 0;
+            }
         });
     }
 
@@ -127,6 +126,8 @@ public class PlayVideo extends javax.swing.JFrame {
 
         videoPanel.setBackground(new java.awt.Color(255, 255, 255));
         videoPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        videoPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        videoPanel.setEnabled(false);
         videoPanel.setLayout(new java.awt.BorderLayout());
 
         backButton.setForeground(new java.awt.Color(0, 51, 255));
@@ -190,6 +191,7 @@ public class PlayVideo extends javax.swing.JFrame {
         }else{
             flag = 0;
             oracleVid.play();
+            
             playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/play negro.png")));
         }
     }//GEN-LAST:event_playPauseButtonActionPerformed
