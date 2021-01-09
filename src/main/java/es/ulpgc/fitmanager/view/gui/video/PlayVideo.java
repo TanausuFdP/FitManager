@@ -2,7 +2,6 @@ package es.ulpgc.fitmanager.view.gui.video;
 
 import es.ulpgc.fitmanager.model.User;
 import java.awt.BorderLayout;
-import java.io.File;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;
@@ -14,7 +13,7 @@ import javafx.scene.media.MediaView;
 public class PlayVideo extends javax.swing.JFrame {
 
     private final JFXPanel jfxPanel = new JFXPanel(); 
-    private MediaPlayer oracleVid;
+    private static MediaPlayer oracleVid;
     private int flag;
     private String path;
     private final User loggedUser;
@@ -23,8 +22,12 @@ public class PlayVideo extends javax.swing.JFrame {
         
         loggedUser = user;
         initComponents();
-        createScene();
         this.path = path;
+        
+        System.out.println(this.path);
+        Media media = new Media(this.path);
+        oracleVid = new MediaPlayer(media);
+        createScene();
         setResizable(false);
         
         videoPanel.add(jfxPanel, BorderLayout.CENTER);
@@ -35,13 +38,13 @@ public class PlayVideo extends javax.swing.JFrame {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                File file = new File(path);
-                oracleVid = new MediaPlayer(new Media(file.toURI().toString()));
+                
                 //se añade video al jfxPanel
                 MediaView mediaView = new MediaView(oracleVid);
                 mediaView.setFitHeight(videoPanel.getHeight());
                 mediaView.setFitWidth(videoPanel.getWidth());
                 jfxPanel.setScene(new Scene(new Group(mediaView)));
+               
                 oracleVid.setVolume(0.5);//volumen
                 oracleVid.setCycleCount(MediaPlayer.INDEFINITE);//repite video
                 oracleVid.play();//play video

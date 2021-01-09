@@ -162,9 +162,11 @@ public class UploadVideo extends javax.swing.JFrame {
 
     private void uploadVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadVideoActionPerformed
         if (nameTextField.getText().equals("") || urlTextField.getText().equals("") || sizeTextField.getText().equals("")) return;
+        System.out.println(getClass().getResource(urlTextField.getText()));
+        
         Video video = new Video(null,nameTextField.getText(),
                 Double.parseDouble(sizeTextField.getText()),
-                urlTextField.getText(),
+               getClass().getResource(urlTextField.getText()).toString(),
                 categoryComboBox.getSelectedIndex()+1,
                 loggedUser.getVideoListId());
         videoController.insertVideo(video);
