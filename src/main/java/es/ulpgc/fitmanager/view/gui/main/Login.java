@@ -2,6 +2,7 @@ package es.ulpgc.fitmanager.view.gui.main;
 
 import es.ulpgc.fitmanager.controller.dbcontroller.UserController;
 import es.ulpgc.fitmanager.model.User;
+import javax.swing.JFrame;
 
 
 public class Login extends javax.swing.JFrame {

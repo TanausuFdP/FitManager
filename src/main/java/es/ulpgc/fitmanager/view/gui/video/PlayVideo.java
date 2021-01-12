@@ -1,58 +1,32 @@
 package es.ulpgc.fitmanager.view.gui.video;
 
+import es.ulpgc.fitmanager.controller.VideoPlayController;
 import es.ulpgc.fitmanager.model.User;
 import java.awt.BorderLayout;
-import javafx.application.Platform;
+import java.awt.Frame;
+import java.awt.Window;
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.Group;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Scene;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
+import javafx.scene.input.MouseEvent;
 
 public class PlayVideo extends javax.swing.JFrame {
 
     private final JFXPanel jfxPanel = new JFXPanel(); 
-    private static MediaPlayer oracleVid;
     private int flag;
-    private String path;
     private final User loggedUser;
+    private VideoPlayController videoPlayController;
     
     public PlayVideo(User user, String path) {
-        
         loggedUser = user;
         initComponents();
-        this.path = path;
-        
-        System.out.println(this.path);
-        Media media = new Media(this.path);
-        oracleVid = new MediaPlayer(media);
-        createScene();
         setResizable(false);
-        
         videoPanel.add(jfxPanel, BorderLayout.CENTER);
-        
+        videoPlayController = new VideoPlayController(path, jfxPanel, videoPanel.getHeight(), videoPanel.getWidth());
+        videoPlayController.start();
     }
-
-    private void createScene(){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                
-                //se añade video al jfxPanel
-                MediaView mediaView = new MediaView(oracleVid);
-                mediaView.setFitHeight(videoPanel.getHeight());
-                mediaView.setFitWidth(videoPanel.getWidth());
-                jfxPanel.setScene(new Scene(new Group(mediaView)));
-               
-                oracleVid.setVolume(0.5);//volumen
-                oracleVid.setCycleCount(MediaPlayer.INDEFINITE);//repite video
-                oracleVid.play();//play video
-                flag = 0;
-            }
-        });
-    }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -131,6 +105,7 @@ public class PlayVideo extends javax.swing.JFrame {
         videoPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         videoPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         videoPanel.setEnabled(false);
+        videoPanel.setFocusable(false);
         videoPanel.setLayout(new java.awt.BorderLayout());
 
         backButton.setForeground(new java.awt.Color(0, 51, 255));
@@ -189,25 +164,26 @@ public class PlayVideo extends javax.swing.JFrame {
     private void playPauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playPauseButtonActionPerformed
         if (flag == 0){
             flag = 1;
-            oracleVid.pause();
+            videoPlayController.pause();
             playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pause negro.png")));
         }else{
             flag = 0;
-            oracleVid.play();
-            
+            videoPlayController.play();
             playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/play negro.png")));
         }
     }//GEN-LAST:event_playPauseButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        videoPlayController.close();
         VideosClient videos = new VideosClient(loggedUser);
         videos.setLocation(this.getLocation());
         videos.setVisible(true);
-        this.dispose();
+        if(Frame.getFrames().length < 5) this.setVisible(false);
+        else this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void volumeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_volumeStateChanged
-        oracleVid.setVolume(0.1*volume.getValue());
+        //oracleVid.setVolume(0.1*volume.getValue());
     }//GEN-LAST:event_volumeStateChanged
 
     
