@@ -62,6 +62,7 @@ public class MainMenu extends javax.swing.JFrame {
         directsButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(320, 568));
         setMinimumSize(new java.awt.Dimension(320, 568));
         setResizable(false);
 

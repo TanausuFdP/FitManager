@@ -1,11 +1,14 @@
 package es.ulpgc.fitmanager.view.gui.video;
 
-import es.ulpgc.fitmanager.view.gui.video.MonitorVideo;
 import es.ulpgc.fitmanager.controller.dbcontroller.VideoController;
 import es.ulpgc.fitmanager.model.User;
 import es.ulpgc.fitmanager.model.Video;
 import es.ulpgc.fitmanager.model.VideoCategory;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 
 public class UploadVideo extends javax.swing.JFrame {
@@ -22,7 +25,6 @@ public class UploadVideo extends javax.swing.JFrame {
         }
         
     }
-
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -38,9 +40,11 @@ public class UploadVideo extends javax.swing.JFrame {
         categoryComboBox = new javax.swing.JComboBox<>();
         urlLabel = new javax.swing.JLabel();
         urlTextField = new javax.swing.JTextField();
-        sizeLabel = new javax.swing.JLabel();
-        sizeTextField = new javax.swing.JTextField();
         uploadVideo = new javax.swing.JButton();
+        titleLabel = new javax.swing.JLabel();
+        warningLabel = new javax.swing.JLabel();
+        durationLabel = new javax.swing.JLabel();
+        durationTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(322, 568));
@@ -79,8 +83,6 @@ public class UploadVideo extends javax.swing.JFrame {
 
         urlLabel.setText("URL:");
 
-        sizeLabel.setText("Tamaño:");
-
         uploadVideo.setText("SUBIR VÍDEO");
         uploadVideo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,58 +90,78 @@ public class UploadVideo extends javax.swing.JFrame {
             }
         });
 
+        titleLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        titleLabel.setText("Subir vídeo");
+
+        warningLabel.setText("Sólo se admiten vídeos en formato MP4.");
+
+        durationLabel.setText("Duración:");
+
         javax.swing.GroupLayout whitePanelLayout = new javax.swing.GroupLayout(whitePanel);
         whitePanel.setLayout(whitePanelLayout);
         whitePanelLayout.setHorizontalGroup(
             whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(whitePanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(whitePanelLayout.createSequentialGroup()
-                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(22, 22, 22)
+                        .addComponent(titleLabel))
                     .addGroup(whitePanelLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(categoryLabel)
-                            .addComponent(nameLabel)
-                            .addComponent(urlLabel)
-                            .addComponent(sizeLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameTextField)
-                            .addComponent(urlTextField)
-                            .addComponent(categoryComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(sizeTextField)
                             .addGroup(whitePanelLayout.createSequentialGroup()
-                                .addComponent(uploadVideo)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap())
+                                .addGap(16, 16, 16)
+                                .addComponent(nameLabel))
+                            .addGroup(whitePanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(categoryLabel))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, whitePanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(urlLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(durationLabel, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addGap(18, 18, 18)
+                        .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(durationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(urlTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(whitePanelLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(warningLabel))
+                    .addGroup(whitePanelLayout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(uploadVideo)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         whitePanelLayout.setVerticalGroup(
             whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, whitePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(titleLabel)
+                .addGap(45, 45, 45)
                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameLabel)
-                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameLabel))
+                .addGap(48, 48, 48)
                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(categoryLabel)
-                    .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(categoryLabel))
+                .addGap(44, 44, 44)
                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(urlLabel)
-                    .addComponent(urlTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(urlTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(urlLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sizeLabel)
-                    .addComponent(sizeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(durationLabel)
+                    .addComponent(durationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
+                .addComponent(warningLabel)
                 .addGap(18, 18, 18)
-                .addComponent(uploadVideo)
-                .addContainerGap(276, Short.MAX_VALUE))
+                .addComponent(uploadVideo, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -161,14 +183,14 @@ public class UploadVideo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void uploadVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadVideoActionPerformed
-        if (nameTextField.getText().equals("") || urlTextField.getText().equals("") || sizeTextField.getText().equals("")) return;
-        System.out.println(getClass().getResource(urlTextField.getText()));
-        
+        if (nameTextField.getText().equals("") || urlTextField.getText().equals("")) return;
+            
         Video video = new Video(null,nameTextField.getText(),
-                Double.parseDouble(sizeTextField.getText()),
-               getClass().getResource(urlTextField.getText()).toString(),
-                categoryComboBox.getSelectedIndex()+1,
-                loggedUser.getVideoListId());
+            Double.parseDouble(durationTextField.getText()),
+            getClass().getResource(urlTextField.getText()).toString(),
+            categoryComboBox.getSelectedIndex()+1,
+            loggedUser.getVideoListId());
+        
         videoController.insertVideo(video);
         
         MonitorVideo monitorVideo = new MonitorVideo(loggedUser);
@@ -190,15 +212,17 @@ public class UploadVideo extends javax.swing.JFrame {
     private javax.swing.JButton backButton;
     private javax.swing.JComboBox<String> categoryComboBox;
     private javax.swing.JLabel categoryLabel;
+    private javax.swing.JLabel durationLabel;
+    private javax.swing.JTextField durationTextField;
     private javax.swing.JLabel logo;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JPanel redPanel;
-    private javax.swing.JLabel sizeLabel;
-    private javax.swing.JTextField sizeTextField;
+    private javax.swing.JLabel titleLabel;
     private javax.swing.JButton uploadVideo;
     private javax.swing.JLabel urlLabel;
     private javax.swing.JTextField urlTextField;
+    private javax.swing.JLabel warningLabel;
     private javax.swing.JPanel whitePanel;
     // End of variables declaration//GEN-END:variables
 }

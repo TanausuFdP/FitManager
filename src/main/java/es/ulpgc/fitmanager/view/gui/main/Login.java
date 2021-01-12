@@ -30,7 +30,9 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 320, 568));
+        setMaximumSize(new java.awt.Dimension(320, 568));
         setMinimumSize(new java.awt.Dimension(320, 568));
+        setPreferredSize(new java.awt.Dimension(320, 568));
         setResizable(false);
         setSize(new java.awt.Dimension(320, 568));
 

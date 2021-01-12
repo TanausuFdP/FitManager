@@ -23,12 +23,15 @@ public class Directs extends javax.swing.JFrame {
         switch(loggedUser.getRole()){
             case User.ADMIN_ROLE:
                 startStreamButton.setVisible(false);
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
                 break;
             case User.MONITOR_ROLE:
                 startStreamButton.setVisible(true);
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
                 break;
             case User.CLIENT_ROLE:
                 startStreamButton.setVisible(false);
+                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
                 break;
         }
     }
