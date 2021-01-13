@@ -16,7 +16,6 @@ public class PlayVideo extends javax.swing.JFrame {
     public PlayVideo(User user, String path) {
         loggedUser = user;
         initComponents();
-        setResizable(false);
         videoPanel.add(jfxPanel, BorderLayout.CENTER);
         videoPlayController = new VideoPlayController(path, jfxPanel, videoPanel.getHeight(), videoPanel.getWidth());
         videoPlayController.start();
@@ -36,16 +35,19 @@ public class PlayVideo extends javax.swing.JFrame {
         backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         generalPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         buttonsPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/play negro.png"))); // NOI18N
-        playPauseButton.setBorder(null);
+        playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pause negro.png"))); // NOI18N
         playPauseButton.setBorderPainted(false);
         playPauseButton.setContentAreaFilled(false);
         playPauseButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        playPauseButton.setMaximumSize(new java.awt.Dimension(36, 68));
+        playPauseButton.setMinimumSize(new java.awt.Dimension(36, 68));
+        playPauseButton.setPreferredSize(new java.awt.Dimension(36, 68));
         playPauseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 playPauseButtonActionPerformed(evt);
@@ -53,8 +55,6 @@ public class PlayVideo extends javax.swing.JFrame {
         });
 
         volume.setBackground(new java.awt.Color(255, 255, 255));
-        volume.setMaximum(10);
-        volume.setValue(5);
         volume.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 volumeStateChanged(evt);
@@ -66,19 +66,21 @@ public class PlayVideo extends javax.swing.JFrame {
         buttonsPanelLayout.setHorizontalGroup(
             buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonsPanelLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(playPauseButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(volume, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(8, 8, 8))
+                .addGap(12, 12, 12)
+                .addComponent(playPauseButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(volume, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buttonsPanelLayout.setVerticalGroup(
             buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonsPanelLayout.createSequentialGroup()
-                .addGroup(buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(playPauseButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(volume, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addComponent(volume, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(buttonsPanelLayout.createSequentialGroup()
+                .addComponent(playPauseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 58, Short.MAX_VALUE))
         );
 
         titlePanel.setBackground(new java.awt.Color(255, 51, 0));
@@ -130,10 +132,10 @@ public class PlayVideo extends javax.swing.JFrame {
                     .addGroup(generalPanelLayout.createSequentialGroup()
                         .addComponent(backButton)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, generalPanelLayout.createSequentialGroup()
-                        .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(buttonsPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(generalPanelLayout.createSequentialGroup()
+                        .addGroup(generalPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(videoPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         generalPanelLayout.setVerticalGroup(
@@ -146,7 +148,7 @@ public class PlayVideo extends javax.swing.JFrame {
                 .addComponent(videoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(buttonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -167,11 +169,11 @@ public class PlayVideo extends javax.swing.JFrame {
         if (flag == 0){
             flag = 1;
             videoPlayController.pause();
-            playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pause negro.png")));
+            playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/play negro.png")));
         }else{
             flag = 0;
             videoPlayController.play();
-            playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/play negro.png")));
+            playPauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pause negro.png")));
         }
     }//GEN-LAST:event_playPauseButtonActionPerformed
 
