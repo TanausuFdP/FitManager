@@ -50,7 +50,7 @@ public class ActivityRepository {
                 .monitorId(resultSet.getInt("monitorId"))
                 .build();
     }
-    
+
     public Activity getActivityByKey(Connection conn, String name, LocalDateTime date, Integer monitorId) {
         String sql = "SELECT * FROM Activity WHERE name=? AND date=? AND monitorId=?";
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
@@ -96,18 +96,6 @@ public class ActivityRepository {
         }
     }
     
-    public Integer getCountOfActivitiesByMonitorId(Connection conn, Integer monitorId, boolean room) {
-        String sql = "SELECT COUNT (*) FROM Activity WHERE monitorId=? AND room=?";
-        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)){
-            preparedStatement.setInt(1,monitorId);
-            preparedStatement.setBoolean(2,room);
-            return preparedStatement.executeQuery().getInt(1);
-        } catch (SQLException ex) {
-            log.error(ex.getLocalizedMessage());
-            return 0;
-        }
-    }
-    
     public void insertActivity(Connection conn, Activity activity){
         String sql = "INSERT INTO Activity " +
                 "(name, description, capacity, duration, date, weekly, room, monitorId)"
@@ -119,8 +107,8 @@ public class ActivityRepository {
             preparedStatement.setDouble(4,activity.getDuration());
             preparedStatement.setString(5, activity.getDate()
                     .format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
-            preparedStatement.setBoolean(6,activity.getWeekly());
-            preparedStatement.setBoolean(7,activity.getRoom());
+            preparedStatement.setBoolean(6,activity.isWeekly());
+            preparedStatement.setBoolean(7,activity.isRoom());
             preparedStatement.setInt(8,activity.getMonitorId());
             preparedStatement.executeUpdate();
         } catch (SQLException ex) { log.error(ex.getMessage()); }
