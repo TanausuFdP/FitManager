@@ -264,6 +264,8 @@ public class TimeTable extends javax.swing.JFrame {
                 reservation.setLocation(this.getLocation());
                 reservation.setVisible(true);
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + loggedUser.getRole());
         }
         this.dispose();
     }//GEN-LAST:event_dynamicButtonActionPerformed

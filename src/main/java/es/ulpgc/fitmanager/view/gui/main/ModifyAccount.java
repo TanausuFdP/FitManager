@@ -1,10 +1,11 @@
 package es.ulpgc.fitmanager.view.gui.main;
 
-import es.ulpgc.fitmanager.view.gui.main.MainMenu;
 import es.ulpgc.fitmanager.controller.dbcontroller.UserController;
 import es.ulpgc.fitmanager.model.User;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.swing.*;
 
 public class ModifyAccount extends javax.swing.JFrame {
 
@@ -242,59 +243,54 @@ public class ModifyAccount extends javax.swing.JFrame {
     }
 
     private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        if(passwordEncoder.matches(currentPassword.getText(),loggedUser.getPassword())){
-            if(newPassword.getText().isEmpty() && newPassword2.getText().isEmpty()){
-                if(!(phoneNumber.getText().isEmpty() || phoneNumber.getText().equals(loggedUser.getPhoneNumber()))){
-                    loggedUser = userController.updateUser(User.builder()
-                            .username(loggedUser.getUsername())
-                            .id(loggedUser.getId())
-                            .name(loggedUser.getName())
-                            .surname(loggedUser.getSurname())
-                            .password(currentPassword.getText())
-                            .phoneNumber(Integer.valueOf(phoneNumber.getText()))
-                            .role(loggedUser.getRole())
-                            .build());
-                    ModifyAccountMessage message = new ModifyAccountMessage(loggedUser);
-                    message.setLocation(this.getLocation());
-                    message.setVisible(true);
-                    this.dispose();
-                } else {
-                   errorLabel.setText("Error al introducir el teléfono");
-                }
-            } else {
-                if(newPassword.getText().equals(newPassword2.getText())){
-                    if(!(phoneNumber.getText().isEmpty() || phoneNumber.getText().equals(loggedUser.getPhoneNumber()))){
-                        loggedUser = userController.updateUser(User.builder()
-                            .username(loggedUser.getUsername())
-                            .id(loggedUser.getId())
-                            .name(loggedUser.getName())
-                            .surname(loggedUser.getSurname())
-                            .password(newPassword.getText())
-                            .phoneNumber(Integer.valueOf(phoneNumber.getText()))
-                            .role(loggedUser.getRole())
-                            .build());
-                    } else {
-                        loggedUser = userController.updateUser(User.builder()
-                            .username(loggedUser.getUsername())
-                            .id(loggedUser.getId())
-                            .name(loggedUser.getName())
-                            .surname(loggedUser.getSurname())
-                            .password(newPassword.getText())
-                            .phoneNumber(loggedUser.getPhoneNumber())
-                            .role(loggedUser.getRole())
-                            .build());
-                    }
-                    ModifyAccountMessage message = new ModifyAccountMessage(loggedUser);
-                    message.setLocation(this.getLocation());
-                    message.setVisible(true);
-                    this.dispose();
-                } else {
-                    errorLabel.setText("Error al introducir la nueva clave");
-                }
-            }
-        } else {
+        if (!passwordEncoder.matches(currentPassword.getText(), loggedUser.getPassword()))
             errorLabel.setText("Clave actual incorrecta");
+        else {
+            try{
+                if(newPassword.getText().isEmpty() && newPassword2.getText().isEmpty())
+                    modifyAccountWithOldPassword();
+                else modifyAccountWithNewPassword();
+            } catch (NumberFormatException ex) {
+                errorLabel.setText("Error al introducir el teléfono");
+            }
         }
+    }
+
+    private void modifyAccountWithNewPassword() {
+        if (!newPassword.getText().equals(newPassword2.getText())) {
+            errorLabel.setText("Error al introducir la nueva clave");
+        } else {
+            if (phoneNumber.getText().isEmpty()) updateUser(newPassword, loggedUser.getPhoneNumber());
+            else updateUser(newPassword, Integer.parseInt(phoneNumber.getText()));
+            ModifyAccountMessage message = new ModifyAccountMessage(loggedUser);
+            message.setLocation(this.getLocation());
+            message.setVisible(true);
+            this.dispose();
+        }
+    }
+
+    private void modifyAccountWithOldPassword() {
+        if (phoneNumber.getText().isEmpty()) {
+            errorLabel.setText("Error al introducir el teléfono");
+        } else {
+            updateUser(currentPassword, Integer.parseInt(phoneNumber.getText()));
+            ModifyAccountMessage message = new ModifyAccountMessage(loggedUser);
+            message.setLocation(this.getLocation());
+            message.setVisible(true);
+            this.dispose();
+        }
+    }
+
+    private void updateUser(JPasswordField currentPassword, int i) {
+        loggedUser = userController.updateUser(User.builder()
+                .username(loggedUser.getUsername())
+                .id(loggedUser.getId())
+                .name(loggedUser.getName())
+                .surname(loggedUser.getSurname())
+                .password(currentPassword.getText())
+                .phoneNumber(i)
+                .role(loggedUser.getRole())
+                .build());
     }
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed

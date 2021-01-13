@@ -25,6 +25,8 @@ public class Help extends javax.swing.JFrame {
                 dynamicIcon.setIcon(new ImageIcon(getClass().getResource("/workday_button.png")));
                 dynamicText.setText("Ver tu jornada laboral pendiente.");
                 break;
+            case User.CLIENT_ROLE:
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + loggedUser.getRole());
         }
