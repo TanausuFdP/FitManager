@@ -2,14 +2,9 @@ package es.ulpgc.fitmanager.view.gui.video;
 
 import es.ulpgc.fitmanager.controller.VideoPlayController;
 import es.ulpgc.fitmanager.model.User;
-import java.awt.BorderLayout;
-import java.awt.Frame;
-import java.awt.Window;
 import javafx.embed.swing.JFXPanel;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
+
+import java.awt.*;
 
 public class PlayVideo extends javax.swing.JFrame {
 
@@ -58,6 +53,8 @@ public class PlayVideo extends javax.swing.JFrame {
         });
 
         volume.setBackground(new java.awt.Color(255, 255, 255));
+        volume.setMaximum(10);
+        volume.setValue(5);
         volume.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 volumeStateChanged(evt);
@@ -188,7 +185,7 @@ public class PlayVideo extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void volumeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_volumeStateChanged
-        //oracleVid.setVolume(0.1*volume.getValue());
+        videoPlayController.getMediaPlayer().setVolume(0.1*volume.getValue());
     }//GEN-LAST:event_volumeStateChanged
 
     

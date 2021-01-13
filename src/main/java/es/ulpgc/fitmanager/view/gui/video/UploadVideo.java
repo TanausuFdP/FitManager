@@ -184,7 +184,7 @@ public class UploadVideo extends javax.swing.JFrame {
             
         Video video = new Video(null,nameTextField.getText(),
             Double.parseDouble(durationTextField.getText()),
-            getClass().getResource(urlTextField.getText()).toString(),
+            urlTextField.getText(),
             categoryComboBox.getSelectedIndex()+1,
             loggedUser.getVideoListId());
         

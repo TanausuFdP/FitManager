@@ -283,7 +283,7 @@ public class VideosClient extends javax.swing.JFrame {
 
     private void showVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showVideoButtonActionPerformed
         Video video = (Video)listModel.getElementAt(videosList.getSelectedIndex());
-        PlayVideo playVideo = new PlayVideo(loggedUser,video.getUrl());
+        PlayVideo playVideo = new PlayVideo(loggedUser,getClass().getResource(video.getUrl()).toString());
         playVideo.setLocation(this.getLocation());
         playVideo.setVisible(true);
         this.dispose();

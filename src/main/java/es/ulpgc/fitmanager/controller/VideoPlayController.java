@@ -16,7 +16,7 @@ public class VideoPlayController {
     
     private final int height;
     private final int width;
-    
+
     public VideoPlayController(String path, JFXPanel jfxPanel, int height, int width){
         this.path = path;
         this.jfxPanel = jfxPanel;
@@ -27,7 +27,9 @@ public class VideoPlayController {
         oracleVid = new MediaPlayer(media);
         mediaView = new MediaView(oracleVid);
     }
-    
+
+    public MediaPlayer getMediaPlayer() { return oracleVid; }
+
     public void start(){
         createScene();
     }
