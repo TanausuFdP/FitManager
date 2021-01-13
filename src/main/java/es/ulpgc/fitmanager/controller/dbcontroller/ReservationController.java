@@ -15,20 +15,20 @@ public class ReservationController extends Controller {
     public ReservationController() {
         getReservationByIdsAction = new GetReservationByIdsAction();
         getReservationsByClientIdAction = new GetReservationByClientIdAction();
+        getCountOfReservationsByActivityIdAction = new GetCountOfReservationsByActivityIdAction();
         insertReservationAction = new InsertReservationAction();
         cancelReservationAction = new CancelReservationAction();
-        getCountOfReservationsByActivityIdAction = new GetCountOfReservationsByActivityIdAction();
     }
 
     private final GetReservationByIdsAction getReservationByIdsAction;
 
     private final GetReservationByClientIdAction getReservationsByClientIdAction;
     
+    private final GetCountOfReservationsByActivityIdAction getCountOfReservationsByActivityIdAction;
+
     private final InsertReservationAction insertReservationAction;
 
     private final CancelReservationAction cancelReservationAction;
-    
-    private final GetCountOfReservationsByActivityIdAction getCountOfReservationsByActivityIdAction;
 
     public Reservation getReservationByIds(Integer clientId, Integer activityId){
         Connection conn = connectToDB();

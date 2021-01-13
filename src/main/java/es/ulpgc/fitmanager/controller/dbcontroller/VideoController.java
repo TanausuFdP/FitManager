@@ -18,8 +18,8 @@ public class VideoController extends Controller {
         getVideosByVideoListIdAction = new GetVideosByVideoListIdAction();
         getVideosByCategoryIdAction = new GetVideosByCategoryIdAction();
         getVideoListByTitleAction = new GetVideoListByTitleAction();
-        getVideoCategoriesAction = new GetVideoCategoriesAction();
         getVideoListByMonitorIdAction = new GetVideoListByMonitorIdAction();
+        getVideoCategoriesAction = new GetVideoCategoriesAction();
         insertVideoAction = new InsertVideoAction();
         deleteVideoAction = new DeleteVideoAction();
     }
@@ -32,9 +32,9 @@ public class VideoController extends Controller {
 
     private final GetVideoListByTitleAction getVideoListByTitleAction;
 
-    private final GetVideoCategoriesAction getVideoCategoriesAction;
-    
     private final GetVideoListByMonitorIdAction getVideoListByMonitorIdAction;
+
+    private final GetVideoCategoriesAction getVideoCategoriesAction;
 
     private final InsertVideoAction insertVideoAction;
 
@@ -85,6 +85,16 @@ public class VideoController extends Controller {
         }
     }
 
+    public VideoList getVideoListByMonitorId(Integer monitorId){
+        try{
+            Connection conn = connectToDB();
+            return getVideoListByMonitorIdAction.execute(conn,monitorId);
+        } catch (UserNotFoundException ex) {
+            log.error(ex.getLocalizedMessage());
+            return null;
+        }
+    }
+
     public List<VideoCategory> getVideoCategories(){
         Connection conn = connectToDB();
         try{
@@ -93,16 +103,6 @@ public class VideoController extends Controller {
         }catch(EmptyListException ex){
             log.error(ex.getLocalizedMessage());
             return new ArrayList<>();
-        }
-    }
-
-    public VideoList getVideoListByMonitorId(Integer monitorId){
-        try{
-            Connection conn = connectToDB();
-            return getVideoListByMonitorIdAction.execute(conn,monitorId);
-        } catch (UserNotFoundException ex) {
-            log.error(ex.getLocalizedMessage());
-            return null;
         }
     }
     

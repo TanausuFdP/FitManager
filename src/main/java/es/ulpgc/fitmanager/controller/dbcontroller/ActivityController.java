@@ -14,23 +14,18 @@ import java.util.List;
 public class ActivityController extends Controller {
 
     public ActivityController() {
-        deleteActivityByIdAction = new DeleteActivityByIdAction();
         getActivitiesByMonitorIdAction = new GetActivitiesByMonitorIdAction();
         getActivitiesByTypeAction = new GetActivitiesByTypeAction();
         insertActivityAction = new InsertActivityAction();
+        deleteActivityByIdAction = new DeleteActivityByIdAction();
     }
-    private final DeleteActivityByIdAction deleteActivityByIdAction;
-    
     private final GetActivitiesByMonitorIdAction getActivitiesByMonitorIdAction;
 
     private final GetActivitiesByTypeAction getActivitiesByTypeAction;
     
     private final InsertActivityAction insertActivityAction;
 
-    public void deleteActivityById(Integer activityId){
-        Connection conn = connectToDB();
-        deleteActivityByIdAction.execute(conn, activityId);
-    }
+    private final DeleteActivityByIdAction deleteActivityByIdAction;
 
     public List<Activity> getActivitiesByMonitorId(Integer monitorId){
         Connection conn = connectToDB();
@@ -59,5 +54,10 @@ public class ActivityController extends Controller {
         } catch (MonitorNotAvailableException ex) {
             log.error(ex.getLocalizedMessage());
         }
+    }
+
+    public void deleteActivityById(Integer activityId){
+        Connection conn = connectToDB();
+        deleteActivityByIdAction.execute(conn, activityId);
     }
 }
