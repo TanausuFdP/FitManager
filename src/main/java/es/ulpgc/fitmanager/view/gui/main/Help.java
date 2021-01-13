@@ -2,6 +2,8 @@ package es.ulpgc.fitmanager.view.gui.main;
 
 import es.ulpgc.fitmanager.model.User;
 
+import javax.swing.ImageIcon;
+
 public class Help extends javax.swing.JFrame {
 
     User loggedUser;
@@ -13,16 +15,18 @@ public class Help extends javax.swing.JFrame {
                 accountText2.setText("administrador. Su cuenta está siendo controlada");
                 accountText3.setText("por sus superiores. Para cualquier consulta,");
                 accountText4.setText("dirígase a ellos.");
-                dynamicIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
+                dynamicIcon.setIcon(new ImageIcon(getClass().getResource("/statistics_button.png")));
                 dynamicText.setText("Ver las estadísticas del gimnasio.");
                 break;
             case User.MONITOR_ROLE:
                 accountText2.setText("monitor. Su cuenta está siendo controlada");
                 accountText3.setText("por sus superiores. Para cualquier consulta,");
                 accountText4.setText("dirígase a ellos.");
-                dynamicIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
+                dynamicIcon.setIcon(new ImageIcon(getClass().getResource("/workday_button.png")));
                 dynamicText.setText("Ver tu jornada laboral pendiente.");
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + loggedUser.getRole());
         }
     }
 

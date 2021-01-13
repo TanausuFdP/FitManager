@@ -240,10 +240,9 @@ public class NewReservation extends javax.swing.JFrame {
     }//GEN-LAST:event_reserveButtonActionPerformed
 
     private void reservationsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reservationsListMouseClicked
-        if(!reservationsList.isSelectionEmpty() && !activitiesNotAvailable.contains(reservationsList.getSelectedIndex()))
-            reserveButton.setEnabled(true);
-        else
-            reserveButton.setEnabled(false);
+        boolean isActivitySelected = !reservationsList.isSelectionEmpty() &&
+                !activitiesNotAvailable.contains(reservationsList.getSelectedIndex());
+        reserveButton.setEnabled(isActivitySelected);
     }//GEN-LAST:event_reservationsListMouseClicked
 
 

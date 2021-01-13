@@ -25,9 +25,7 @@ public class MonitorInformation extends javax.swing.JFrame {
         monitorPhoneNumber.setText(this.monitor.getPhoneNumber()+"");
         monitorActivitiesList.setModel(listModel);
         activities = activityController.getActivitiesByMonitorId(this.monitor.getId());
-        for (Activity activity : activities) {
-            listModel.addElement(activity.getName() + " " + activity.getDate());
-        }
+        for (Activity activity : activities) listModel.addElement(activity.getName() + " " + activity.getDate());
     }
   
     @SuppressWarnings("unchecked")

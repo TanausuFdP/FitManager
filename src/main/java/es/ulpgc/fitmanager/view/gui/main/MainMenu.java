@@ -1,17 +1,14 @@
 package es.ulpgc.fitmanager.view.gui.main;
 
-import es.ulpgc.fitmanager.view.gui.main.Login;
 import es.ulpgc.fitmanager.model.User;
-import es.ulpgc.fitmanager.view.gui.video.MonitorVideo;
 import es.ulpgc.fitmanager.view.gui.reservations.Reservations;
 import es.ulpgc.fitmanager.view.gui.statistics.Statistics;
 import es.ulpgc.fitmanager.view.gui.timetable.TimeTable;
 import es.ulpgc.fitmanager.view.gui.video.Directs;
 import es.ulpgc.fitmanager.view.gui.video.VideosClient;
 import es.ulpgc.fitmanager.view.gui.workday.Workday;
-import java.awt.Color;
 
-import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 
 public class MainMenu extends javax.swing.JFrame {
 
@@ -26,14 +23,16 @@ public class MainMenu extends javax.swing.JFrame {
         phoneNumberLabel.setText(loggedUser.getPhoneNumber().toString());
         switch(loggedUser.getRole()){
             case User.ADMIN_ROLE:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
+                dynamicButton.setIcon(new ImageIcon(getClass().getResource("/statistics_button.png")));
                 break;
             case User.MONITOR_ROLE:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
+                dynamicButton.setIcon(new ImageIcon(getClass().getResource("/workday_button.png")));
                 break;
             case User.CLIENT_ROLE:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
+                dynamicButton.setIcon(new ImageIcon(getClass().getResource("/reservations_button.png")));
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + loggedUser.getRole());
         }
     }
 

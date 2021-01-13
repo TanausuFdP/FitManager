@@ -24,12 +24,8 @@ public class ActivityStatistics extends javax.swing.JFrame {
         activitiesList.setModel(listModel);
         List<Activity> activities = activityController.getActivitiesByType(Activity.ACTIVITY_TYPE);
         
-        for (Activity activity : activities) {
-            listModel.addElement(activity + " Aforo: " + activity.getCapacity());
-        }
-        
+        for (Activity activity : activities) listModel.addElement(activity + " Aforo: " + activity.getCapacity());
     }
-
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

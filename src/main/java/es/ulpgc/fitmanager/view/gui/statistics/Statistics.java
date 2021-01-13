@@ -1,12 +1,7 @@
 package es.ulpgc.fitmanager.view.gui.statistics;
 
-import es.ulpgc.fitmanager.view.gui.statistics.RoomStatistics;
-import es.ulpgc.fitmanager.view.gui.video.MonitorVideo;
-import es.ulpgc.fitmanager.view.gui.statistics.MonitorStatistics;
-import es.ulpgc.fitmanager.view.gui.main.MainMenu;
-import es.ulpgc.fitmanager.view.gui.statistics.ClientStatistics;
-import es.ulpgc.fitmanager.view.gui.statistics.ActivityStatistics;
 import es.ulpgc.fitmanager.model.User;
+import es.ulpgc.fitmanager.view.gui.main.MainMenu;
 import es.ulpgc.fitmanager.view.gui.timetable.TimeTable;
 import es.ulpgc.fitmanager.view.gui.video.Directs;
 import es.ulpgc.fitmanager.view.gui.video.VideosClient;

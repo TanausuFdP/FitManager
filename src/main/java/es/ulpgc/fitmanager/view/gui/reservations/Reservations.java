@@ -1,26 +1,22 @@
 package es.ulpgc.fitmanager.view.gui.reservations;
 
-
-import es.ulpgc.fitmanager.view.gui.video.MonitorVideo;
-import es.ulpgc.fitmanager.view.gui.main.MainMenu;
 import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
+import es.ulpgc.fitmanager.view.gui.main.MainMenu;
 import es.ulpgc.fitmanager.view.gui.timetable.TimeTable;
 import es.ulpgc.fitmanager.view.gui.video.Directs;
 import es.ulpgc.fitmanager.view.gui.video.VideosClient;
+
+import javax.swing.*;
 import java.util.List;
-import javax.swing.DefaultListModel;
-
-
 
 public class Reservations extends javax.swing.JFrame {
 
     private final User loggedUser;
     private final ReservationController reservationController = new ReservationController();
     private final DefaultListModel listModel = new DefaultListModel();
-    private List<Activity> reservations;
-    
+
     public Reservations(User user) {
         initComponents();
         this.loggedUser = user;
@@ -28,15 +24,11 @@ public class Reservations extends javax.swing.JFrame {
     }
     
     private void addReservations() {
-        reservations = reservationController.getReservationsByClientId(loggedUser.getId());
+        List<Activity> reservations = reservationController.getReservationsByClientId(loggedUser.getId());
         if (reservations.isEmpty())noReservationsLabel.setText("No tiene ninguna reserva");
         else {
             sortReservationsList(reservations);
-            int count = 0;
-            for (Activity activity : reservations) {
-                listModel.addElement(activity);
-                count++;
-            }
+            for (Activity activity : reservations) listModel.addElement(activity);
         }
         reservationsList.setModel(listModel);
     }

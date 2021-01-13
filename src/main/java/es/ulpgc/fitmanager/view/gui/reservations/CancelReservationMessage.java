@@ -1,17 +1,13 @@
 package es.ulpgc.fitmanager.view.gui.reservations;
 
-import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
 import es.ulpgc.fitmanager.controller.dbcontroller.ReservationController;
 import es.ulpgc.fitmanager.model.Activity;
-import es.ulpgc.fitmanager.model.Reservation;
-import es.ulpgc.fitmanager.view.gui.main.*;
 import es.ulpgc.fitmanager.model.User;
 
 public class CancelReservationMessage extends javax.swing.JFrame {
 
     User loggedUser;
     Activity activity;
-    
     private final ReservationController reservationController = new ReservationController();
     
     public CancelReservationMessage(User loggedUser, Activity activity) {

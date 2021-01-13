@@ -1,11 +1,9 @@
 package es.ulpgc.fitmanager.view.gui.reservations;
 
 import es.ulpgc.fitmanager.controller.dbcontroller.UserController;
-import es.ulpgc.fitmanager.view.gui.reservations.Reservations;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
-import java.sql.Date;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,7 +11,7 @@ public class ShowReservation extends javax.swing.JFrame {
 
     private final User loggedUser;
     private final Activity activity;
-    private UserController userController = new UserController();
+    private final UserController userController = new UserController();
     
     public ShowReservation(User user, Activity activity) {
         initComponents();
@@ -32,7 +30,7 @@ public class ShowReservation extends javax.swing.JFrame {
         dateLabel.setText("" + activity.getDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
         finalLabel.setText("" + finalDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")));
         durationLabel.setText(activity.getDuration() + " minutos");
-        weeklyCheckBox.setSelected(activity.getWeekly());
+        weeklyCheckBox.setSelected(activity.isWeekly());
         capacityLabel.setText(activity.getCapacity().toString());
     }
     

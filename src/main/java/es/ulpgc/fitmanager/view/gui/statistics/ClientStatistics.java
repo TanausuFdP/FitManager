@@ -19,12 +19,8 @@ public class ClientStatistics extends javax.swing.JFrame {
     public ClientStatistics(User user) {
         this.loggedUser = user;
         initComponents();
-        
         List<User>clients  = userController.getUsersByRole(User.CLIENT_ROLE);
-        
-        for (User client :  clients) {
-            listModel.addElement(client);
-        }
+        for (User client :  clients) listModel.addElement(client);
         clientsList.setModel(listModel);
     }
 

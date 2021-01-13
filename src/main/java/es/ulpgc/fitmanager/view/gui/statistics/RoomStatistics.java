@@ -18,15 +18,10 @@ public class RoomStatistics extends javax.swing.JFrame {
     public RoomStatistics(User user) {
         initComponents();
         loggedUser = user;
-        
         roomsList.setModel(listModel);
         List<Activity> activities = activityController.getActivitiesByType(Activity.ROOM_TYPE);
-        
-        for (Activity activity : activities) {
-            listModel.addElement(activity + " Aforo: " + activity.getCapacity());
-        }
+        for (Activity activity : activities) listModel.addElement(activity + " Aforo: " + activity.getCapacity());
     }
-
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -129,8 +124,6 @@ public class RoomStatistics extends javax.swing.JFrame {
         statistics.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
-
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;

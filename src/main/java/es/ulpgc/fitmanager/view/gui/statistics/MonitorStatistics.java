@@ -22,13 +22,8 @@ public class MonitorStatistics extends javax.swing.JFrame {
         initComponents();
         loggedUser = user;
         instructorsList.setModel(listModel);
-        
         List<User>monitors = userController.getUsersByRole(User.MONITOR_ROLE);
-        
-        for (User monitor : monitors) {
-            listModel.addElement(monitor);
-        }
-        
+        for (User monitor : monitors) listModel.addElement(monitor);
     }
 
     @SuppressWarnings("unchecked")
@@ -159,12 +154,8 @@ public class MonitorStatistics extends javax.swing.JFrame {
     }//GEN-LAST:event_showMoreButtonActionPerformed
 
     private void instructorsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_instructorsListMouseClicked
-        if(!instructorsList.isSelectionEmpty()){
-            showMoreButton.setEnabled(true);
-        }
+        if(!instructorsList.isSelectionEmpty()) showMoreButton.setEnabled(true);
     }//GEN-LAST:event_instructorsListMouseClicked
-
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
