@@ -14,24 +14,15 @@ import java.util.List;
 @Slf4j
 public class VideoController extends Controller {
     public VideoController(){
-        getVideoByIdAction = new GetVideoByIdAction();
-        getVideoByURLAction = new GetVideoByUrlAction();
         getAllVideosAction = new GetAllVideosAction();
         getVideosByVideoListIdAction = new GetVideosByVideoListIdAction();
         getVideosByCategoryIdAction = new GetVideosByCategoryIdAction();
-        getVideoListByIdAction = new GetVideoListByIdAction();
         getVideoListByTitleAction = new GetVideoListByTitleAction();
         getVideoCategoriesAction = new GetVideoCategoriesAction();
-        getVideoCategoryByNameAction = new GetVideoCategoryByNameAction();
         getVideoListByMonitorIdAction = new GetVideoListByMonitorIdAction();
         insertVideoAction = new InsertVideoAction();
-        insertVideoListAction = new InsertVideoListAction();
         deleteVideoAction = new DeleteVideoAction();
     }
-
-    private final GetVideoByIdAction getVideoByIdAction;
-
-    private final GetVideoByUrlAction getVideoByURLAction;
 
     private final GetAllVideosAction getAllVideosAction;
 
@@ -39,41 +30,15 @@ public class VideoController extends Controller {
     
     private final GetVideosByCategoryIdAction getVideosByCategoryIdAction;
 
-    private final GetVideoListByIdAction getVideoListByIdAction;
-
     private final GetVideoListByTitleAction getVideoListByTitleAction;
 
     private final GetVideoCategoriesAction getVideoCategoriesAction;
-    
-    private final GetVideoCategoryByNameAction getVideoCategoryByNameAction;
     
     private final GetVideoListByMonitorIdAction getVideoListByMonitorIdAction;
 
     private final InsertVideoAction insertVideoAction;
 
-    private final InsertVideoListAction insertVideoListAction;
-
     private final DeleteVideoAction deleteVideoAction;
-
-    public Video getVideoById(Integer videoId){
-        Connection conn = connectToDB();
-        try{
-            return getVideoByIdAction.execute(conn, videoId);
-        } catch (VideoNotFoundException ex) {
-            log.error(ex.getLocalizedMessage());
-            return null;
-        }
-    }
-
-    public Video getVideoByURL(String videoUrl){
-        Connection conn = connectToDB();
-        try{
-            return getVideoByURLAction.execute(conn, videoUrl);
-        } catch (VideoNotFoundException ex) {
-            log.error(ex.getLocalizedMessage());
-            return null;
-        }
-    }
     
     public List<Video> getAllVideos(){
         try{
@@ -109,16 +74,6 @@ public class VideoController extends Controller {
         }
         
     }
-    
-    public VideoList getVideoListById(Integer videoListId){
-        Connection conn = connectToDB();
-        try{
-            return getVideoListByIdAction.execute(conn, videoListId);
-        } catch (VideoListNotFoundException ex) {
-            log.error(ex.getLocalizedMessage());
-            return null;
-        }
-    }
 
     public VideoList getVideoListByTitle(String title){
         Connection conn = connectToDB();
@@ -140,16 +95,6 @@ public class VideoController extends Controller {
             return new ArrayList<>();
         }
     }
-    
-    public VideoCategory getVideoCategoryByName(String name){
-        try{
-            Connection conn = connectToDB();
-            return getVideoCategoryByNameAction.execute(conn, name);
-        } catch (VideoCategoryNotFoundException ex){
-            log.error(ex.getLocalizedMessage());
-            return null;
-        }
-    }
 
     public VideoList getVideoListByMonitorId(Integer monitorId){
         try{
@@ -161,23 +106,12 @@ public class VideoController extends Controller {
         }
     }
     
-    public Video insertVideo(Video video){
+    public void insertVideo(Video video){
         Connection conn = connectToDB();
         try{
-            return insertVideoAction.execute(conn, video);
+            insertVideoAction.execute(conn, video);
         } catch (VideoAlreadyExistsException ex) {
             log.error(ex.getLocalizedMessage());
-            return null;
-        }
-    }
-
-    public VideoList insertVideoList(VideoList videoList){
-        Connection conn = connectToDB();
-        try{
-            return insertVideoListAction.execute(conn, videoList);
-        } catch (VideoListAlreadyExistsException ex) {
-            log.error(ex.getLocalizedMessage());
-            return null;
         }
     }
 

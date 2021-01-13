@@ -23,9 +23,7 @@ public class MonitorVideo extends javax.swing.JFrame {
         monitorVideosList.setModel(listModel);
         Integer videoListId = loggedUser.getVideoListId();
         List<Video> videosByVideoListId = videoController.getVideosByVideoListId(videoListId);
-        for (Video video : videosByVideoListId) {
-            listModel.addElement(video);
-        }
+        for (Video video : videosByVideoListId) listModel.addElement(video);
     }
 
     @SuppressWarnings("unchecked")

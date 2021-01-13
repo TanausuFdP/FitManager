@@ -15,5 +15,4 @@ public class GetVideosByCategoryIdAction {
     public List<Video> execute(Connection conn, Integer categoryId) {
         return videoRepository.getVideosByCategoryId(conn, categoryId);
     }
-    
 }

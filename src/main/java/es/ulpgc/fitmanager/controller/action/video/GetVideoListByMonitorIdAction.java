@@ -14,5 +14,4 @@ public class GetVideoListByMonitorIdAction {
     public VideoList execute(Connection conn, Integer monitorId) {
         return videoRepository.getVideoListByMonitorId(conn, monitorId);
     }
-    
 }

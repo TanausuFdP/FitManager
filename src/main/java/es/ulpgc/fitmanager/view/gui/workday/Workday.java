@@ -28,8 +28,7 @@ public class Workday extends javax.swing.JFrame {
     }
 
     private void addActivitiesMonitor() {
-        for (Activity activity : activityController.getActivitiesByMonitorId(loggedUser.getId()))
-            activitiesMonitor.add(activity);
+        activitiesMonitor.addAll(activityController.getActivitiesByMonitorId(loggedUser.getId()));
         if (activitiesMonitor.isEmpty()) noActivitiesLabel.setText("No tiene ninguna actividad/sala");
         else {
             sortReservationsList(activitiesMonitor);

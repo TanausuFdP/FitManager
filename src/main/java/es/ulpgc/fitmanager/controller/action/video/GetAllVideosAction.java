@@ -15,5 +15,4 @@ public class GetAllVideosAction {
     public List<Video> execute(Connection conn) {
         return videoRepository.getAllVideos(conn);
     }
-    
 }

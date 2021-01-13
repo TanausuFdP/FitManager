@@ -20,8 +20,8 @@ public class Activity {
     private Integer capacity;
     private Integer duration;
     private LocalDateTime date;
-    private Boolean weekly;
-    private Boolean room;
+    private boolean weekly;
+    private boolean room;
     private Integer monitorId;
     
     @Override

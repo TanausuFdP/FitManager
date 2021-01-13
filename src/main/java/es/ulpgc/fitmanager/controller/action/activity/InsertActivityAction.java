@@ -32,8 +32,8 @@ public class InsertActivityAction {
         } catch (EmptyListException ex) {
             return true;
         }
-        if (activity.getRoom()) {
-            activitiesByMonitorId = activitiesByMonitorId.stream().filter(activity1 -> !activity1.getRoom()).collect(Collectors.toList());
+        if (activity.isRoom()) {
+            activitiesByMonitorId = activitiesByMonitorId.stream().filter(activity1 -> !activity1.isRoom()).collect(Collectors.toList());
         }
         for (Activity activityInDB : activitiesByMonitorId) {
             LocalDateTime activityBeginningDate = activity.getDate();

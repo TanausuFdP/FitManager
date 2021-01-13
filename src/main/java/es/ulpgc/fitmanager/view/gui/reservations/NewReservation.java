@@ -16,12 +16,12 @@ public class NewReservation extends javax.swing.JFrame {
 
     private final User loggedUser;
     
-    private ActivityController activityController = new ActivityController();
-    private ReservationController reservationController = new ReservationController();
+    private final ActivityController activityController = new ActivityController();
+    private final ReservationController reservationController = new ReservationController();
     private final DefaultListModel listModel = new DefaultListModel();
     
     private Map<Integer, Integer> activitiesId = new HashMap<>();
-    private List<Integer> activitiesNotAvailable = new ArrayList<>();
+    private final List<Integer> activitiesNotAvailable = new ArrayList<>();
     
     public NewReservation(User user) {
         initComponents();
@@ -53,7 +53,7 @@ public class NewReservation extends javax.swing.JFrame {
     
     private boolean activitiesContains(List<Activity> list, Activity activity){
         for (Activity activityOnList : list) {
-            if(activityOnList.getId() == activity.getId())
+            if(activityOnList.getId().equals(activity.getId()))
                 return true;
         }
         return false;

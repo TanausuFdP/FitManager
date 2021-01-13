@@ -5,10 +5,8 @@ import es.ulpgc.fitmanager.view.repository.ActivityRepository;
 import java.sql.Connection;
 import java.util.List;
 
-public class GetActivityByTypeAction {
-    public GetActivityByTypeAction() {
-        activityRepository = new ActivityRepository();
-    }
+public class GetActivitiesByTypeAction {
+    public GetActivitiesByTypeAction() { activityRepository = new ActivityRepository(); }
     
     private final ActivityRepository activityRepository;
     

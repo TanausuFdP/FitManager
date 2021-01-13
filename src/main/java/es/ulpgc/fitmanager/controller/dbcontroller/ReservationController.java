@@ -66,13 +66,12 @@ public class ReservationController extends Controller {
         }
     }
     
-    public Reservation insertReservation(Reservation reservation){
+    public void insertReservation(Reservation reservation){
         Connection conn = connectToDB();
         try {
-            return insertReservationAction.execute(conn, reservation);
+            insertReservationAction.execute(conn, reservation);
         } catch (ReservationAlreadyExistsException | ActivityCapacityFullException ex){
             log.error(ex.getLocalizedMessage());
-            return null;
         }
     }
 
