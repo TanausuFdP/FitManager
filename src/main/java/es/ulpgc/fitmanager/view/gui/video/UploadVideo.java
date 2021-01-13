@@ -20,10 +20,7 @@ public class UploadVideo extends javax.swing.JFrame {
         loggedUser = user;
         
         List<VideoCategory> videoCategoriesList = videoController.getVideoCategories();
-        for (VideoCategory videoCategory : videoCategoriesList) {
-            categoryComboBox.addItem(videoCategory.getName());
-        }
-        
+        for (VideoCategory videoCategory : videoCategoriesList) categoryComboBox.addItem(videoCategory.getName());
     }
   
     @SuppressWarnings("unchecked")

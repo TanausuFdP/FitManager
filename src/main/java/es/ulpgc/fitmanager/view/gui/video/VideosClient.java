@@ -10,7 +10,7 @@ import es.ulpgc.fitmanager.model.Video;
 import es.ulpgc.fitmanager.model.VideoCategory;
 import es.ulpgc.fitmanager.view.gui.workday.Workday;
 import java.util.List;
-import javax.swing.DefaultListModel;
+import javax.swing.*;
 
 
 public class VideosClient extends javax.swing.JFrame {
@@ -28,24 +28,24 @@ public class VideosClient extends javax.swing.JFrame {
         this.loggedUser = user;
         switch(loggedUser.getRole()){
             case User.ADMIN_ROLE:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
+                dynamicButton.setIcon(new ImageIcon(getClass().getResource("/statistics_button.png")));
                 showMyVideoListButton.setVisible(false);
                 break;
             case User.MONITOR_ROLE:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
+                dynamicButton.setIcon(new ImageIcon(getClass().getResource("/workday_button.png")));
                 break;
             case User.CLIENT_ROLE:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
+                dynamicButton.setIcon(new ImageIcon(getClass().getResource("/reservations_button.png")));
                 showMyVideoListButton.setVisible(false);
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + loggedUser.getRole());
         }
         
         videosList.setModel(listModel);
         List<Video>videos = videoController.getAllVideos();
-        for (Video video : videos) {
-            listModel.addElement(video);
-        }
-                
+        for (Video video : videos) listModel.addElement(video);
+
         videoCategories = videoController.getVideoCategories();
         for (VideoCategory videoCategory : videoCategories) {
             categoriesFilter.addItem(videoCategory.getName());
@@ -275,6 +275,8 @@ public class VideosClient extends javax.swing.JFrame {
                 reservation.setLocation(this.getLocation());
                 reservation.setVisible(true);
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + loggedUser.getRole());
         }
         this.dispose();
     }//GEN-LAST:event_dynamicButtonActionPerformed
@@ -302,9 +304,7 @@ public class VideosClient extends javax.swing.JFrame {
         listModel.removeAllElements();
         Integer videoCategoryId = categoriesFilter.getSelectedIndex()+1;
         List<Video> filteredVideos = videoController.getVideosByCategoryId(videoCategoryId);
-        for (Video video : filteredVideos) {
-            listModel.addElement(video);
-        }
+        for (Video video : filteredVideos) listModel.addElement(video);
     }//GEN-LAST:event_categoriesFilterActionPerformed
 
     private void directsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_directsButtonActionPerformed
@@ -313,8 +313,6 @@ public class VideosClient extends javax.swing.JFrame {
         directs.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_directsButtonActionPerformed
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator buttonsSeparator;

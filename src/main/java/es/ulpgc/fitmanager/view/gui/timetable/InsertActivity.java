@@ -5,10 +5,11 @@ import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
 import es.ulpgc.fitmanager.controller.dbcontroller.UserController;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
-import es.ulpgc.fitmanager.view.gui.main.MainMenu;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 
 
 public class InsertActivity extends javax.swing.JFrame {
@@ -16,22 +17,15 @@ public class InsertActivity extends javax.swing.JFrame {
     private final User loggedUser;
     
     private ActivityController activityController = new ActivityController();
-    
     private UserController userController = new UserController();
-    
     private List<User> monitors;
     
     public InsertActivity(User user) {
         initComponents();
         loggedUser = user;
-        
         monitors = userController.getUsersByRole(User.MONITOR_ROLE);
-        
-        for (User monitor : monitors) {
-            instructorComboBox.addItem(monitor.getName());
-        }
+        for (User monitor : monitors) instructorComboBox.addItem(monitor.getName());
     }
-
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -234,26 +228,23 @@ public class InsertActivity extends javax.swing.JFrame {
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime date = LocalDateTime.parse(dateTextField.getText(),formatter);
-        Boolean weekly = false;
-        Boolean activityType = false;
-        if(this.typeComboBox.getSelectedItem().equals("ROOM")) activityType = true;
-        if(weeklyCheckBox.isSelected()) weekly = true;
-        Activity activity = new Activity (null, nameTextField.getText(), 
-                descriptionText.getText(),
-                Integer.parseInt(capacityTextField.getText()), 
-                Integer.parseInt(durationTextField.getText()),
-                date,
-                weekly,
-                activityType,
-                monitors.get(instructorComboBox.getSelectedIndex()).getId());
-        activityController.insertActivity(activity);
+        boolean weekly = weeklyCheckBox.isSelected();
+        boolean activityType = Objects.equals(this.typeComboBox.getSelectedItem(), "ROOM");
+        activityController.insertActivity(Activity.builder()
+                .name(nameTextField.getText())
+                .description(descriptionText.getText())
+                .capacity(Integer.parseInt(capacityTextField.getText()))
+                .duration(Integer.parseInt(durationTextField.getText()))
+                .date(date)
+                .weekly(weekly)
+                .room(activityType)
+                .monitorId(monitors.get(instructorComboBox.getSelectedIndex()).getId())
+                .build());
         TimeTable timeTable = new TimeTable(loggedUser);
         timeTable.setLocation(this.getLocation());
         timeTable.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_addButtonActionPerformed
-
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;

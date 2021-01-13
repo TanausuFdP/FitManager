@@ -11,9 +11,7 @@ import es.ulpgc.fitmanager.view.gui.video.VideosClient;
 import es.ulpgc.fitmanager.view.gui.workday.Workday;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultListModel;
-
-
+import javax.swing.*;
 
 public class TimeTable extends javax.swing.JFrame {
 
@@ -27,36 +25,32 @@ public class TimeTable extends javax.swing.JFrame {
         initComponents();
         switch(loggedUser.getRole()){
             case User.ADMIN_ROLE:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
+                dynamicButton.setIcon(new ImageIcon(getClass().getResource("/statistics_button.png")));
                 if(scheduleList.isSelectionEmpty()){
                     deleteButton.setEnabled(false);
                 }
                 break;
             case User.MONITOR_ROLE:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
+                dynamicButton.setIcon(new ImageIcon(getClass().getResource("/workday_button.png")));
                 addButton.setVisible(false);
                 deleteButton.setVisible(false);
                 break;
             case User.CLIENT_ROLE:
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
+                dynamicButton.setIcon(new ImageIcon(getClass().getResource("/reservations_button.png")));
                 addButton.setVisible(false);
                 deleteButton.setVisible(false);
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + loggedUser.getRole());
         }
         addActivities();
     }
     
     private void addActivities() {
-        activityController.getActivitiesByType(Activity.ROOM_TYPE).forEach(activity -> {
-            activitiesClient.add(activity);
-        });
-        activityController.getActivitiesByType(Activity.ACTIVITY_TYPE).forEach(activity -> {
-            activitiesClient.add(activity);
-        });
+        activitiesClient.addAll(activityController.getActivitiesByType(Activity.ROOM_TYPE));
+        activitiesClient.addAll(activityController.getActivitiesByType(Activity.ACTIVITY_TYPE));
         sortReservationsList(activitiesClient);
-        for (Activity activity : activitiesClient) {
-            listModel.addElement(activity);
-        }
+        for (Activity activity : activitiesClient) listModel.addElement(activity);
         scheduleList.setModel(listModel);
     }
 
@@ -316,8 +310,6 @@ public class TimeTable extends javax.swing.JFrame {
         directs.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_directsButtonActionPerformed
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;

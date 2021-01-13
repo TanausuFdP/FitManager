@@ -1,18 +1,16 @@
 package es.ulpgc.fitmanager.view.gui.workday;
 
-import es.ulpgc.fitmanager.view.gui.video.VideosClient;
-import es.ulpgc.fitmanager.view.gui.timetable.TimeTable;
-import es.ulpgc.fitmanager.view.gui.video.MonitorVideo;
-import es.ulpgc.fitmanager.view.gui.main.MainMenu;
 import es.ulpgc.fitmanager.controller.dbcontroller.ActivityController;
 import es.ulpgc.fitmanager.model.Activity;
 import es.ulpgc.fitmanager.model.User;
+import es.ulpgc.fitmanager.view.gui.main.MainMenu;
+import es.ulpgc.fitmanager.view.gui.timetable.TimeTable;
 import es.ulpgc.fitmanager.view.gui.video.Directs;
+import es.ulpgc.fitmanager.view.gui.video.VideosClient;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultListModel;
-
-
 
 public class Workday extends javax.swing.JFrame {
 
@@ -32,9 +30,7 @@ public class Workday extends javax.swing.JFrame {
         if (activitiesMonitor.isEmpty()) noActivitiesLabel.setText("No tiene ninguna actividad/sala");
         else {
             sortReservationsList(activitiesMonitor);
-            for (Activity activity : activitiesMonitor) {
-                listModel.addElement(activity);
-            }
+            for (Activity activity : activitiesMonitor) listModel.addElement(activity);
         }
         workList.setModel(listModel);
     }
@@ -240,8 +236,6 @@ public class Workday extends javax.swing.JFrame {
         directs.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_directsButtonActionPerformed
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator buttonsSeparator;

@@ -7,7 +7,8 @@ import es.ulpgc.fitmanager.view.gui.reservations.Reservations;
 import es.ulpgc.fitmanager.view.gui.statistics.Statistics;
 import es.ulpgc.fitmanager.view.gui.timetable.TimeTable;
 import es.ulpgc.fitmanager.view.gui.workday.Workday;
-import javax.swing.DefaultListModel;
+
+import javax.swing.*;
 
 public class Directs extends javax.swing.JFrame {
 
@@ -23,16 +24,18 @@ public class Directs extends javax.swing.JFrame {
         switch(loggedUser.getRole()){
             case User.ADMIN_ROLE:
                 startStreamButton.setVisible(false);
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/statistics_button.png")));
+                dynamicButton.setIcon(new ImageIcon(getClass().getResource("/statistics_button.png")));
                 break;
             case User.MONITOR_ROLE:
                 startStreamButton.setVisible(true);
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/workday_button.png")));
+                dynamicButton.setIcon(new ImageIcon(getClass().getResource("/workday_button.png")));
                 break;
             case User.CLIENT_ROLE:
                 startStreamButton.setVisible(false);
-                dynamicButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reservations_button.png")));
+                dynamicButton.setIcon(new ImageIcon(getClass().getResource("/reservations_button.png")));
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + loggedUser.getRole());
         }
     }
 
@@ -221,7 +224,6 @@ public class Directs extends javax.swing.JFrame {
 
     private void showVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showVideoButtonActionPerformed
         PlayVideo playVideo = (PlayVideo)listModel.getElementAt(streamList.getSelectedIndex());
-        //PlayVideo playVideo = new PlayVideo(loggedUser,video.getUrl());
         playVideo.setLocation(this.getLocation());
         playVideo.setVisible(true);
         this.dispose();
@@ -244,6 +246,8 @@ public class Directs extends javax.swing.JFrame {
                 reservation.setLocation(this.getLocation());
                 reservation.setVisible(true);
                 break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + loggedUser.getRole());
         }
         this.dispose();
     }//GEN-LAST:event_dynamicButtonActionPerformed
