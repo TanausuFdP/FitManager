@@ -26,8 +26,7 @@ public class ClientInformation extends javax.swing.JFrame {
         clientPhoneNumber.setText(this.client.getPhoneNumber()+"");
         monitorActivitiesList.setModel(listModel);
         reservations = reservationController.getReservationsByClientId(this.client.getId());
-        for (Activity reservation : reservations)
-            listModel.addElement(reservation.getName() + " " + reservation.getDate());
+        for (Activity reservation : reservations) listModel.addElement(reservation);
     }
 
   

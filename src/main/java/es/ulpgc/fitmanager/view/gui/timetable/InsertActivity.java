@@ -64,7 +64,6 @@ public class InsertActivity extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(320, 568));
         setMinimumSize(new java.awt.Dimension(320, 568));
-        setPreferredSize(new java.awt.Dimension(320, 568));
         setResizable(false);
 
         redPanel.setBackground(new java.awt.Color(255, 0, 0));
@@ -169,7 +168,6 @@ public class InsertActivity extends javax.swing.JFrame {
                             .addComponent(instructorComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(whitePanelLayout.createSequentialGroup()
                                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(addButton)
                                     .addComponent(weeklyCheckBox)
                                     .addGroup(whitePanelLayout.createSequentialGroup()
                                         .addComponent(jLabel3)
@@ -178,7 +176,10 @@ public class InsertActivity extends javax.swing.JFrame {
                                     .addGroup(whitePanelLayout.createSequentialGroup()
                                         .addComponent(durationTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel1)))
+                                        .addComponent(jLabel1))
+                                    .addGroup(whitePanelLayout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addComponent(addButton)))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(whitePanelLayout.createSequentialGroup()
                         .addContainerGap()
@@ -241,9 +242,9 @@ public class InsertActivity extends javax.swing.JFrame {
                 .addGroup(whitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(instructorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(instructorLabel))
-                .addGap(0, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addButton)
-                .addGap(25, 25, 25))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
